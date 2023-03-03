@@ -13,7 +13,7 @@ function Header() {
                     <div className='flex ' >
                         <input
                             type="text"
-                            class="bg-white border border-gray-300 text-gray-900 ml-10 mr-5 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black dark:placeholder-gray-500 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            className="bg-white border border-gray-300 text-gray-900 ml-10 mr-5 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black dark:placeholder-gray-500 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="eg: iphone"
                         />
                         <button className=" bg-transparent hover:bg-blue-600 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
@@ -30,7 +30,7 @@ function Header() {
                         <p
                             onClick={() => setDropdown(prev => !prev)}
                             className=' ml-1 flex items-center uppercase'>HISHAM
-                            <svg class="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <svg className="-mr-1 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
                             </svg>
                         </p>
@@ -41,9 +41,9 @@ function Header() {
                         </i>
                     )}
                     {dropdown && (
-                        <div onClick={()=> setDropdown(false)} class="absolute right-5 top-14 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
-                            <div class="py-1" role="none">
-                                <button onClick={() => setuser(false)} class="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" tabindex="-1" id="menu-item-3">Sign out</button>
+                        <div onClick={()=> setDropdown(false)} className="absolute right-5 top-14 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" >
+                            <div className="py-1" role="none">
+                                <button onClick={() => setuser(false)} className="text-gray-700 block w-full px-4 py-2 text-left text-sm" role="menuitem" id="menu-item-3">Sign out</button>
                             </div>
                         </div>
                     )
