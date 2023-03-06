@@ -1,18 +1,17 @@
-import React from 'react'
-import Cards from '../components/cards/Cards'
-import Carousal from '../components/Carousal'
+import React from 'react';
+import Cards from '../components/cards/Cards';
+import Carousal from '../components/Carousal';
 
-import Header from '../components/Header'
-
+import Header from '../components/Header';
 
 function Home() {
   return (
     <div>
       <Header />
-      <Carousal/>
+      <Carousal />
       <Cards />
     </div>
-  )
+  );
 }
 
-export default Home
+export default Home;
