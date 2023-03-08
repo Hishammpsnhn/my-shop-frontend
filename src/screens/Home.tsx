@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Cards from '../components/cards/Cards';
 import Carousal from '../components/Carousal';
-
-import Header from '../components/Header';
+import { listProducts } from '../actions/productAction';
+import { useAppDispatch } from '../hook';
+import { useSelector } from 'react-redux';
 
 function Home() {
+  const dispatch = useAppDispatch()
+  const state = useSelector((state) => state)
+  console.log(state)
+
+  useEffect(() => {
+     dispatch(listProducts())
+  }, [dispatch]);
+
   return (
     <div>
-      <Header />
       <Carousal />
       <Cards />
     </div>

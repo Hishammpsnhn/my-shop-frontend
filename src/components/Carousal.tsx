@@ -20,8 +20,8 @@ function Carousal() {
         <div className="w-[90%] m-auto p-10 ">
             <Carousel
                 autoPlay showThumbs={false}>
-                {data.map(({ image, name }) => (
-                    <div className="bg-gray-700 p-5 rounded">
+                {data.map(({ image, name },i) => (
+                    <div key={i} className="bg-gray-700 p-5 rounded">
                         <img className="w-56 h-56 rounded" src={image} />
                         <p className="text-white text-2xl font-semibold uppercase p-5">
                             {name}
