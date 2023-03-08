@@ -8,6 +8,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
+        <Route path="/search/:keyword" element={<Home />} />
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>

@@ -1,15 +1,12 @@
 import React, { useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
+import Button from './SearchBox';
 
 function Header() {
   const [user, setuser] = useState(true);
   const [dropdown, setDropdown] = useState(false);
-  const [keyword, setKeyword] = useState<String>('');
 
-  const submitHandler = (e: React.FormEvent) => {
-    e.preventDefault()
-  }
 
   return (
     <div className=" bg-gray-700">
@@ -17,18 +14,7 @@ function Header() {
         <div className="flex">
           <h1 className="text-white font-serif text-3xl ">
             MYSHOP</h1>
-          <form className="flex " onSubmit={(e) => submitHandler(e)}>
-            <input
-              type="text"
-              className="bg-white border border-gray-300 text-gray-900 ml-10 mr-5 text-sm rounded focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-white dark:border-black dark:placeholder-gray-500 dark:text-gray-800 dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="eg: iphone"
-              onChange={(e) => setKeyword(e.target.value)}
-            />
-            <button className=" bg-transparent hover:bg-blue-600 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
-              type='submit'>
-              search
-            </button>
-          </form>
+          <Button />
         </div>
         <div className="flex items-center font-serif text-xs text-gray-400">
           <i className="flex items-center hover:opacity-50 cursor-pointer">
