@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 function LoginScreen() {
     const [email, setEmail] = useState<string>("");
@@ -40,6 +41,11 @@ function LoginScreen() {
                             Forgot Password?
                         </a>
                     </div>
+                    <Link to="/register">
+                        <p className="pt-5 text-center font-bold text-sm text-blue-500 hover:text-blue-800">
+                            New customer?
+                        </p>
+                    </Link>
                 </form>
                 <p className="text-center text-gray-500 text-xs">
                     &copy;2020 Acme Corp. All rights reserved.
