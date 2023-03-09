@@ -13,7 +13,7 @@ function Card() {
         <p className="text-gray-800 font-medium text-base capitalize ">
           Iphone 14 pro 256GB Memmory
         </p>
-        <Rating />
+        <Rating value={3.5} text={"1 reviews"} color={"orange"} />
         <div className="font-bold text-xl mb-2">$ 599</div>
       </div>
     </div>

@@ -5,7 +5,7 @@ import { listProducts } from '../actions/productAction';
 import { useAppDispatch } from '../hook';
 import { useSelector } from 'react-redux';
 
-function Home() {
+function HomeScreen() {
   const dispatch = useAppDispatch()
   const state = useSelector((state) => state)
   console.log(state)
@@ -22,4 +22,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomeScreen;
