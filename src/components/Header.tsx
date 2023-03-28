@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { RootState } from '../store';
 import Button from './SearchBox';
 
 function Header() {
-  const [user, setuser] = useState(true);
   const [dropdown, setDropdown] = useState(false);
 
+  const LogginedUser = useSelector((state: RootState) => state.user)
+  console.log(LogginedUser)
 
   return (
     <div className=" bg-gray-700">
@@ -21,12 +25,12 @@ function Header() {
             <AiOutlineShoppingCart />
             <p className="mr-5 ml-1">CART</p>
           </i>
-          {user ? (
+          {LogginedUser.user ? (
             <p
               onClick={() => setDropdown((prev) => !prev)}
               className=" ml-1 flex items-center uppercase"
             >
-              HISHAM
+           { LogginedUser.user.name}
               <svg
                 className="-mr-1 h-5 w-5 text-gray-400"
                 viewBox="0 0 20 20"
@@ -41,10 +45,12 @@ function Header() {
               </svg>
             </p>
           ) : (
-            <i className="flex items-center  hover:opacity-50 cursor-pointer">
-              <CgProfile />
-              <p className="ml-1">SIGN IN</p>
-            </i>
+            <Link to={`/register`}>
+              <i className="flex items-center  hover:opacity-50 cursor-pointer">
+                <CgProfile />
+                <p className="ml-1">SIGN IN</p>
+              </i>
+            </Link>
           )}
           {dropdown && (
             <div
@@ -56,7 +62,7 @@ function Header() {
             >
               <div className="py-1" role="none">
                 <button
-                  onClick={() => setuser(false)}
+                  // onClick={}
                   className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
                   role="menuitem"
                   id="menu-item-3"

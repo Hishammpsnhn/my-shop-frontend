@@ -1,13 +1,14 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Rating from "../components/cards/Rating";
 
 function ProductScreen() {
     return (
         <div className="mx-40">
             <div className="p-3">
-                <button className=" text-xs font-semibold hover:bg-black hover:text-white p-1 rounded">
-                    GO BACK
-                </button>
+                <Link className=" text-xs font-semibold hover:bg-black hover:text-white p-1 rounded" to={`/`}>
+                    Go BACK
+                </Link>
             </div>
             <div className="grid grid-cols-4 gap-2">
                 <div className="col-span-2 m-auto">
