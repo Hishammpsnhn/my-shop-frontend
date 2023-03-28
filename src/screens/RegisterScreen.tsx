@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userAction";
 import { useAppDispatch } from "../hook";
+import { RootState } from "../store";
 
 
 function RegisterScreen() {
@@ -11,7 +13,16 @@ function RegisterScreen() {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState("")
 
+    const userInfo = useSelector((state: RootState) => state.user)
+    let navigate = useNavigate()
     const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (userInfo.user) {
+          navigate('/')
+        }
+      }, [ userInfo])
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,6 +33,7 @@ function RegisterScreen() {
             setMessage("Confirm Password does not match")
         }
     }
+    
 
     return <div className="mt-10">
         <div className="w-full max-w-xs m-auto">

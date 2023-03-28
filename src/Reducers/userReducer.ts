@@ -13,8 +13,13 @@ interface UserState {
   error: Error | null;
 }
 
+const storageUser =  localStorage.getItem('userInfo')
+const userInfoFromStorage = storageUser
+  ? JSON.parse(storageUser)
+  : null
+
 const initialState: UserState = {
-  user: null,
+  user: userInfoFromStorage,
   loading: false,
   error: null,
 };
@@ -31,13 +36,13 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = null;
     },
-    registerUserfail: (state, action)=>{
+    registerUserfail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
     }
   },
 });
 
-export const { registerUserSucess,registerUserfail,registerUserRequest } = userSlice.actions;
+export const { registerUserSucess, registerUserfail, registerUserRequest } = userSlice.actions;
 
 export default userSlice.reducer;

@@ -1,14 +1,25 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../actions/userAction";
 import { useAppDispatch } from "../hook";
+import { RootState } from "../store";
 
 function LoginScreen() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [incorrectPassword, setIncorrectPassword] = useState<boolean>(false)
 
+    const userInfo = useSelector((state: RootState) => state.user)
     const dispatch = useAppDispatch();
+    let navigate = useNavigate()
+
+    useEffect(() => {
+        if (userInfo.user) {
+          navigate('/')
+        }
+      }, [ userInfo])
+    
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
