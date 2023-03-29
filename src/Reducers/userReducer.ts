@@ -10,7 +10,7 @@ export interface User {
 interface UserState {
   user: User | null;
   loading: boolean;
-  error: Error | null;
+  error: string | null;
 }
 
 const storageUser =  localStorage.getItem('userInfo')

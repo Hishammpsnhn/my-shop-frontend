@@ -11,15 +11,16 @@ function LoginScreen() {
     const [incorrectPassword, setIncorrectPassword] = useState<boolean>(false)
 
     const userInfo = useSelector((state: RootState) => state.user)
+    console.log(userInfo.error)
     const dispatch = useAppDispatch();
     let navigate = useNavigate()
 
     useEffect(() => {
         if (userInfo.user) {
-          navigate('/')
+            navigate('/')
         }
-      }, [ userInfo])
-    
+    }, [userInfo])
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -30,8 +31,14 @@ function LoginScreen() {
 
     return (
         <div className="mt-10">
-            <div className=" m-auto max-w-xs">
-                <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={e => handleSubmit(e)}>
+            <div className=" m-auto max-w-xs bg-white shadow-md rounded p-1 pb-5">
+                <h3 className="font-serif text-2xl ">SIGN IN</h3>
+                {userInfo.error ? (
+                    <div className="w-full bg-red-100 border text-amber-800 p-2.5 ">
+                        {userInfo.error}
+                    </div>
+                ) :(<></>)}
+                <form className="px-8 pt-6 " onSubmit={e => handleSubmit(e)}>
                     <div className="mb-4">
                         <label className="block text-gray-700 text-sm font-bold mb-2" >
                             Email

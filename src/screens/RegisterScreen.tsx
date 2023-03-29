@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../actions/userAction";
@@ -19,24 +19,31 @@ function RegisterScreen() {
 
     useEffect(() => {
         if (userInfo.user) {
-          navigate('/')
+            navigate('/')
         }
-      }, [ userInfo])
-    
+    }, [userInfo])
+
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         if (password === confirmPassword) {
+            setMessage("")
             const user = { username: "testuser", password: "testpassword" };
             dispatch(register({ name, email, password }));
         } else {
             setMessage("Confirm Password does not match")
         }
     }
-    
+
 
     return <div className="mt-10">
         <div className="w-full max-w-xs m-auto">
+            <h3 className="font-serif text-2xl ">SIGN UP</h3>
+            {userInfo.error && (
+                <div className="w-full bg-red-100 border text-amber-800 p-2.5 ">
+                    {userInfo.error}
+                </div>
+            )}
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={(e) => handleSubmit(e)}>
                 <div className="mb-4">
                     <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -94,7 +101,7 @@ function RegisterScreen() {
                         Register
                     </button>
                     <Link to='/login' className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
-                            Have an Account?
+                        Have an Account?
                     </Link>
                 </div>
             </form>
