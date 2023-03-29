@@ -1,6 +1,6 @@
 import axios, { AxiosError } from "axios"
 import { Dispatch } from "redux"
-import { registerUserfail, registerUserRequest, registerUserSucess } from "../Reducers/userReducer"
+import { logoutUser, registerUserfail, registerUserRequest, registerUserSucess } from "../Reducers/userReducer"
 
 type props = {
     name?: String,
@@ -56,3 +56,9 @@ export const login = ({email, password }: props) => async (dispatch: Dispatch) =
         ))
     }
 }
+
+export const logout = () => (dispatch:Dispatch) => {
+    localStorage.removeItem('userInfo')
+    dispatch(logoutUser)
+    document.location.href = '/login'
+  }

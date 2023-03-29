@@ -39,10 +39,13 @@ const userSlice = createSlice({
     registerUserfail: (state, action) => {
       state.loading = false;
       state.error = action.payload;
+    },
+    logoutUser:(state) => {
+     state.user = null;
     }
   },
 });
 
-export const { registerUserSucess, registerUserfail, registerUserRequest } = userSlice.actions;
+export const { registerUserSucess, registerUserfail, registerUserRequest,logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

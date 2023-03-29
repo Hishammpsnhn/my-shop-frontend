@@ -3,11 +3,15 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { CgProfile } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { logout } from '../actions/userAction';
+import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
 import Button from './SearchBox';
 
 function Header() {
   const [dropdown, setDropdown] = useState(false);
+
+  const dispatch = useAppDispatch();
 
   const LogginedUser = useSelector((state: RootState) => state.user)
   console.log(LogginedUser)
@@ -30,7 +34,7 @@ function Header() {
               onClick={() => setDropdown((prev) => !prev)}
               className=" ml-1 flex items-center uppercase"
             >
-           { LogginedUser.user.name}
+              {LogginedUser.user.name}
               <svg
                 className="-mr-1 h-5 w-5 text-gray-400"
                 viewBox="0 0 20 20"
@@ -62,12 +66,12 @@ function Header() {
             >
               <div className="py-1" role="none">
                 <button
-                  // onClick={}
+                  onClick={() => dispatch(logout())}
                   className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
                   role="menuitem"
                   id="menu-item-3"
                 >
-                  Sign out
+                  Log out
                 </button>
               </div>
             </div>
