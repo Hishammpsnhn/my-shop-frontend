@@ -14,7 +14,6 @@ function Header() {
   const dispatch = useAppDispatch();
 
   const LogginedUser = useSelector((state: RootState) => state.user)
-  console.log(LogginedUser)
 
   return (
     <div className=" bg-gray-700">

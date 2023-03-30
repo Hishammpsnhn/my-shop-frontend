@@ -3,28 +3,33 @@ import axios from 'axios';
 import { Product } from '../model/productModel';
 
 interface CounterState {
-    loading: boolean;
+    loading: Boolean;
     products: Array<Product>;
-    error: string;
+    error: String;
+    pages:Number,
+    page:Number
 }
 
 const initialState: CounterState = {
     loading: false,
     products: [],
-    error: ""
+    error: "",
+    pages: 0,
+    page: 0
 };
 
 export const counterSlice = createSlice({
-    name: 'product',
+    name: 'products',
     initialState,
     reducers: {
         productListRequest: (state) => {
             state.loading = true;
-            state.products = []
         },
-        productListSuccess: (state, action: PayloadAction< Array<Product>>) => {
+        productListSuccess: (state, action) => {
             state.loading = false;
-            state.products = action.payload
+            state.products = action.payload.products
+            state.page = action.payload.page
+            state.pages = action.payload.pages
 
         },
         productListRequestError: (state, action) => {

@@ -8,8 +8,6 @@ import { RootState } from '../store';
 
 function HomeScreen() {
   const dispatch = useAppDispatch()
-  const state = useSelector((state:RootState) => state)
-
 
   useEffect(() => {
      dispatch(listProducts())

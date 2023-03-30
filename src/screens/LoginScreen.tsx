@@ -11,7 +11,6 @@ function LoginScreen() {
     const [incorrectPassword, setIncorrectPassword] = useState<boolean>(false)
 
     const userInfo = useSelector((state: RootState) => state.user)
-    console.log(userInfo.error)
     const dispatch = useAppDispatch();
     let navigate = useNavigate()
 
