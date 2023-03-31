@@ -36,11 +36,11 @@ export const counterSlice = createSlice({
             state.loading = true;
             state.error = action.payload
 
-        }
+        },
 
     },
 })
 
 
-export const { productListRequest, productListSuccess, productListRequestError } = counterSlice.actions
+export const { productListRequest, productListSuccess, productListRequestError} = counterSlice.actions
 export default counterSlice.reducer

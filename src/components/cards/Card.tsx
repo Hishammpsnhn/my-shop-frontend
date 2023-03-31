@@ -7,13 +7,16 @@ interface props{
   image: string;
   rating:number;
   price:number;
+  id:string;
+  reviewLength:number;
 }
 
-function Card({name,image,rating,price}:props) {
+function Card({name,image,rating,price,reviewLength,id}:props) {
+  
   return (
     <div className="w-[280px] rounded  overflow-hidden shadow-xl p-5">
          {/* <Link to={`/product/${product._id}`}></Link> */}
-      <Link to={`/product`}>
+      <Link to={`/product/${id}`}>
         <img
           className="w-[180px] h-[180px] m-auto "
           src={image}
@@ -24,7 +27,7 @@ function Card({name,image,rating,price}:props) {
         <p className="text-gray-800 font-medium text-base capitalize ">
           {name}
         </p>
-        <Rating value={rating} text={"1 reviews"} color={"orange"} />
+        <Rating rating={rating} reviewCount={reviewLength} color={"orange"} />
         <div className="font-bold text-xl mb-2">$ {price}</div>
       </div>
     </div>

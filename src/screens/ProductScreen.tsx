@@ -1,8 +1,25 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import Rating from "../components/cards/Rating";
+import { listProductDetails } from "../actions/productAction";
+import { useAppDispatch } from "../hook";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 function ProductScreen() {
+    const params = useParams();
+    const dispatch = useAppDispatch()
+    const state = useSelector((state: RootState) => state.productDetails)
+    const {productDetails,loading,error} = state;
+    
+    useEffect(() => {
+        if (params.id && params.id !== productDetails?._id) {
+            dispatch(listProductDetails(params.id))
+        }
+    }, [params]);
+
+    if(loading) return <div>LOADING ....</div>
+
     return (
         <div className="mx-40">
             <div className="p-3">
@@ -12,19 +29,19 @@ function ProductScreen() {
             </div>
             <div className="grid grid-cols-4 gap-2">
                 <div className="col-span-2 m-auto">
-                    <img className="p-5 w-[500px] h-[500px]" src="https://m.media-amazon.com/images/I/61SUj2aKoEL._SX679_.jpg" />
+                    <img className="p-5 w-[500px] h-[500px]" src={productDetails?.image} alt="images" />
                 </div>
                 <div className=" flex col-span-2 divide-y  justify-between">
                     <div className="w-[45%] ">
                         <div className="divide-y">
-                            <h4 className="uppercase text-gray-500 text-5xl font-sans py-5">airpod 3 air wirless bluetooth</h4>
+                            <h4 className="uppercase text-gray-500 text-5xl font-sans py-5">{productDetails?.name}</h4>
                             <div className="divide-y">
-                                <Rating value={5} color="orange" text="1 review" />
-                                <p className="py-2">Price: $89.99 </p>
+                                <Rating rating={5} color="orange" reviewCount={5} />
+                                <p className="py-2">Price: {productDetails?.price} </p>
                             </div>
                         </div>
                         <div>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit mollitia, expedita totam natus incidunt ab dolor ratione eum nostrum odit sed eligendi provident dicta voluptate iure maiores deleniti vero? Aut?
+                            {productDetails?.description}
                         </div>
                     </div>
                     <div className="w-[45%]">

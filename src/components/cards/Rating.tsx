@@ -1,19 +1,19 @@
 import React from 'react'
 interface Props {
-  value: number,
-  text: string,
+  rating: number,
+  reviewCount: number,
   color: string
 }
-const Rating = ({ value, text, color }: Props) => {
+const Rating = ({ rating, reviewCount, color }: Props) => {
   return (
     <div className='py-2'>
       <span className='pr-1'>
         <i
           style={{ color }}
           className={
-            value >= 1
+            rating >= 1
               ? 'fas fa-star'
-              : value >= 0.5
+              : rating >= 0.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
           }
@@ -23,9 +23,9 @@ const Rating = ({ value, text, color }: Props) => {
         <i
           style={{ color }}
           className={
-            value >= 2
+            rating >= 2
               ? 'fas fa-star'
-              : value >= 1.5
+              : rating >= 1.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
           }
@@ -35,9 +35,9 @@ const Rating = ({ value, text, color }: Props) => {
         <i
           style={{ color }}
           className={
-            value >= 3
+            rating >= 3
               ? 'fas fa-star'
-              : value >= 2.5
+              : rating >= 2.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
           }
@@ -47,9 +47,9 @@ const Rating = ({ value, text, color }: Props) => {
         <i
           style={{ color }}
           className={
-            value >= 4
+            rating >= 4
               ? 'fas fa-star'
-              : value >= 3.5
+              : rating >= 3.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
           }
@@ -59,15 +59,15 @@ const Rating = ({ value, text, color }: Props) => {
         <i
           style={{ color }}
           className={
-            value >= 5
+            rating >= 5
               ? 'fas fa-star'
-              : value >= 4.5
+              : rating >= 4.5
                 ? 'fas fa-star-half-alt'
                 : 'far fa-star'
           }
         ></i>
       </span>
-      <span>{text && text}</span>
+      <span>{reviewCount} reviews</span>
     </div>
   )
 }

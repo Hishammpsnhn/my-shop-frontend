@@ -5,7 +5,6 @@ import Card from './Card';
 
 function Cards() {
   const state = useSelector((state:RootState) => state.product)
-  console.log(state.products)
 
   return (
     <div className="mx-20 pt-10 ">
@@ -14,7 +13,7 @@ function Cards() {
       </h6>
       <div className=" grid grid-cols-4 gap-4">
        {state.products.map((item)=>(
-        <Card name={item.name} image={item.image} rating={item.rating} price={item.price} />
+        <Card id={item._id} name={item.name} image={item.image} rating={item.rating} price={item.price} reviewLength={item.reviews.length} />
        ))}
       </div>
     </div>
