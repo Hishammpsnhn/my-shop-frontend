@@ -16,10 +16,10 @@ function HomeScreen() {
   }, [dispatch, params]);
 
   return (
-    <div className='mx-32'>
+    <div className='mx-40 '>
       {params.keyword ? (
-        <Link className=" text-xs font-semibold hover:bg-black hover:text-white p-1 rounded" to={`/`}>
-          Go BACK
+        <Link className=" text-[13px] tracking-wide text-gray-500 font-semibold hover:bg-stone-200 p-3 rounded" to={`/`}>
+          GO BACK
         </Link>
       ) : (
         <Carousal />

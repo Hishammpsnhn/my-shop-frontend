@@ -29,18 +29,16 @@ function ProductScreen() {
     }, [params]);
 
     const addtoCartHandler = () => {
-        if(productDetails && productDetails.countInStock && productDetails.countInStock > 0){
+        if (productDetails && productDetails.countInStock && productDetails.countInStock > 0) {
             navigate(`/cart/${params.id}?qty=${qty}`)
         }
     }
 
     return (
         <div className="mx-40">
-            <div className="p-3">
-                <Link className=" text-xs font-semibold hover:bg-black hover:text-white p-1 rounded" to={`/`}>
-                    Go BACK
-                </Link>
-            </div>
+            <Link className=" text-[13px] text-gray-500 tracking-wide font-semibold hover:bg-stone-200 p-3 rounded" to={`/`}>
+                GO BACK
+            </Link>
             {loading ? (<Loader />) : (
                 <div className="grid grid-cols-4 gap-2">
                     <div className="col-span-2 m-auto">
@@ -99,7 +97,7 @@ function ProductScreen() {
                                         ) : (<div></div>)}
                                     </tbody>
                                 </table>
-                                <button className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${productDetails && productDetails.countInStock && productDetails.countInStock > 0?"":"cursor-not-allowed opacity-80"}`} onClick={addtoCartHandler}>
+                                <button className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${productDetails && productDetails.countInStock && productDetails.countInStock > 0 ? "" : "cursor-not-allowed opacity-80"}`} onClick={addtoCartHandler}>
                                     ADD TO CART
                                 </button>
                             </div>

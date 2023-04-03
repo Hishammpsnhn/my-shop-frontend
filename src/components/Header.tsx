@@ -16,7 +16,7 @@ function Header() {
   const LogginedUser = useSelector((state: RootState) => state.user)
 
   return (
-    <div className=" bg-gray-700">
+    <div className=" bg-gray-700 mb-10">
       <div className="mx-10 p-5 flex justify-between items-center ">
         <div className="flex">
           <Link to="/" className="text-white font-serif text-3xl ">

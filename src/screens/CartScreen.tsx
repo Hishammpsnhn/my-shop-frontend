@@ -33,7 +33,7 @@ function CartScreen() {
   return (
     <div className="mx-40 flex justify-between">
       <div className="w-[50%]">
-        <h1 className="text-4xl p-5">SHOPPING CART</h1>
+        <h1 className="text-4xl p-5 ">SHOPPING CART</h1>
         {cartItems.length === 0 ? (
           <Message type="info">  Your cart is empty <Link className="hover:underline" to='/'>Go Back</Link></Message>
         ) : (
@@ -44,7 +44,7 @@ function CartScreen() {
           </div>
         )}
       </div>
-      <div className="  mt-5">
+      <div>
         <div className="border border-gray-400 ">
           <div className="p-4">
             <h2 className="text-2xl text-gray-700 tracking-widest mb-3">SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) ITEMS</h2>
@@ -78,7 +78,7 @@ const CartScreenitem = ({ name, image, qty, price, id, countInStock, handleRemov
   const quantityOptions = Array.from({ length: countInStock }, (_, index) => Number(index) + 1);
 
   return (
-    <div key={id} className="ml-10 flex justify-between text-gray-500">
+    <div key={id} className="ml-10 flex justify-between text-gray-500 mt-5">
       <img className="w-20 h-20" src={image} alt="image" />
       <p className="w-[25%] hover:underline cursor-pointer">{name}</p>
       <p>$ {price}</p>
