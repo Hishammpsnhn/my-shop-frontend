@@ -14,7 +14,10 @@ function CartScreen() {
 
   const { cartItems } = useSelector((state: RootState) => state.cart)
 
-  const qty = new URLSearchParams(location.search).get('qty');
+
+  const qtyString = new URLSearchParams(location.search).get('qty');
+  const qty = qtyString ? parseInt(qtyString) : 1;
+
   const productId = params.id;
 
   useEffect(() => {
@@ -37,8 +40,10 @@ function CartScreen() {
       <div className="  mt-5">
         <div className="border border-gray-400 ">
           <div className="p-4">
-            <h2 className="text-2xl text-gray-700 tracking-widest mb-3">SUBTOTAL (1) ITEMS</h2>
-            <p>$356.2</p>
+            <h2 className="text-2xl text-gray-700 tracking-widest mb-3">SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) ITEMS</h2>
+            <p>$
+              {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}
+            </p>
           </div>
           <div className="border border-t-gray-400 w-full px-4 py-2">
             <button className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold ">PORCEED TO CHECKOUT</button>
@@ -56,21 +61,23 @@ interface Props {
   image: string,
   price: number,
   countInStock: number,
-  qty: string,
+  qty: number,
   handleRemoveItem: (id: string) => void
 
 }
-const CartScreenitem = ({ name, image, qty, price, id,countInStock, handleRemoveItem }: Props) => {
-  
-   const quantityOptions = Array.from({ length: countInStock }, (_, index) => Number(index) + 1);
+const CartScreenitem = ({ name, image, qty, price, id, countInStock, handleRemoveItem }: Props) => {
+
+  const dispatch = useAppDispatch();
+  const quantityOptions = Array.from({ length: countInStock }, (_, index) => Number(index) + 1);
+
   return (
     <div key={id} className="ml-10 flex justify-between text-gray-500">
       <img className="w-20 h-20" src={image} alt="image" />
       <p className="w-[25%] hover:underline cursor-pointer">{name}</p>
       <p>$ {price}</p>
-      <select defaultValue={1} id="countries" className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200">
+      <select defaultValue={qty} id="countries" className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200" onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}>
         {
-          quantityOptions.map((value)=>(
+          quantityOptions.map((value) => (
             <option key={value} value={value} >{value}</option>
           ))
         }

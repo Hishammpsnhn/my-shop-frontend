@@ -4,5 +4,5 @@ export interface CartProduct {
     image: string,
     price: number,
     countInStock: number,
-    qty:string
+    qty:number
   }
