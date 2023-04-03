@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useAppDispatch } from "../hook";
 import { addItemToCart, removeItem } from "../actions/cartAction";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import Message from "../components/Message";
 
 function CartScreen() {
 
@@ -33,9 +34,15 @@ function CartScreen() {
     <div className="mx-40 flex justify-between">
       <div className="w-[50%]">
         <h1 className="text-4xl p-5">SHOPPING CART</h1>
-        {cartItems.map((cart) => (
-          <CartScreenitem id={cart.id} name={cart.name} image={cart.image} price={cart.price} qty={cart.qty} handleRemoveItem={handleRemoveItem} countInStock={cart.countInStock} />
-        ))}
+        {cartItems.length === 0 ? (
+          <Message type="info">  Your cart is empty <Link className="hover:underline" to='/'>Go Back</Link></Message>
+        ) : (
+          <div>
+            {cartItems.map((cart) => (
+              <CartScreenitem id={cart.id} name={cart.name} image={cart.image} price={cart.price} qty={cart.qty} handleRemoveItem={handleRemoveItem} countInStock={cart.countInStock} />
+            ))}
+          </div>
+        )}
       </div>
       <div className="  mt-5">
         <div className="border border-gray-400 ">
