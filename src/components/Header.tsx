@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { logout } from '../actions/userAction';
 import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
-import Button from './SearchBox';
+import SearchBox from './SearchBox';
 
 function Header() {
   const [dropdown, setDropdown] = useState(false);
@@ -22,7 +22,7 @@ function Header() {
           <Link to="/" className="text-white font-serif text-3xl ">
             MYSHOP
           </Link>
-          <Button />
+          <SearchBox />
         </div>
         <div className="flex items-center font-serif text-xs text-gray-400">
           <i className="flex items-center hover:opacity-50 cursor-pointer">

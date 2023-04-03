@@ -4,6 +4,7 @@ import {  productListRequest, productListRequestError, productListSuccess } from
 import { productDetailsSuccess,productDetailsRequest,productDetailsRequestError } from '../Reducers/productDetailsReducer'
 
 export const listProducts = (keyword = "", pageNumber = "") => async (dispatch: Dispatch) => {
+    console.log(keyword)
     try {
         dispatch(productListRequest())
         const { data } = await axios.get(
