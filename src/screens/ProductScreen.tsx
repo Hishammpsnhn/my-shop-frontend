@@ -14,8 +14,13 @@ function ProductScreen() {
     const params = useParams();
     const dispatch = useAppDispatch()
     const navigate = useNavigate();
-    const state = useSelector((state: RootState) => state.productDetails)
-    const { productDetails, loading, error } = state;
+
+    const productDetails = useSelector((state: RootState) => state.productDetails.productDetails)
+    const loading = useSelector((state: RootState) => state.productDetails.loading)
+    // const productDetails = useSelector((state: RootState) => state.productDetails.productDetails)
+
+
+    const quantityOptions = Array.from({ length: productDetails?.countInStock || 0 }, (_, index) => Number(index) + 1);
 
     useEffect(() => {
         if (params.id && params.id !== productDetails?._id) {
@@ -24,11 +29,10 @@ function ProductScreen() {
     }, [params]);
 
     const addtoCartHandler = () => {
-        navigate(`/cart/${params.id}?qty=${qty}`)
-        
+        if(productDetails && productDetails.countInStock && productDetails.countInStock > 0){
+            navigate(`/cart/${params.id}?qty=${qty}`)
+        }
     }
-
-
 
     return (
         <div className="mx-40">
@@ -77,21 +81,25 @@ function ProductScreen() {
                                                 {productDetails?.countInStock ? 'In Stock' : "Out Of Stock"}
                                             </td>
                                         </tr>
-                                        <tr className="border-b">
-                                            <th scope="row" className="px-6 py-4 font-medium">
-                                                Qty
-                                            </th>
-                                            <td className="px-6 py-4">
-                                                <select defaultValue={1} id="countries" className=" border border-gray-300 rounded-lg  block w-full p-2.5 ">
-                                                    <option value="1" >1</option>
-                                                    <option value="2" >2</option>
-                                                    <option value="3">3</option>
-                                                </select>
-                                            </td>
-                                        </tr>
+                                        {productDetails && productDetails.countInStock && productDetails.countInStock > 0 ? (
+                                            <tr className="border-b">
+                                                <th scope="row" className="px-6 py-4 font-medium">
+                                                    Qty
+                                                </th>
+                                                <td className="px-6 py-4">
+                                                    <select defaultValue={qty} className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200">
+                                                        {
+                                                            quantityOptions.map((value) => (
+                                                                <option key={value} value={value} >{value}</option>
+                                                            ))
+                                                        }
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        ) : (<div></div>)}
                                     </tbody>
                                 </table>
-                                <button className="bg-black  text-white font-bold py-2 px-4 rounded w-full hover:opacity-80" onClick={addtoCartHandler}>
+                                <button className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${productDetails && productDetails.countInStock && productDetails.countInStock > 0?"":"cursor-not-allowed opacity-80"}`} onClick={addtoCartHandler}>
                                     ADD TO CART
                                 </button>
                             </div>

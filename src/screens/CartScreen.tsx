@@ -82,7 +82,7 @@ const CartScreenitem = ({ name, image, qty, price, id, countInStock, handleRemov
       <img className="w-20 h-20" src={image} alt="image" />
       <p className="w-[25%] hover:underline cursor-pointer">{name}</p>
       <p>$ {price}</p>
-      <select defaultValue={qty} id="countries" className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200" onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}>
+      <select defaultValue={qty}  className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200" onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}>
         {
           quantityOptions.map((value) => (
             <option key={value} value={value} >{value}</option>
