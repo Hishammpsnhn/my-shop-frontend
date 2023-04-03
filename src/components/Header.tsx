@@ -13,7 +13,7 @@ function Header() {
 
   const dispatch = useAppDispatch();
 
-  const LogginedUser = useSelector((state: RootState) => state.user)
+  const LogginedUser = useSelector((state: RootState) => state.user);
 
   return (
     <div className=" bg-gray-700 mb-10">
@@ -27,7 +27,9 @@ function Header() {
         <div className="flex items-center font-serif text-xs text-gray-400">
           <i className="flex items-center hover:opacity-50 cursor-pointer">
             <AiOutlineShoppingCart />
-            <Link to={"/cart"} className="mr-5 ml-1">CART</Link>
+            <Link to={'/cart'} className="mr-5 ml-1">
+              CART
+            </Link>
           </i>
           {LogginedUser.user ? (
             <p
