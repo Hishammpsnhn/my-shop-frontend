@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { AiFillDelete } from "react-icons/ai";
+import { useLocation, useParams } from "react-router-dom";
+import { useAppDispatch } from "../hook";
+import { addItemToCart, removeItem } from "../actions/cartAction";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 function CartScreen() {
+
+  const params = useParams()
+  const location = useLocation();
+  const dispatch = useAppDispatch()
+
+  const { cartItems } = useSelector((state: RootState) => state.cart)
+
+  const qty = new URLSearchParams(location.search).get('qty');
+  const productId = params.id;
+
+  useEffect(() => {
+    if (productId) {
+      dispatch(addItemToCart(productId, qty))
+    }
+  }, [productId, dispatch, qty]);
+
+  const handleRemoveItem = (id: string) => {
+    dispatch(removeItem(id))
+  }
   return (
     <div className="mx-40 flex justify-between">
       <div className="w-[50%]">
         <h1 className="text-4xl p-5">SHOPPING CART</h1>
-        <div className="ml-10 flex justify-between text-gray-500">
-          <img className="w-20 h-20" src="https://www.shutterstock.com/shutterstock/photos/1811246308/display_1500/stock-vector-sample-stamp-in-rubber-style-red-round-grunge-sample-sign-rubber-stamp-on-white-vector-1811246308.jpg" alt="image" />
-          <p className="w-[25%] hover:underline cursor-pointer">Cannon EOS 80D DSLR Camera</p>
-          <p>$ 199</p>
-          <select defaultValue={1} id="countries" className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200">
-            <option value="1" >1</option>
-            <option value="2" >2</option>
-            <option value="3">3</option>
-          </select>
-          <button className="hover:bg-gray-200 w-20 h-11 text-xl flex items-center justify-center">
-            <AiFillDelete />
-          </button>
-        </div>
+        {cartItems.map((cart) => (
+          <CartScreenitem id={cart.id} name={cart.name} image={cart.image} price={cart.price} qty={cart.qty} handleRemoveItem={handleRemoveItem} countInStock={cart.countInStock} />
+        ))}
       </div>
       <div className="  mt-5">
         <div className="border border-gray-400 ">
@@ -36,3 +50,34 @@ function CartScreen() {
 }
 
 export default CartScreen;
+interface Props {
+  id: string
+  name: string,
+  image: string,
+  price: number,
+  countInStock: number,
+  qty: string,
+  handleRemoveItem: (id: string) => void
+
+}
+const CartScreenitem = ({ name, image, qty, price, id,countInStock, handleRemoveItem }: Props) => {
+  
+   const quantityOptions = Array.from({ length: countInStock }, (_, index) => Number(index) + 1);
+  return (
+    <div key={id} className="ml-10 flex justify-between text-gray-500">
+      <img className="w-20 h-20" src={image} alt="image" />
+      <p className="w-[25%] hover:underline cursor-pointer">{name}</p>
+      <p>$ {price}</p>
+      <select defaultValue={1} id="countries" className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200">
+        {
+          quantityOptions.map((value)=>(
+            <option key={value} value={value} >{value}</option>
+          ))
+        }
+      </select>
+      <button className="hover:bg-gray-200 w-20 h-11 text-xl flex items-center justify-center" onClick={() => handleRemoveItem(id)}>
+        <AiFillDelete />
+      </button>
+    </div>
+  )
+}

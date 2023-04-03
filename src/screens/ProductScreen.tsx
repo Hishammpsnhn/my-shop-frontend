@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Rating from "../components/cards/Rating";
 import { listProductDetails } from "../actions/productAction";
 import { useAppDispatch } from "../hook";
@@ -8,8 +8,12 @@ import { RootState } from "../store";
 import Loader from "../components/Loader";
 
 function ProductScreen() {
+
+    const [qty, setQty] = useState(1)
+
     const params = useParams();
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
     const state = useSelector((state: RootState) => state.productDetails)
     const { productDetails, loading, error } = state;
 
@@ -19,7 +23,12 @@ function ProductScreen() {
         }
     }, [params]);
 
-   
+    const addtoCartHandler = () => {
+        navigate(`/cart/${params.id}?qty=${qty}`)
+        
+    }
+
+
 
     return (
         <div className="mx-40">
@@ -82,7 +91,7 @@ function ProductScreen() {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <button className="bg-black  text-white font-bold py-2 px-4 rounded w-full hover:opacity-80">
+                                <button className="bg-black  text-white font-bold py-2 px-4 rounded w-full hover:opacity-80" onClick={addtoCartHandler}>
                                     ADD TO CART
                                 </button>
                             </div>

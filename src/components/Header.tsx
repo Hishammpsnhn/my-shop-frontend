@@ -19,14 +19,15 @@ function Header() {
     <div className=" bg-gray-700">
       <div className="mx-10 p-5 flex justify-between items-center ">
         <div className="flex">
-          <h1 className="text-white font-serif text-3xl ">
-            MYSHOP</h1>
+          <Link to="/" className="text-white font-serif text-3xl ">
+            MYSHOP
+          </Link>
           <Button />
         </div>
         <div className="flex items-center font-serif text-xs text-gray-400">
           <i className="flex items-center hover:opacity-50 cursor-pointer">
             <AiOutlineShoppingCart />
-            <p className="mr-5 ml-1">CART</p>
+            <Link to={"/cart"} className="mr-5 ml-1">CART</Link>
           </i>
           {LogginedUser.user ? (
             <p
