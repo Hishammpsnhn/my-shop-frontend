@@ -7,6 +7,7 @@ import ProductScreen from './screens/ProductScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import CartScreen from './screens/CartScreen';
 import ShippingScreen from './screens/ShippingScreen';
+import PaymentScreen from './screens/PaymentScreen';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/search/:keyword" element={<HomeScreen />} />
         <Route path="/cart/:id?" element={<CartScreen />} />
         <Route path="/shipping" element={<ShippingScreen />} />
+        <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/" element={<HomeScreen />} />
       </Routes>
     </BrowserRouter>

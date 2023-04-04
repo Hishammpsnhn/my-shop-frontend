@@ -4,12 +4,13 @@ import { useAppDispatch } from "../hook";
 import { addAddress } from "../actions/cartAction";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { useNavigate } from "react-router-dom";
 
 
 
 function ShippingScreen() {
     //   const [address, setAddress] = useState(shippingAddress.address)
-    const {shippingAddress} = useSelector((state: RootState) => state.cart);
+    const { shippingAddress } = useSelector((state: RootState) => state.cart);
 
     const [address, setAddress] = useState(shippingAddress.address)
     const [city, setCity] = useState(shippingAddress.city)
@@ -17,10 +18,12 @@ function ShippingScreen() {
     const [country, setCountry] = useState(shippingAddress.country)
 
     const dispatch = useAppDispatch()
+    const navigate = useNavigate()
 
-    const handleSubmit = (e:React.FormEvent) => { 
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        dispatch(addAddress({ address,city,postalCode,country}))
+        dispatch(addAddress({ address, city, postalCode, country }))
+        navigate('/payment')
     }
 
     return (
@@ -28,7 +31,7 @@ function ShippingScreen() {
             <div className="w-[40%] m-auto">
                 <div className="px-10">
                     <CheckoutSteps step1 step2 />
-                    <h3 className="font-serif text-3xl tracking-wider ">SHIPPING</h3>
+                    <h1 className="font-serif text-3xl tracking-wider ">SHIPPING</h1>
                     <div className="w-full">
                         <form
                             className="mt-5"
@@ -67,7 +70,7 @@ function ShippingScreen() {
                                     type="number"
                                     placeholder="Enter postal code"
                                     value={postalCode}
-                                    onChange={(e) =>  setPostalCode(parseInt(e.target.value))}
+                                    onChange={(e) => setPostalCode(parseInt(e.target.value))}
                                 />
                             </div>
                             <div className="mb-3">
