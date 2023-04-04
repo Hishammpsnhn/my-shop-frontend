@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 interface CheckoutStepsProps {
   step1?: boolean
@@ -17,9 +18,9 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
     <div className='flex justify-center mb-8'>
       <div className='w-1/4'>
         {step1 ? (
-          <a href='/login' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/login' className='text-blue-500 hover:text-blue-700'>
             Sign In
-          </a>
+          </Link>
         ) : (
           <div className='text-gray-400'>Sign In</div>
         )}
@@ -27,9 +28,9 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step2 ? (
-          <a href='/shipping' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/shipping' className='text-blue-500 hover:text-blue-700'>
             Shipping
-          </a>
+          </Link>
         ) : (
           <div className='text-gray-400'>Shipping</div>
         )}
@@ -37,9 +38,9 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step3 ? (
-          <a href='/payment' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/payment' className='text-blue-500 hover:text-blue-700'>
             Payment
-          </a>
+          </Link>
         ) : (
           <div className='text-gray-400'>Payment</div>
         )}
@@ -47,9 +48,9 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step4 ? (
-          <a href='/placeorder' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/placeorder' className='text-blue-500 hover:text-blue-700'>
             Place Order
-          </a>
+          </Link>
         ) : (
           <div className='text-gray-400'>Place Order</div>
         )}
