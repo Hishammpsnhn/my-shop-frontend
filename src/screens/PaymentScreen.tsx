@@ -1,17 +1,19 @@
 import React from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { useNavigate } from "react-router-dom";
 
 function PaymentScreen() {
-
+    const navigate = useNavigate()
     const submitHandler = () => {
-
+        // dispatch(savePaymentMethod(paymentMethod))
+        navigate('/placeorder')
     }
 
     return (
         <div className="w-full">
-            <div className="w-[40%] m-auto">
-                <div className="px-10">
-                    <CheckoutSteps step1 step2 step3 />
+            <CheckoutSteps step1 step2 step3 />
+            <div className="w-[45%] m-auto flex justify-start">
+                <div>
                     <h1 className="font-serif text-3xl tracking-wider ">Payment Method</h1>
                     <form onSubmit={submitHandler}>
                         <div className="mb-4">

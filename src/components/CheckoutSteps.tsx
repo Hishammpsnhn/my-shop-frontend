@@ -15,7 +15,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
   step4,
 }) => {
   return (
-    <div className='flex justify-center mb-8'>
+    <div className='w-[40%] flex justify-center mb-8 m-auto '>
       <div className='w-1/4'>
         {step1 ? (
           <Link to='/login' className='text-gray-700 hover:text-gray-800'>
