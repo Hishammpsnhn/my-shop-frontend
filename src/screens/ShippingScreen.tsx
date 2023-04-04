@@ -13,7 +13,7 @@ function ShippingScreen() {
         <div className="w-full ">
             <div className="w-[40%] m-auto">
                 <div className="px-10">
-                    <CheckoutSteps step1 />
+                    <CheckoutSteps step1 step2/>
                     <h3 className="font-serif text-3xl tracking-wider ">SHIPPING</h3>
                     <div className="w-full">
                         <form

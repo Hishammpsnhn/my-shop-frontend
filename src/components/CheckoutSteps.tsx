@@ -18,7 +18,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
     <div className='flex justify-center mb-8'>
       <div className='w-1/4'>
         {step1 ? (
-          <Link to='/login' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/login' className='text-gray-700 hover:text-gray-800'>
             Sign In
           </Link>
         ) : (
@@ -28,7 +28,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step2 ? (
-          <Link to='/shipping' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/shipping' className='text-gray-700 hover:text-gray-800'>
             Shipping
           </Link>
         ) : (
@@ -38,7 +38,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step3 ? (
-          <Link to='/payment' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/payment' className='text-gray-700 hover:text-gray-800'>
             Payment
           </Link>
         ) : (
@@ -48,7 +48,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
 
       <div className='w-1/4'>
         {step4 ? (
-          <Link to='/placeorder' className='text-blue-500 hover:text-blue-700'>
+          <Link to='/placeorder' className='text-gray-700 hover:text-gray-800'>
             Place Order
           </Link>
         ) : (
