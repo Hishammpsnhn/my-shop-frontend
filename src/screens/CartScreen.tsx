@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
 import { AiFillDelete } from 'react-icons/ai';
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useAppDispatch } from '../hook';
 import { addItemToCart, removeItem } from '../actions/cartAction';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Message from '../components/Message';
 
+
 function CartScreen() {
   const params = useParams();
   const location = useLocation();
   const dispatch = useAppDispatch();
+  let navigate = useNavigate();
 
   const { cartItems } = useSelector((state: RootState) => state.cart);
 
@@ -28,6 +30,10 @@ function CartScreen() {
   const handleRemoveItem = (id: string) => {
     dispatch(removeItem(id));
   };
+
+  const handleCheckout = () => {
+    navigate('/login?redirect=shipping')
+  }
   return (
     <div className="mx-40 flex justify-between">
       <div className="w-[50%]">
@@ -71,7 +77,7 @@ function CartScreen() {
             </p>
           </div>
           <div className="border border-t-gray-400 w-full px-4 py-2">
-            <button className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold ">
+            <button className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold " onClick={handleCheckout}>
               PORCEED TO CHECKOUT
             </button>
           </div>

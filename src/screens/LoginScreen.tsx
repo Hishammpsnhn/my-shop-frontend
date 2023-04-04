@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { login } from '../actions/userAction';
 import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
@@ -11,14 +11,18 @@ function LoginScreen() {
   const [incorrectPassword, setIncorrectPassword] = useState<boolean>(false);
 
   const userInfo = useSelector((state: RootState) => state.user);
+
   const dispatch = useAppDispatch();
-  let navigate = useNavigate();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const redirect = new URLSearchParams(location.search).get('redirect');
 
   useEffect(() => {
     if (userInfo.user) {
-      navigate('/');
+      navigate( redirect ?`/${redirect}` : '/');
     }
-  }, [userInfo]);
+  }, [userInfo, navigate, redirect]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -57,9 +61,8 @@ function LoginScreen() {
               Password
             </label>
             <input
-              className={`shadow appearance-none border ${
-                incorrectPassword && ' border-red-500'
-              } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+              className={`shadow appearance-none border ${incorrectPassword && ' border-red-500'
+                } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
               id="password"
               type="password"
               placeholder="******************"
