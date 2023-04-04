@@ -1,7 +1,8 @@
 import axios from 'axios';
-import { addToCart, removeItemFromCart } from '../Reducers/cartReducer';
+import { addShippingAddress, addToCart, removeItemFromCart } from '../Reducers/cartReducer';
 import { Dispatch } from 'redux';
 import { RootState } from '../store';
+import { ShippingAddress } from '../model/shippingAddressModel';
 
 export const addItemToCart =
   (id: string, qty: number | null) =>
@@ -32,3 +33,10 @@ export const removeItem =
       JSON.stringify(getState().cart.cartItems)
     );
   };
+
+  export const addAddress =(data:ShippingAddress) => async (dispatch: Dispatch) => {
+    dispatch(addShippingAddress(data));
+    localStorage.setItem('shippingAddress', JSON.stringify(data))
+    
+  };
+

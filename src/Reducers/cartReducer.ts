@@ -4,10 +4,12 @@ import { CartProduct } from '../model/cartModel';
 
 interface CounterState {
   cartItems: Array<CartProduct>;
+  shippingAddress: { address: string, city: string, country: string, postalCode: number }
 }
 
 const initialState: CounterState = {
   cartItems: JSON.parse(localStorage.getItem('cartItems')!) || [],
+  shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')!) || {}
 };
 
 export const counterSlice = createSlice({
@@ -32,8 +34,11 @@ export const counterSlice = createSlice({
         (x) => x.id !== action.payload.id
       );
     },
+    addShippingAddress: (state, action) => {
+      state.shippingAddress = action.payload
+    },
   },
 });
 
-export const { addToCart, removeItemFromCart } = counterSlice.actions;
+export const { addToCart, removeItemFromCart, addShippingAddress } = counterSlice.actions;
 export default counterSlice.reducer;

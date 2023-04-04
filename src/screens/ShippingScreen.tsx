@@ -1,24 +1,38 @@
 import React, { useState } from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
+import { useAppDispatch } from "../hook";
+import { addAddress } from "../actions/cartAction";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 
 
 function ShippingScreen() {
     //   const [address, setAddress] = useState(shippingAddress.address)
-    const [address, setAddress] = useState("")
-    const [city, setCity] = useState("")
-    const [postalCode, setPostalCode] = useState("")
-    const [country, setCountry] = useState("")
+    const {shippingAddress} = useSelector((state: RootState) => state.cart);
+
+    const [address, setAddress] = useState(shippingAddress.address)
+    const [city, setCity] = useState(shippingAddress.city)
+    const [postalCode, setPostalCode] = useState(shippingAddress.postalCode)
+    const [country, setCountry] = useState(shippingAddress.country)
+
+    const dispatch = useAppDispatch()
+
+    const handleSubmit = (e:React.FormEvent) => { 
+        e.preventDefault();
+        dispatch(addAddress({ address,city,postalCode,country}))
+    }
+
     return (
         <div className="w-full ">
             <div className="w-[40%] m-auto">
                 <div className="px-10">
-                    <CheckoutSteps step1 step2/>
+                    <CheckoutSteps step1 step2 />
                     <h3 className="font-serif text-3xl tracking-wider ">SHIPPING</h3>
                     <div className="w-full">
                         <form
                             className="mt-5"
-                        // onSubmit={(e) => handleSubmit(e)}
+                            onSubmit={(e) => handleSubmit(e)}
                         >
                             <div className="mb-3">
                                 <label className="block text-gray-500 text-sm tracking-wider mb-2">
@@ -53,7 +67,7 @@ function ShippingScreen() {
                                     type="number"
                                     placeholder="Enter postal code"
                                     value={postalCode}
-                                    onChange={(e) => setPostalCode(e.target.value)}
+                                    onChange={(e) =>  setPostalCode(parseInt(e.target.value))}
                                 />
                             </div>
                             <div className="mb-3">
