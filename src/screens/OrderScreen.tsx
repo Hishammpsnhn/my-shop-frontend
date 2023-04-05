@@ -8,11 +8,14 @@ import { getOrderDetails } from "../actions/orderAction";
 import Loader from "../components/Loader";
 
 
+
 function OrderScreen() {
     const orderDetails = useSelector((state: RootState) => state.order);
     const user = useSelector((state: RootState) => state.user.user);
+    console.log(orderDetails)
 
     const { order, loading, error } = orderDetails;
+    console.log(order)
 
     const params = useParams();
     const navigate = useNavigate()
@@ -20,7 +23,18 @@ function OrderScreen() {
 
     const orderId = params.id;
 
+    let itemsPrice = 0
+
+    if (!loading && order?.orderItems) {
+        //   Calculate prices
+        const addDecimals = (num: number) => {
+            return (Math.round(num * 100) / 100).toFixed(2)
+        }
+         itemsPrice = parseInt(addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0)))
+    }
+
     useEffect(() => {
+        console.log("called useEffect")
         if (!user) {
             navigate('/login');
         }
@@ -29,7 +43,7 @@ function OrderScreen() {
                 dispatch(getOrderDetails(orderId))
             }
         }
-    }, [order, orderId]);
+    }, [order, orderId, dispatch]);
 
     return loading ? (
         <Loader />
@@ -104,7 +118,7 @@ function OrderScreen() {
                             <ul className="divide-y divide-gray-300">
                                 <li className="flex justify-between py-2 px-4">
                                     <span>Items</span>
-                                    <span>${order?.itemsPrice}</span>
+                                    <span>${itemsPrice}</span>
                                 </li>
                                 <li className="flex justify-between py-2 px-4">
                                     <span>Shipping</span>

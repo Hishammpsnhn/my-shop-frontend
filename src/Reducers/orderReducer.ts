@@ -14,7 +14,7 @@ const initialState: CounterState = {
     loading: false,
     error: "",
     success: false,
-    order: null
+    order: null,
 };
 
 export const counterSlice = createSlice({

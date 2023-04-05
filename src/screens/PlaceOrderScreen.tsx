@@ -6,14 +6,14 @@ import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
 import { addPrices } from "../Reducers/cartReducer";
 import { useAppDispatch } from "../hook";
-import { createOrder } from "../actions/orderAction";
+import { createOrder, getOrderDetails } from "../actions/orderAction";
 import { resetOrder } from "../Reducers/orderReducer";
 
 function PlaceOrderScreen() {
 
     const cart = useSelector((state: RootState) => state.cart);
     const orderCreate = useSelector((state: RootState) => state.order);
-    const { error, loading, success,order } = orderCreate;
+    const { error, loading, success, order } = orderCreate;
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -37,9 +37,9 @@ function PlaceOrderScreen() {
     ).toFixed(2))
 
     useEffect(() => {
-        if(success && order){
-             navigate(`/order/${order._id}`)
-             resetOrder()
+        if (success && order?._id) {
+            dispatch(getOrderDetails(order._id))
+            navigate(`/order/${order._id}`)
         }
     }, [orderCreate])
 

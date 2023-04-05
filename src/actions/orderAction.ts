@@ -41,7 +41,7 @@ export const createOrder = (order: orderItems) => async (dispatch: Dispatch, get
 
 export const getOrderDetails = (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
-        dispatch(createOrderRequest)
+        dispatch(createOrderRequest())
 
         const { user: { user } } = getState();
 
