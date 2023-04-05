@@ -70,7 +70,7 @@ export const login =
     }
   };
 
-export const logout = () => (dispatch: Dispatch) => {
+export const logout = (dispatch: Dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch(logoutUser);
   document.location.href = '/login';

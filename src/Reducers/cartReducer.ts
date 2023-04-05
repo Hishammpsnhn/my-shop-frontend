@@ -15,7 +15,7 @@ interface CounterState {
 const initialState: CounterState = {
   cartItems: JSON.parse(localStorage.getItem('cartItems')!) || [],
   shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')!) || {},
-  paymentMethod: null,
+  paymentMethod: JSON.parse(localStorage.getItem('paymentMethod')!),
   itemsPrice: 0,
   shippingPrice: 0,
   taxPrice: 0,
@@ -53,9 +53,12 @@ export const counterSlice = createSlice({
       state.shippingPrice = action.payload.shippingPrice;
       state.taxPrice = action.payload.taxPrice;
       state.totalPrice = action.payload.totalPrice;
+    },
+    cartClearItems:(state) => {
+      state.cartItems = [];
     }
   },
 });
 
-export const { addToCart, removeItemFromCart, addShippingAddress, addPrices,addPaymentMethod } = counterSlice.actions;
+export const { addToCart, removeItemFromCart, addShippingAddress, addPrices,addPaymentMethod,cartClearItems } = counterSlice.actions;
 export default counterSlice.reducer;

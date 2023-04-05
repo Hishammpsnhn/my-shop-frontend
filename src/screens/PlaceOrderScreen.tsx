@@ -6,17 +6,20 @@ import Message from "../components/Message";
 import { Link, useNavigate } from "react-router-dom";
 import { addPrices } from "../Reducers/cartReducer";
 import { useAppDispatch } from "../hook";
+import { createOrder } from "../actions/orderAction";
 
 function PlaceOrderScreen() {
 
     const cart = useSelector((state: RootState) => state.cart);
+    const order = useSelector((state: RootState) => state.order);
+    console.log(order);
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
-    if(!cart.shippingAddress){
+    if (!cart.shippingAddress) {
         navigate('/shipping')
-    }else if(!cart.paymentMethod){
+    } else if (!cart.paymentMethod) {
         navigate('/payment')
     }
 
@@ -33,11 +36,21 @@ function PlaceOrderScreen() {
     ).toFixed(2))
 
     useEffect(() => {
+
+    }, [])
+
+    const hadlePlaceOrder = (e:React.FormEvent) => {
+        e.preventDefault()
         dispatch(addPrices({ itemsPrice, shippingPrice, totalPrice, taxPrice }))
-    }, [cart])
-
-    const hadlePlaceOrder = () => {
-
+        dispatch(createOrder({
+            orderItems: cart.cartItems,
+            shippingAddress: cart.shippingAddress,
+            paymentMethod: cart.paymentMethod,
+            itemsPrice: cart.itemsPrice,
+            shippingPrice: cart.shippingPrice,
+            taxPrice: cart.taxPrice,
+            totalPrice: cart.totalPrice,
+        }))
     }
 
     return (
@@ -62,7 +75,7 @@ function PlaceOrderScreen() {
                                     <h2 className="text-2xl font-semibold text-gray-600">Payment Method</h2>
                                     <p className="text-sm">
                                         <strong>Method: </strong>
-                                        {/* {cart.paymentMethod} */}
+                                        {cart.paymentMethod}
                                     </p>
                                 </li>
 
@@ -101,7 +114,7 @@ function PlaceOrderScreen() {
                         </div>
 
 
-                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg " onSubmit={hadlePlaceOrder}>
+                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg " onSubmit={(e)=>hadlePlaceOrder(e)}>
                             <div className="bg-gray-200 rounded-t-md px-4 py-2">
                                 <h2 className="text-2xl font-semibold text-gray-600">Order Summary</h2>
                             </div>
