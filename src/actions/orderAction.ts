@@ -22,7 +22,7 @@ export const createOrder = (order: orderItems) => async (dispatch: Dispatch, get
         const { data } = await axios.post(`/api/orders`, order, config)
         console.log(data)
         dispatch(createOrderSuccess(data))
-        dispatch(cartClearItems)
+        dispatch(cartClearItems())
         localStorage.removeItem('cartItems')
 
     } catch (error: any) {

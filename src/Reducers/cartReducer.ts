@@ -3,7 +3,7 @@ import axios from 'axios';
 import { CartProduct } from '../model/cartModel';
 
 interface CounterState {
-  cartItems: Array<CartProduct>;
+  cartItems: Array<CartProduct> ;
   shippingAddress: { address: string, city: string, country: string, postalCode: number }
   paymentMethod: string ;
   itemsPrice: number,

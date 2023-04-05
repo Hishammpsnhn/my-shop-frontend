@@ -5,17 +5,21 @@ import { RootState } from "../store";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../hook";
 import { getOrderDetails } from "../actions/orderAction";
+import Loader from "../components/Loader";
+
 
 function OrderScreen() {
-    const order = useSelector((state: RootState) => state.order.order);
+    const orderDetails = useSelector((state: RootState) => state.order);
     const user = useSelector((state: RootState) => state.user.user);
-    console.log(order)
+
+    const { order, loading, error } = orderDetails;
 
     const params = useParams();
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const orderId = params.id;
+
     useEffect(() => {
         if (!user) {
             navigate('/login');
@@ -25,10 +29,13 @@ function OrderScreen() {
                 dispatch(getOrderDetails(orderId))
             }
         }
+    }, [order, orderId]);
 
-    }, [order]);
-
-    return (
+    return loading ? (
+        <Loader />
+    ) : error ? (
+        <Message type="error">{error}</Message>
+    ) : (
         <div className="w-full">
             <div className="w-[75%] m-auto">
                 <div className="px-10  text-gray-500">
@@ -51,10 +58,8 @@ function OrderScreen() {
                                         {order?.shippingAddress.postalCode},
                                         {order?.shippingAddress.city} {' '}
                                     </p>
-
                                     <Message type="error">Not Delivered</Message>
                                 </li>
-
                                 <li className="py-4">
                                     <h2 className="text-2xl font-semibold text-gray-600 pb-4">Payment Method</h2>
                                     <p className="text-sm pb-3">
@@ -62,10 +67,8 @@ function OrderScreen() {
                                     </p>
                                     <Message type="error">Not Paid</Message>
                                 </li>
-
                                 <li className="py-4">
                                     <h2 className="text-2xl font-semibold text-gray-600">Order Items</h2>
-
                                     <ul className="divide-y divide-gray-200">
                                         {order?.orderItems.map((item, index) => (
                                             <li key={index} className="py-4 flex ">
@@ -94,11 +97,7 @@ function OrderScreen() {
                                 </li>
                             </ul>
                         </div>
-
-
-                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg "
-                        // onSubmit={(e) => hadlePlaceOrder(e)}
-                        >
+                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg ">
                             <div className="bg-gray-200 rounded-t-md px-4 py-2">
                                 <h2 className="text-2xl font-semibold text-gray-600">Order Summary</h2>
                             </div>
@@ -119,22 +118,8 @@ function OrderScreen() {
                                     <span>Total</span>
                                     <span>${order?.totalPrice}</span>
                                 </li>
-                                {/* {error && (
-                            <li className="py-2 px-4">
-                                <Message variant="danger">{error}</Message>
-                            </li>
-                        )} */}
                                 <li className="py-4 px-6">
-                                    <button
-                                        type="submit"
-                                    // className={`w-full py-2 ${cart.cartItems.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-black opacity-80 hover:opacity-90'
-                                    //     } text-white rounded-md ${cart.cartItems.length === 0 ? 'cursor-not-allowed' : 'hover:shadow-lg'
-                                    //     }`}
-                                    // disabled={cart.cartItems.length === 0}
-                                    // onClick={placeOrderHandler}
-                                    >
-                                        Place Order
-                                    </button>
+                                    {/* button */}
                                 </li>
                             </ul>
                         </form>
