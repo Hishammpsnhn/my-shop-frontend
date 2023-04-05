@@ -5,7 +5,7 @@ import { CartProduct } from '../model/cartModel';
 interface CounterState {
   cartItems: Array<CartProduct>;
   shippingAddress: { address: string, city: string, country: string, postalCode: number }
-  paymentMethod: string | null;
+  paymentMethod: string ;
   itemsPrice: number,
   shippingPrice: number,
   taxPrice: number,

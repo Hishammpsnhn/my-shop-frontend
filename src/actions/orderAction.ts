@@ -5,8 +5,9 @@ import axios from "axios";
 import { userInfo } from "os";
 import { cartClearItems } from "../Reducers/cartReducer";
 import { logout } from "./userAction";
+import { orderItems } from "../model/orderModel";
 
-export const createOrder = (order: any) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const createOrder = (order: orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
         dispatch(createOrderRequest)
         const { user: { user } } = getState();
