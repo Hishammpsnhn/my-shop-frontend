@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { addShippingAddress, addToCart, removeItemFromCart } from '../Reducers/cartReducer';
+import { addPaymentMethod, addShippingAddress, addToCart, removeItemFromCart } from '../Reducers/cartReducer';
 import { Dispatch } from 'redux';
 import { RootState } from '../store';
 import { ShippingAddress } from '../model/shippingAddressModel';
@@ -39,4 +39,10 @@ export const removeItem =
     localStorage.setItem('shippingAddress', JSON.stringify(data))
     
   };
+
+  export const savePaymentMethod = (data:string) => (dispatch:Dispatch) => {
+    dispatch(addPaymentMethod(data))
+  
+    localStorage.setItem('paymentMethod', JSON.stringify(data))
+  }
 

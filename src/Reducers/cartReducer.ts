@@ -5,17 +5,17 @@ import { CartProduct } from '../model/cartModel';
 interface CounterState {
   cartItems: Array<CartProduct>;
   shippingAddress: { address: string, city: string, country: string, postalCode: number }
+  paymentMethod: string | null;
   itemsPrice: number,
   shippingPrice: number,
   taxPrice: number,
   totalPrice: number
 }
-const addDecimals = (num: number) => {
-  return (Math.round(num * 100) / 100).toFixed(2)
-}
+
 const initialState: CounterState = {
   cartItems: JSON.parse(localStorage.getItem('cartItems')!) || [],
   shippingAddress: JSON.parse(localStorage.getItem('shippingAddress')!) || {},
+  paymentMethod: null,
   itemsPrice: 0,
   shippingPrice: 0,
   taxPrice: 0,
@@ -45,11 +45,17 @@ export const counterSlice = createSlice({
     addShippingAddress: (state, action) => {
       state.shippingAddress = action.payload
     },
-    addPrices: (state) => {
-      state.itemsPrice = parseInt(addDecimals(state.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)))
+    addPaymentMethod: (state, action) => {
+      state.paymentMethod = action.payload
+    },
+    addPrices: (state, action) => {
+      state.itemsPrice = action.payload.itemsPrice;
+      state.shippingPrice = action.payload.shippingPrice;
+      state.taxPrice = action.payload.taxPrice;
+      state.totalPrice = action.payload.totalPrice;
     }
   },
 });
 
-export const { addToCart, removeItemFromCart, addShippingAddress ,addPrices} = counterSlice.actions;
+export const { addToCart, removeItemFromCart, addShippingAddress, addPrices,addPaymentMethod } = counterSlice.actions;
 export default counterSlice.reducer;

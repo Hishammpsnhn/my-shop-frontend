@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import Message from "../components/Message";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addPrices } from "../Reducers/cartReducer";
+import { useAppDispatch } from "../hook";
 
 function PlaceOrderScreen() {
-    addPrices()
-    const cart = useSelector((state: RootState) => state.cart)
-    //   Calculate prices
 
+    const cart = useSelector((state: RootState) => state.cart);
+
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+
+    if(!cart.shippingAddress){
+        navigate('/shipping')
+    }else if(!cart.paymentMethod){
+        navigate('/payment')
+    }
+
+    //   Calculate prices
     const addDecimals = (num: number) => {
         return (Math.round(num * 100) / 100).toFixed(2)
     }
 
     const itemsPrice = parseInt(addDecimals(cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)))
-    const shippingPrice = parseInt(addDecimals(cart.itemsPrice > 100 ? 0 : 100))
-    const taxPrice = parseInt(addDecimals(Number((0.15 * cart.itemsPrice).toFixed(2))))
+    const shippingPrice = parseInt(addDecimals(itemsPrice > 100 ? 0 : 100))
+    const taxPrice = parseInt(addDecimals(Number((0.15 * itemsPrice).toFixed(2))))
     const totalPrice = parseInt((
         itemsPrice + shippingPrice + taxPrice
     ).toFixed(2))
+
+    useEffect(() => {
+        dispatch(addPrices({ itemsPrice, shippingPrice, totalPrice, taxPrice }))
+    }, [cart])
+
+    const hadlePlaceOrder = () => {
+
+    }
 
     return (
         <div className="w-full">
@@ -83,7 +101,7 @@ function PlaceOrderScreen() {
                         </div>
 
 
-                        <div className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg ">
+                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg " onSubmit={hadlePlaceOrder}>
                             <div className="bg-gray-200 rounded-t-md px-4 py-2">
                                 <h2 className="text-2xl font-semibold text-gray-600">Order Summary</h2>
                             </div>
@@ -111,7 +129,7 @@ function PlaceOrderScreen() {
                                 )} */}
                                 <li className="py-4 px-6">
                                     <button
-                                        type="button"
+                                        type="submit"
                                         className={`w-full py-2 ${cart.cartItems.length === 0 ? 'bg-gray-400 cursor-not-allowed' : 'bg-black opacity-80 hover:opacity-90'
                                             } text-white rounded-md ${cart.cartItems.length === 0 ? 'cursor-not-allowed' : 'hover:shadow-lg'
                                             }`}
@@ -122,7 +140,7 @@ function PlaceOrderScreen() {
                                     </button>
                                 </li>
                             </ul>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>

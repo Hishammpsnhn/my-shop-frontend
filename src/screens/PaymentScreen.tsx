@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 import CheckoutSteps from "../components/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
+import { savePaymentMethod } from "../actions/cartAction";
+import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../hook";
 
 function PaymentScreen() {
-    const navigate = useNavigate()
+    const [paymentMethod, setPaymentMethod] = useState("PayPal")
+
+    const navigate = useNavigate();
+    const dispatch = useAppDispatch();
+
     const submitHandler = () => {
-        // dispatch(savePaymentMethod(paymentMethod))
+        dispatch(savePaymentMethod(paymentMethod))
         navigate('/placeorder')
     }
 
