@@ -1,5 +1,4 @@
 import { CartProduct } from "./cartModel";
-import { Product } from "./productModel";
 import { ShippingAddress } from "./shippingAddressModel";
 
 export interface orderItems{
@@ -10,4 +9,7 @@ export interface orderItems{
     taxPrice:number,
     shippingPrice:number,
     totalPrice:number,
+    _id?:string
+    user?:{name:string, email:string}
+  
 }

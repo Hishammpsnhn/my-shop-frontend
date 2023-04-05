@@ -7,12 +7,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { addPrices } from "../Reducers/cartReducer";
 import { useAppDispatch } from "../hook";
 import { createOrder } from "../actions/orderAction";
+import { resetOrder } from "../Reducers/orderReducer";
 
 function PlaceOrderScreen() {
 
     const cart = useSelector((state: RootState) => state.cart);
-    const order = useSelector((state: RootState) => state.order);
-    console.log(order);
+    const orderCreate = useSelector((state: RootState) => state.order);
+    const { error, loading, success,order } = orderCreate;
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
@@ -36,10 +37,13 @@ function PlaceOrderScreen() {
     ).toFixed(2))
 
     useEffect(() => {
+        if(success && order){
+             navigate(`/order/${order._id}`)
+             resetOrder()
+        }
+    }, [orderCreate])
 
-    }, [])
-
-    const hadlePlaceOrder = (e:React.FormEvent) => {
+    const hadlePlaceOrder = (e: React.FormEvent) => {
         e.preventDefault()
         dispatch(addPrices({ itemsPrice, shippingPrice, totalPrice, taxPrice }))
         dispatch(createOrder({
@@ -114,7 +118,7 @@ function PlaceOrderScreen() {
                         </div>
 
 
-                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg " onSubmit={(e)=>hadlePlaceOrder(e)}>
+                        <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg " onSubmit={(e) => hadlePlaceOrder(e)}>
                             <div className="bg-gray-200 rounded-t-md px-4 py-2">
                                 <h2 className="text-2xl font-semibold text-gray-600">Order Summary</h2>
                             </div>

@@ -20,6 +20,7 @@ export const createOrder = (order: orderItems) => async (dispatch: Dispatch, get
         }
 
         const { data } = await axios.post(`/api/orders`, order, config)
+        console.log(data)
         dispatch(createOrderSuccess(data))
         dispatch(cartClearItems)
         localStorage.removeItem('cartItems')
@@ -31,8 +32,38 @@ export const createOrder = (order: orderItems) => async (dispatch: Dispatch, get
                 : error.message
 
         if (message === 'Not authorized, token failed') {
-           logout(dispatch)
+            logout(dispatch)
         }
-         dispatch(createOrderError(message))
+        dispatch(createOrderError(message))
+    }
+}
+
+
+export const getOrderDetails = (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        dispatch(createOrderRequest)
+
+        const { user: { user } } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user?.token}`,
+            },
+        }
+
+        const { data } = await axios.get(`/api/orders/${id}`, config)
+
+        dispatch(createOrderSuccess(data))
+    } catch (error:any) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+
+        if (message === 'Not authorized, token failed') {
+            logout(dispatch)
+        }
+        dispatch(createOrderError(message))
     }
 }
