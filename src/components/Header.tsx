@@ -3,7 +3,7 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import { CgProfile } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '../actions/userAction';
 import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
@@ -14,6 +14,7 @@ function Header() {
   const [dropdown, setDropdown] = useState(false);
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   const LogginedUser = useSelector((state: RootState) => state.user);
 
@@ -64,7 +65,7 @@ function Header() {
                             <button
                               className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
                                 } block px-4 py-2 text-sm w-full text-left`}
-                            // onClick={() => history.push('/profile')}
+                             onClick={() => navigate('/profile')}
                             >
                               Profile
                             </button>

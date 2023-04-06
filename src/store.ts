@@ -5,6 +5,7 @@ import productDetailsReducer from './Reducers/productDetailsReducer';
 import cartReducer from './Reducers/cartReducer';
 import orderReducer from './Reducers/orderReducer';
 import orderPayReducer from './Reducers/orderPayReducer';
+import myOrderListReducers from './Reducers/myOrderListReducers';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     cart: cartReducer,
     order:orderReducer,
     orderPay:orderPayReducer,
+    myOrder:myOrderListReducers
   },
 });
 

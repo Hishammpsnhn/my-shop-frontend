@@ -11,6 +11,7 @@ interface UserState {
   user: User | null;
   loading: boolean;
   error: string | null;
+  updateProfile: boolean
 }
 
 const storageUser = localStorage.getItem('userInfo');
@@ -20,6 +21,7 @@ const initialState: UserState = {
   user: userInfoFromStorage,
   loading: false,
   error: null,
+  updateProfile:false,
 };
 
 const userSlice = createSlice({
@@ -38,6 +40,9 @@ const userSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    updateProfile:(state)=>{
+      state.updateProfile = true;
+    },
     logoutUser: (state) => {
       state.user = null;
     },
@@ -49,6 +54,7 @@ export const {
   registerUserfail,
   registerUserRequest,
   logoutUser,
+  updateProfile
 } = userSlice.actions;
 
 export default userSlice.reducer;

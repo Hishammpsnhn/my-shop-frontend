@@ -78,7 +78,7 @@ export const logout = (dispatch: Dispatch) => {
 };
 
 export const getUserDetails = () => async (dispatch: Dispatch, getState: () => RootState) => {
-  dispatch(registerUserRequest());
+  // dispatch(registerUserRequest());
   try {
     const { user: { user } } = getState();
 
@@ -92,6 +92,7 @@ export const getUserDetails = () => async (dispatch: Dispatch, getState: () => R
       '/api/users/profile', config
     );
     dispatch(registerUserSucess(data));
+    // dispatch(updateProfile())
     localStorage.setItem('userInfo', JSON.stringify(data));
   } catch (error: any) {
     dispatch(
