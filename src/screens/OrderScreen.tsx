@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAppDispatch } from "../hook";
-import { getOrderDetails, payOrder } from "../actions/orderAction";
+import { deliverOrder, getOrderDetails, payOrder } from "../actions/orderAction";
 import Loader from "../components/Loader";
 import { PayPalButton } from "react-paypal-button-v2";
 import axios from "axios";
@@ -16,9 +16,12 @@ function OrderScreen() {
 
     const orderDetails = useSelector((state: RootState) => state.order);
     const { order, loading, error } = orderDetails;
-    const user = useSelector((state: RootState) => state.user.user);
+
+
     const orderPay = useSelector((state: RootState) => state.orderPay);
     const { loading: loadingPay, success: successPay } = orderPay
+
+    const user = useSelector((state: RootState) => state.user.user);
 
     const params = useParams();
     const navigate = useNavigate()
@@ -61,8 +64,15 @@ function OrderScreen() {
     }, [order, orderId, dispatch]);
 
     const successPaymentHandler = (paymentResult: any) => {
-        console.log(paymentResult)
-        dispatch(payOrder(orderId, paymentResult))
+        if (orderId) {
+            dispatch(payOrder(orderId, paymentResult))
+        }
+    }
+
+    const deliverHandler = () => {
+        if (order) {
+            dispatch(deliverOrder(order))
+        }
     }
 
     return loading ? (
@@ -92,14 +102,21 @@ function OrderScreen() {
                                         {order?.shippingAddress.postalCode},
                                         {order?.shippingAddress.city} {' '}
                                     </p>
-                                    <Message type="error">Not Delivered</Message>
+                                    {order?.isDelivered && order?.deliveredAt ? (
+                                        <Message type="info">Delivered on {order?.deliveredAt} </Message>
+                                    ) : (
+                                        <Message type="error">Not Delivered</Message>
+                                    )
+                                    }
                                 </li>
                                 <li className="py-4">
                                     <h2 className="text-2xl font-semibold text-gray-600 pb-4">Payment Method</h2>
                                     <p className="text-sm pb-3">
                                         <strong>Method: {order?.paymentMethod}</strong>
                                     </p>
-                                    <Message type="error">Not Paid</Message>
+                                    {!order?.isPaid &&
+                                        <Message type="error">Not Paid</Message>
+                                    }
                                 </li>
                                 <li className="py-4">
                                     <h2 className="text-2xl font-semibold text-gray-600">Order Items</h2>
@@ -164,8 +181,25 @@ function OrderScreen() {
                                                     onSuccess={successPaymentHandler}
                                                 />
                                             )}
+
                                         </div>
                                     )}
+                                    {loading && <Loader />}
+                                    {user &&
+                                        user?.isAdmin &&
+                                        order?.isPaid &&
+                                        !order?.isDelivered && (
+                                            <li>
+                                                <button
+                                                    type='button'
+                                                    className='bg-black w-full p-2.5 text-white text-center hover:bg-slate-800'
+                                                    onClick={deliverHandler}
+                                                >
+                                                    Mark As Delivered
+                                                </button>
+                                            </li>
+                                        )}
+
                                 </li>
                             </ul>
                         </form>

@@ -69,7 +69,7 @@ export const getOrderDetails = (id: string) => async (dispatch: Dispatch, getSta
     }
 }
 
-export const payOrder = (orderId:any, paymentResult:any) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const payOrder = (orderId:string, paymentResult:any) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
         dispatch(orderPayRequest())
 
@@ -99,5 +99,38 @@ export const payOrder = (orderId:any, paymentResult:any) => async (dispatch: Dis
             logout(dispatch)
         }
         dispatch(orderPayFail(message))
+    }
+}
+
+export const deliverOrder = (order:orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        dispatch(createOrderRequest())
+
+        const { user: { user } } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user?.token}`,
+            },
+        }
+        const { data } = await axios.put(
+            `/api/orders/${order?._id}/deliver`,
+            order,
+            config
+          )
+      
+
+        dispatch(createOrderSuccess(data))
+    } catch (error:any) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+
+        if (message === 'Not authorized, token failed') {
+            logout(dispatch)
+        }
+        dispatch(createOrderError(message))
     }
 }

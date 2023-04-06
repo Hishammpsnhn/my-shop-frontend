@@ -15,7 +15,7 @@ const initialState: CounterState = {
 };
 
 export const productDetails = createSlice({
-    name: 'productsDetails',
+    name: 'orderPay',
     initialState,
     reducers: {
         orderPayRequest: (state) => {

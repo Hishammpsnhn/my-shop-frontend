@@ -13,7 +13,7 @@ export const store = configureStore({
     productDetails: productDetailsReducer,
     cart: cartReducer,
     order:orderReducer,
-    orderPay:orderPayReducer
+    orderPay:orderPayReducer,
   },
 });
 
