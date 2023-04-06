@@ -11,5 +11,6 @@ export interface orderItems{
     totalPrice:number,
     _id?:string
     user?:{name:string, email:string}
+    isPaid?:boolean
   
 }

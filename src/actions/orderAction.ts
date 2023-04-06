@@ -6,6 +6,7 @@ import { userInfo } from "os";
 import { cartClearItems } from "../Reducers/cartReducer";
 import { logout } from "./userAction";
 import { orderItems } from "../model/orderModel";
+import { orderPayFail, orderPayRequest, orderPaySuccess } from "../Reducers/orderPayReducer";
 
 export const createOrder = (order: orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
@@ -65,5 +66,38 @@ export const getOrderDetails = (id: string) => async (dispatch: Dispatch, getSta
             logout(dispatch)
         }
         dispatch(createOrderError(message))
+    }
+}
+
+export const payOrder = (orderId:any, paymentResult:any) => async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        dispatch(orderPayRequest())
+
+        const { user: { user } } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user?.token}`,
+            },
+        }
+        const { data } = await axios.put(
+            `/api/orders/${orderId}/pay`,
+            paymentResult,
+            config
+          )
+      
+
+        dispatch(orderPaySuccess(data))
+    } catch (error:any) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+
+        if (message === 'Not authorized, token failed') {
+            logout(dispatch)
+        }
+        dispatch(orderPayFail(message))
     }
 }
