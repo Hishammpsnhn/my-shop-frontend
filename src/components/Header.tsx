@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import { CgProfile } from 'react-icons/cg';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -7,6 +8,7 @@ import { logout } from '../actions/userAction';
 import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
 import SearchBox from './SearchBox';
+import { Menu, Transition } from '@headlessui/react';
 
 function Header() {
   const [dropdown, setDropdown] = useState(false);
@@ -32,24 +34,59 @@ function Header() {
             </Link>
           </i>
           {LogginedUser.user ? (
-            <p
-              onClick={() => setDropdown((prev) => !prev)}
-              className=" ml-1 flex items-center uppercase"
-            >
-              {LogginedUser.user.name}
-              <svg
-                className="-mr-1 h-5 w-5 text-gray-400"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                aria-hidden="true"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
-                  clipRule="evenodd"
-                />
-              </svg>
-            </p>
+            <Menu>
+              {({ open }) => (
+                <>
+                  <Menu.Button className="flex items-center">
+                    <CgProfile />
+                    <div className="mr-2 ml-1 items-center text-center uppercase flex">
+                      {LogginedUser.user?.name}
+                    </div>
+                    <IoMdArrowDropdown />
+                  </Menu.Button>
+
+                  <Transition
+                    show={open}
+                    enter="transition ease-out duration-100"
+                    enterFrom="transform opacity-0 scale-95"
+                    enterTo="transform opacity-100 scale-100"
+                    leave="transition ease-in duration-75"
+                    leaveFrom="transform opacity-100 scale-100"
+                    leaveTo="transform opacity-0 scale-95"
+                  >
+                    <Menu.Items
+                      static
+                      className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    >
+                      <div className="py-1">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                                } block px-4 py-2 text-sm w-full text-left`}
+                            // onClick={() => history.push('/profile')}
+                            >
+                              Profile
+                            </button>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <button
+                              className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
+                                } block px-4 py-2 text-sm w-full text-left`}
+                              onClick={() => logout(dispatch)}
+                            >
+                              Logout
+                            </button>
+                          )}
+                        </Menu.Item>
+                      </div>
+                    </Menu.Items>
+                  </Transition>
+                </>
+              )}
+            </Menu>
           ) : (
             <Link to={`/register`}>
               <i className="flex items-center  hover:opacity-50 cursor-pointer">
@@ -58,26 +95,9 @@ function Header() {
               </i>
             </Link>
           )}
-          {dropdown && (
-            <div
-              onClick={() => setDropdown(false)}
-              className="absolute right-5 top-14 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
-              role="menu"
-              aria-orientation="vertical"
-              aria-labelledby="menu-button"
-            >
-              <div className="py-1" role="none">
-                <button
-                  onClick={() => logout(dispatch)}
-                  className="text-gray-700 block w-full px-4 py-2 text-left text-sm"
-                  role="menuitem"
-                  id="menu-item-3"
-                >
-                  Log out
-                </button>
-              </div>
-            </div>
-          )}
+          <div className="relative inline-block text-left">
+
+          </div>
         </div>
       </div>
     </div>
