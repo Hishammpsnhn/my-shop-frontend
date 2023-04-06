@@ -6,8 +6,12 @@ import { useAppDispatch } from '../hook';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { Link, useParams } from 'react-router-dom';
+import Message from '../components/Message';
 
 function HomeScreen() {
+  const state = useSelector((state: RootState) => state.product);
+  const { error } = state;
+
   const dispatch = useAppDispatch();
   const params = useParams();
 
@@ -24,7 +28,9 @@ function HomeScreen() {
         >
           GO BACK
         </Link>
-      ) : (
+      ) : error?(
+        <Message type='error'>{error}</Message>
+      ): (
         <Carousal />
       )}
       <Cards />

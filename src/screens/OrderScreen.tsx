@@ -16,7 +16,6 @@ function OrderScreen() {
 
     const orderDetails = useSelector((state: RootState) => state.order);
     const { order, loading, error } = orderDetails;
-    console.log(orderDetails)
 
     const orderPay = useSelector((state: RootState) => state.orderPay);
     const { loading: loadingPay, success: successPay } = orderPay

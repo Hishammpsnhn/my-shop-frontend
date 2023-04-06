@@ -7,8 +7,8 @@ import { useAppDispatch } from "../hook";
 import Message from "../components/Message";
 import Loader from "../components/Loader";
 import { listMyOrders } from "../actions/orderAction";
-import {RxCross2} from 'react-icons/rx'
-import {MdDone} from 'react-icons/md'
+import { RxCross2 } from 'react-icons/rx'
+import { MdDone } from 'react-icons/md'
 function ProfileScreen() {
 
   const [name, setName] = useState('')
@@ -136,7 +136,9 @@ function ProfileScreen() {
           <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
               <div className="overflow-hidden">
-                {myOrderLoading ? (<Loader />) : (
+                {myOrderLoading ? (<Loader />) : myOrdererror ? (
+                  <Message type="error">{error}</Message>
+                ) : (
                   <table className="min-w-full text-left text-sm font-light">
                     <thead
                       className=" border border-gray-300 bg-white font-medium">
@@ -150,15 +152,15 @@ function ProfileScreen() {
                       </tr>
                     </thead>
                     <tbody>
-                      {orders?.map((order,i) => (
+                      {orders?.map((order, i) => (
                         <tr
-                        key={i}
-                          className={`border  border-gray-300 ${i % 2 === 0 ? "bg-gray-200":"bg-white hover:bg-gray-200" }  `}>
-                          <td className="whitespace-nowrap px-6 py-4 font-medium">{i+1}</td>
+                          key={i}
+                          className={`border  border-gray-300 ${i % 2 === 0 ? "bg-gray-200" : "bg-white hover:bg-gray-200"}  `}>
+                          <td className="whitespace-nowrap px-6 py-4 font-medium">{i + 1}</td>
                           <td className="whitespace-nowrap px-6 py-4">{order._id}</td>
                           <td className="whitespace-nowrap px-6 py-4">{order.totalPrice}</td>
-                          <td className={`whitespace-nowrap px-6 py-4 ${order.isPaid ?"text-green-400" : "text-red-400"} font-bold text-lg`}>{order.isPaid ? <MdDone/>: <RxCross2/> }</td>
-                          <td className={`whitespace-nowrap px-6 py-4 ${order.isDelivered ?"text-green-400" : "text-red-400"} font-bold text-lg`}>{order.isDelivered ? <MdDone/>: <RxCross2/> }</td>
+                          <td className={`whitespace-nowrap px-6 py-4 ${order.isPaid ? "text-green-400" : "text-red-400"} font-bold text-lg`}>{order.isPaid ? <MdDone /> : <RxCross2 />}</td>
+                          <td className={`whitespace-nowrap px-6 py-4 ${order.isDelivered ? "text-green-400" : "text-red-400"} font-bold text-lg`}>{order.isDelivered ? <MdDone /> : <RxCross2 />}</td>
                           <td className="whitespace-nowrap px-6 py-4">
                             <Link to={`/order/${order._id}`} className="bg-white p-2 font-normal hover:bg-slate-200">DETAILS</Link>
                           </td>
