@@ -17,7 +17,7 @@ const data = [
 ];
 function Carousal() {
   return (
-    <div className="w-[90%] m-auto p-10 ">
+    <div className="w-[90%] m-auto p-10  relative z-[-1]">
       <Carousel autoPlay showThumbs={false}>
         {data.map(({ image, name }, i) => (
           <div key={i} className="bg-gray-700 p-5 rounded">

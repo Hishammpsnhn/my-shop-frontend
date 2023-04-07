@@ -7,6 +7,7 @@ import orderReducer from './Reducers/orderReducer';
 import orderPayReducer from './Reducers/orderPayReducer';
 import myOrderListReducers from './Reducers/myOrderListReducers';
 import ReviewReducer from './Reducers/ReviewReducer';
+import usersListReducers from './Reducers/usersListReducers';
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
     order:orderReducer,
     orderPay:orderPayReducer,
     myOrder:myOrderListReducers,
-    review:ReviewReducer
+    review:ReviewReducer,
+    usersList:usersListReducers,
   },
 });
 

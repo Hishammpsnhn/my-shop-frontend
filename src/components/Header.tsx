@@ -9,6 +9,7 @@ import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
 import SearchBox from './SearchBox';
 import { Menu, Transition } from '@headlessui/react';
+import { userInfo } from 'os';
 
 function Header() {
   const [dropdown, setDropdown] = useState(false);
@@ -16,7 +17,8 @@ function Header() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const LogginedUser = useSelector((state: RootState) => state.user);
+  const user = useSelector((state: RootState) => state.user);
+  const { user: userInfo } = user
 
   return (
     <div className=" bg-gray-700 mb-10">
@@ -34,14 +36,14 @@ function Header() {
               CART
             </Link>
           </i>
-          {LogginedUser.user ? (
+          {userInfo ? (
             <Menu>
               {({ open }) => (
                 <>
                   <Menu.Button className="flex items-center">
                     <CgProfile />
                     <div className="mr-2 ml-1 items-center text-center uppercase flex">
-                      {LogginedUser.user?.name}
+                      {userInfo?.name}
                     </div>
                     <IoMdArrowDropdown />
                   </Menu.Button>
@@ -60,28 +62,66 @@ function Header() {
                       className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
                     >
                       <div className="py-1">
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                                } block px-4 py-2 text-sm w-full text-left`}
-                             onClick={() => navigate('/profile')}
-                            >
-                              Profile
-                            </button>
-                          )}
-                        </Menu.Item>
-                        <Menu.Item>
-                          {({ active }) => (
-                            <button
-                              className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'
-                                } block px-4 py-2 text-sm w-full text-left`}
-                              onClick={() => logout(dispatch)}
-                            >
-                              Logout
-                            </button>
-                          )}
-                        </Menu.Item>
+                        {userInfo && (
+                          <>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <button
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                  onClick={() => navigate('/profile')}
+                                >
+                                  Profile
+                                </button>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <button
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                  onClick={() => logout(dispatch)}
+                                >
+                                  Logout
+                                </button>
+                              )}
+                            </Menu.Item>
+                          </>
+                        )}
+                        {userInfo && userInfo?.isAdmin && (
+                          <>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link to={"/admin/userlist"}
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+
+                                >
+                                  Users
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link
+                                  to={""}
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+
+                                >
+                                  Products
+                                </Link>
+                              )}
+                            </Menu.Item>
+                            <Menu.Item>
+                              {({ active }) => (
+                                <Link to={""}
+                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                  onClick={() => logout(dispatch)}
+                                >
+                                  Order
+                                </Link>
+                              )}
+                            </Menu.Item>
+                          </>
+                        )}
+
                       </div>
                     </Menu.Items>
                   </Transition>

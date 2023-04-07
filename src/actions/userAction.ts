@@ -7,6 +7,7 @@ import {
   registerUserSucess,
 } from '../Reducers/userReducer';
 import { RootState } from '../store';
+import { userDeleteSuccess, userListError, userListSucces, usersListRequest } from '../Reducers/usersListReducers';
 
 type Props = {
   name?: String;
@@ -82,12 +83,12 @@ export const getUserDetails = () => async (dispatch: Dispatch, getState: () => R
   try {
     const { user: { user } } = getState();
 
-        const config = {
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${user?.token}`,
-            },
-        }
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }
     const { data } = await axios.get(
       '/api/users/profile', config
     );
@@ -104,29 +105,83 @@ export const getUserDetails = () => async (dispatch: Dispatch, getState: () => R
     );
   }
 }
-export const updateUserProfile = ({name,email,password}:Props) => async (dispatch:Dispatch,  getState: () => RootState) => {
-    dispatch(registerUserRequest());
-    try {
-      const { user: { user } } = getState();
+export const updateUserProfile = ({ name, email, password }: Props) => async (dispatch: Dispatch, getState: () => RootState) => {
+  dispatch(registerUserRequest());
+  try {
+    const { user: { user } } = getState();
 
-      const config = {
-          headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${user?.token}`,
-          },
-      }
-        const { data } = await axios.put(
-          `/api/users/profile`,{email,name,password},config
-        )
-      dispatch(registerUserSucess(data));
-      localStorage.setItem('userInfo', JSON.stringify(data));
-    } catch (error: any) {
-      dispatch(
-        registerUserfail(
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message
-        )
-      );
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${user?.token}`,
+      },
     }
+    const { data } = await axios.put(
+      `/api/users/profile`, { email, name, password }, config
+    )
+    dispatch(registerUserSucess(data));
+    localStorage.setItem('userInfo', JSON.stringify(data));
+  } catch (error: any) {
+
   }
+}
+
+export const DeleteUser = (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  try {
+    dispatch(registerUserRequest());
+
+    const { user: { user } } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }
+
+    await axios.delete(`/api/users/${id}`, config)
+    dispatch(userDeleteSuccess())
+
+    // dispatch()
+  } catch (error: any) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+
+    if (message === 'Not authorized, token failed') {
+      logout(dispatch)
+    }
+    dispatch(userListError(message))
+  }
+
+
+}
+
+export const listUsers = () => async (dispatch: Dispatch, getState: () => RootState) => {
+  try {
+    dispatch(usersListRequest())
+
+    const { user: { user } } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/api/users`, config)
+
+    dispatch(userListSucces(data))
+  } catch (error: any) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+
+    if (message === 'Not authorized, token failed') {
+      logout(dispatch)
+    }
+    dispatch(userListError(message))
+  }
+
+}
