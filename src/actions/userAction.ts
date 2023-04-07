@@ -7,7 +7,7 @@ import {
   registerUserSucess,
 } from '../Reducers/userReducer';
 import { RootState } from '../store';
-import { userDeleteSuccess, userListError, userListSucces, usersListRequest } from '../Reducers/usersListReducers';
+import { userDeleteSuccess, userEditSuccess, userListError, userListSucces, usersListRequest } from '../Reducers/usersListReducers';
 
 type Props = {
   name?: String;
@@ -172,6 +172,35 @@ export const listUsers = () => async (dispatch: Dispatch, getState: () => RootSt
     const { data } = await axios.get(`/api/users`, config)
 
     dispatch(userListSucces(data))
+  } catch (error: any) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+
+    if (message === 'Not authorized, token failed') {
+      logout(dispatch)
+    }
+    dispatch(userListError(message))
+  }
+
+}
+
+export const EditUser = (id:string) => async (dispatch: Dispatch, getState: () => RootState) => {
+  try {
+    dispatch(usersListRequest())
+
+    const { user: { user } } = getState()
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${user?.token}`,
+      },
+    }
+
+     await axios.get(`/api/users/${id}`, config)
+
+    dispatch(userEditSuccess())
   } catch (error: any) {
     const message =
       error.response && error.response.data.message

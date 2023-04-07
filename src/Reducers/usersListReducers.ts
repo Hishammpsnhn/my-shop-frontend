@@ -14,13 +14,15 @@ interface CounterState {
     error: String;
     usersList: Array<User>;
     deleteUserSuccess: boolean;
+    userEditSuccess: boolean;
 
 }
 const initialState: CounterState = {
     loading: false,
     error: "",
     usersList: [],
-    deleteUserSuccess: false
+    deleteUserSuccess: false,
+    userEditSuccess: false
 };
 
 export const counterSlice = createSlice({
@@ -41,13 +43,17 @@ export const counterSlice = createSlice({
         userDeleteSuccess: (state) => {
             state.loading = false;
             state.deleteUserSuccess = true;
+        },
+        userEditSuccess:(state)=>{
+            state.loading = false
+            state.userEditSuccess = true;
         }
 
 
     },
 });
 
-export const { userListError, usersListRequest, userListSucces, userDeleteSuccess } = counterSlice.actions;
+export const { userListError, usersListRequest, userListSucces, userDeleteSuccess,userEditSuccess } = counterSlice.actions;
 export default counterSlice.reducer;
 
 

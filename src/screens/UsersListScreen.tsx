@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { useAppDispatch } from "../hook";
 import { Link, useNavigate } from "react-router-dom";
-import { DeleteUser, listUsers } from "../actions/userAction";
+import { DeleteUser, EditUser, listUsers } from "../actions/userAction";
 import { AiFillCheckCircle, AiFillEdit } from "react-icons/ai";
 import Loader from "../components/Loader";
 import { FaTimesCircle } from "react-icons/fa";
@@ -13,24 +13,32 @@ import Message from "../components/Message";
 function UsersListScreen() {
     const userInfo = useSelector((state: RootState) => state.user.user);
     const usersListDetails = useSelector((state: RootState) => state.usersList);
-    const { usersList, loading, error, deleteUserSuccess } = usersListDetails
+    const { usersList, loading, error, deleteUserSuccess, userEditSuccess } = usersListDetails
 
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log(userInfo, userInfo?.isAdmin)
         if (userInfo && userInfo.isAdmin) {
             dispatch(listUsers())
         } else {
             navigate('/login')
 
         }
-    }, [dispatch, userInfo, navigate, deleteUserSuccess]);
+    }, [dispatch, userInfo, navigate, deleteUserSuccess, userEditSuccess]);
 
     const deleteHanlder = (id: string) => {
         if (window.confirm('Are you sure you want to delete')) {
             dispatch(DeleteUser(id))
+        }
+    }
+    const handleEdit = (id: string, name: string, isAdmin: boolean) => {
+        if (!isAdmin) {
+            if (window.confirm(`Are you sure you want to the ${name} as Admin`)) {
+                dispatch(EditUser(id))
+            }
+        }else{
+            alert("you are already a admin")
         }
     }
 
@@ -65,7 +73,7 @@ function UsersListScreen() {
                                     <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
                                     <td className={`whitespace-nowrap px-6 py-4 ${user.isAdmin ? "text-green-400" : "text-red-400"} font-bold text-lg`}>{user.isAdmin ? <AiFillCheckCircle /> : <FaTimesCircle />}</td>
                                     <td className="whitespace-nowrap px-6 py-4 flex">
-                                        <Link to={``} className="mr-5 hover:opacity-70"><AiFillEdit /></Link>
+                                        <button onClick={() => handleEdit(user._id, user.name, user.isAdmin)} className="mr-5 hover:opacity-70"><AiFillEdit /></button>
                                         <button onClick={() => deleteHanlder(user._id)} className="ml-5 text-red-600 hover:opacity-70"><BsTrashFill /></button>
                                     </td>
                                 </tr>
