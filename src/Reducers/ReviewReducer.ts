@@ -2,37 +2,43 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { CartProduct } from '../model/cartModel';
 import { orderItems } from '../model/orderModel';
+import { stat } from 'fs';
 
 interface CounterState {
     loading: Boolean;
     error: String ;
-    orders: [orderItems]|[];
+    success:boolean
 }
 const initialState: CounterState = {
     loading: false,
     error: "",
-    orders: [],
+    success: false
 };
 
 export const counterSlice = createSlice({
-    name: 'order',
+    name: 'review',
     initialState,
     reducers: {
-        myOrderRequest: (state) => {
+        addReviewRequest: (state) => {
             state.loading = true;
         },
-        myOrderSuccess: (state,action) => {
+        addReviewSucces: (state) => {
             state.loading = false;
-            state.orders = action.payload
+            state.success = true;
         },
-        myOrderError: (state,action) => {
+        addReviewError: (state,action) => {
             state.error = action.payload;
             state.loading = false;
+        }, 
+        reviewReset: (state) => {
+            state.error = ""
+            state.loading = false;
+            state.success = false;
         },
-        
+       
 
     },
 });
 
-export const {myOrderError,myOrderRequest,myOrderSuccess} = counterSlice.actions;
+export const {addReviewError,addReviewRequest,addReviewSucces,reviewReset} = counterSlice.actions;
 export default counterSlice.reducer;

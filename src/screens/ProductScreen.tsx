@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import Rating from '../components/cards/Rating';
-import { listProductDetails } from '../actions/productAction';
+import { createProductReview, listProductDetails } from '../actions/productAction';
 import { useAppDispatch } from '../hook';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Loader from '../components/Loader';
+import Review from '../components/Review';
+import Message from '../components/Message';
+import { reviewReset } from '../Reducers/ReviewReducer';
 
 function ProductScreen() {
   const [qty, setQty] = useState(1);
+  const [rating, setRating] = useState(0)
+  const [comment, setComment] = useState('')
 
   const params = useParams();
   const dispatch = useAppDispatch();
@@ -20,7 +25,8 @@ function ProductScreen() {
   const loading = useSelector(
     (state: RootState) => state.productDetails.loading
   );
-  // const productDetails = useSelector((state: RootState) => state.productDetails.productDetails)
+  const reviewDetails = useSelector((state: RootState) => state.review)
+  const { error, loading: reviewLoading, success } = reviewDetails
 
   const quantityOptions = Array.from(
     { length: productDetails?.countInStock || 0 },
@@ -28,10 +34,18 @@ function ProductScreen() {
   );
 
   useEffect(() => {
-    if (params.id && params.id !== productDetails?._id) {
-      dispatch(listProductDetails(params.id));
+    if(success){
+      setRating(0)
+      setComment("")
     }
-  }, [params]);
+    if (params.id || params.id !== productDetails?._id) {
+      if(params.id){
+        dispatch(listProductDetails(params.id));
+      }
+      dispatch(reviewReset())
+
+    }
+  }, [params,success,dispatch]);
 
   const addtoCartHandler = () => {
     if (
@@ -42,6 +56,13 @@ function ProductScreen() {
       navigate(`/cart/${params.id}?qty=${qty}`);
     }
   };
+
+  const submitHandler = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (params.id) {
+      dispatch(createProductReview(params.id, { rating, comment }))
+    }
+  }
 
   return (
     <div className="mx-40">
@@ -54,26 +75,73 @@ function ProductScreen() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-4 gap-2">
-          <div className="col-span-2 m-auto">
+        <div className="grid grid-cols-4 gap-2 i">
+          <div className="col-span-2 ">
             <img
-              className="p-5 w-[500px] h-[500px]"
+              className="py-5 w-[500px] h-[500px]"
               src={productDetails?.image}
               alt="images"
             />
+            <div>
+              <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest">REVIEWS</h2>
+              <div className='divide-y'>
+                {productDetails && productDetails?.reviews.map((review) => (
+                  <Review createdAt={review.createdAt} name={review.name} comment={review.comment} rating={review.rating} />
+                ))}
+              </div>
+              <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest ">WRITE A CUSTOMER REVIEW</h2>
+              {
+                reviewLoading ? (<Loader />) : (
+                  error ? (<Message type='error'>{error}</Message>) : (
+                    <div>
+                      <form className='text-gray-500' onSubmit={(e) => submitHandler(e)}>
+                        <div className="mb-4">
+                          <label className="block  text-sm font-bold mb-2">
+                            Rating
+                          </label>
+                          <select className="shadow  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                            onChange={(e) => setRating(Number(e.target.value))}
+                            defaultValue={rating}
+                          >
+                            <option value='0' disabled >select...</option>
+                            <option value='1'>1 - Poor</option>
+                            <option value='2'>2 - Fair</option>
+                            <option value='3'>3 - Good</option>
+                            <option value='4'>4 - Very Good</option>
+                            <option value='5'>5 - Excellent</option>
+                          </select>
+                        </div>
+                        <label className="block text-sm font-bold mb-2">
+                          Comment
+                        </label>
+                        <textarea
+                          className=" block mb-5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                          id="commet"
+                          rows={3}
+                          value={comment}
+                          onChange={(e) => setComment(e.target.value)}
+                        />
+                        <button type='submit' className='bg-black py-3 px-5  text-white tracking-wider mb-5'>SUBMIT</button>
+                      </form>
+                    </div>
+                  )
+                )
+              }
+
+            </div>
           </div>
           <div className=" flex col-span-2 divide-y  justify-between">
-            <div className="w-[45%] ">
-              <div className="divide-y">
-                <h4 className="uppercase text-gray-500 text-5xl font-sans py-5">
+            <div className="w-[45%] text-gray-500">
+              <div className="divide-y ">
+                <h4 className="uppercase  text-3xl font-sans py-5 tracking-widest">
                   {productDetails?.name}
                 </h4>
-                <div className="divide-y">
+                <div className="divide-y ">
                   <Rating rating={5} color="orange" reviewCount={5} />
                   <p className="py-2">Price: {productDetails?.price} </p>
                 </div>
               </div>
-              <div>{productDetails?.description}</div>
+              <div>Description: {productDetails?.description}</div>
             </div>
             <div className="w-[45%]">
               <div className="relative overflow-x-auto shadow sm:rounded-lg">
@@ -96,8 +164,8 @@ function ProductScreen() {
                       </td>
                     </tr>
                     {productDetails &&
-                    productDetails.countInStock &&
-                    productDetails.countInStock > 0 ? (
+                      productDetails.countInStock &&
+                      productDetails.countInStock > 0 ? (
                       <tr className="border-b">
                         <th scope="row" className="px-6 py-4 font-medium">
                           Qty
@@ -106,6 +174,7 @@ function ProductScreen() {
                           <select
                             defaultValue={qty}
                             className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200"
+                            onChange={(e) => setQty(Number(e.target.value))}
                           >
                             {quantityOptions.map((value) => (
                               <option key={value} value={value}>
@@ -121,13 +190,12 @@ function ProductScreen() {
                   </tbody>
                 </table>
                 <button
-                  className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${
-                    productDetails &&
+                  className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${productDetails &&
                     productDetails.countInStock &&
                     productDetails.countInStock > 0
-                      ? ''
-                      : 'cursor-not-allowed opacity-80'
-                  }`}
+                    ? ''
+                    : 'cursor-not-allowed opacity-80'
+                    }`}
                   onClick={addtoCartHandler}
                 >
                   ADD TO CART
@@ -136,8 +204,10 @@ function ProductScreen() {
             </div>
           </div>
         </div>
-      )}
-    </div>
+      )
+      }
+
+    </div >
   );
 }
 

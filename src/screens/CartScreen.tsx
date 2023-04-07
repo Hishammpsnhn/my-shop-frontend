@@ -50,11 +50,12 @@ function CartScreen() {
           <div>
             {cartItems.map((cart) => (
               <CartScreenitem
+                key={cart.id}
                 id={cart.id}
                 name={cart.name}
                 image={cart.image}
                 price={cart.price}
-                qty={cart.qty}
+                qty={qty}
                 handleRemoveItem={handleRemoveItem}
                 countInStock={cart.countInStock}
               />
@@ -107,6 +108,8 @@ const CartScreenitem = ({
   handleRemoveItem,
 }: Props) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const quantityOptions = Array.from(
     { length: countInStock },
     (_, index) => Number(index) + 1
@@ -115,7 +118,7 @@ const CartScreenitem = ({
   return (
     <div key={id} className="ml-10 flex justify-between text-gray-500 mt-5">
       <img className="w-20 h-20" src={image} alt="image" />
-      <p className="w-[25%] hover:underline cursor-pointer">{name}</p>
+      <p onClick={() => navigate(`/product/${id}`)} className="w-[25%] hover:underline cursor-pointer">{name}</p>
       <p>$ {price}</p>
       <select
         defaultValue={qty}

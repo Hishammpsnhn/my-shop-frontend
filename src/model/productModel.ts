@@ -6,9 +6,15 @@ export interface Product {
   brand: string;
   category: string;
   description: string;
-  reviews: [];
+  reviews:Array<ReviewModal>;
   rating: number;
   numReviews: number;
   price: number;
   countInStock: number;
+}
+export interface ReviewModal {
+  name: string;
+  rating:number;
+  comment:string;
+  createdAt:string;
 }

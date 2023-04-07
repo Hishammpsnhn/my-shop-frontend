@@ -154,7 +154,6 @@ export const listMyOrders = () => async (dispatch: Dispatch, getState: () => Roo
             `/api/orders/myorders`,
             config
           )
-            console.log("data",data)
         dispatch(myOrderSuccess(data))
     } catch (error:any) {
         const message =

@@ -1,7 +1,7 @@
 import React from 'react';
 interface Props {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
   color: string;
 }
 const Rating = ({ rating, reviewCount, color }: Props) => {
@@ -14,8 +14,8 @@ const Rating = ({ rating, reviewCount, color }: Props) => {
             rating >= 1
               ? 'fas fa-star'
               : rating >= 0.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
           }
         ></i>
       </span>
@@ -26,8 +26,8 @@ const Rating = ({ rating, reviewCount, color }: Props) => {
             rating >= 2
               ? 'fas fa-star'
               : rating >= 1.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
           }
         ></i>
       </span>
@@ -38,8 +38,8 @@ const Rating = ({ rating, reviewCount, color }: Props) => {
             rating >= 3
               ? 'fas fa-star'
               : rating >= 2.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
           }
         ></i>
       </span>
@@ -50,8 +50,8 @@ const Rating = ({ rating, reviewCount, color }: Props) => {
             rating >= 4
               ? 'fas fa-star'
               : rating >= 3.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
           }
         ></i>
       </span>
@@ -62,12 +62,14 @@ const Rating = ({ rating, reviewCount, color }: Props) => {
             rating >= 5
               ? 'fas fa-star'
               : rating >= 4.5
-              ? 'fas fa-star-half-alt'
-              : 'far fa-star'
+                ? 'fas fa-star-half-alt'
+                : 'far fa-star'
           }
         ></i>
       </span>
-      <span>{reviewCount} reviews</span>
+      {reviewCount && (
+        <span>{reviewCount} reviews</span>
+      )}
     </div>
   );
 };
