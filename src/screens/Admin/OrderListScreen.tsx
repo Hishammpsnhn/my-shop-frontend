@@ -19,7 +19,6 @@ function OrderListScreen() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(userInfo);
     if (userInfo && userInfo.isAdmin) {
       dispatch(listAllOrders());
     } else {
