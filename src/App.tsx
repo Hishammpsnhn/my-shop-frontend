@@ -19,7 +19,6 @@ function App() {
     <BrowserRouter>
       <Header />
 
-
       <Routes>
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/login" element={<LoginScreen />} />
@@ -32,12 +31,9 @@ function App() {
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
         <Route path="/order/:id" element={<OrderScreen />} />
         <Route path="/" element={<HomeScreen />} />
-
         <Route path="/admin/userlist" element={<UsersListScreen />} />
-        <Route path="/admin/orderslist" element={<OrderListScreen />} />
-d
+        <Route path="/admin/orderslist" element={<OrderListScreen />} />d
       </Routes>
-
     </BrowserRouter>
   );
 }

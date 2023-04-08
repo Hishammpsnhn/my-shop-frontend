@@ -3,13 +3,18 @@ import axios from 'axios';
 import { CartProduct } from '../model/cartModel';
 
 interface CounterState {
-  cartItems: Array<CartProduct> ;
-  shippingAddress: { address: string, city: string, country: string, postalCode: number }
-  paymentMethod: string ;
-  itemsPrice: number,
-  shippingPrice: number,
-  taxPrice: number,
-  totalPrice: number
+  cartItems: Array<CartProduct>;
+  shippingAddress: {
+    address: string;
+    city: string;
+    country: string;
+    postalCode: number;
+  };
+  paymentMethod: string;
+  itemsPrice: number;
+  shippingPrice: number;
+  taxPrice: number;
+  totalPrice: number;
 }
 
 const initialState: CounterState = {
@@ -19,7 +24,7 @@ const initialState: CounterState = {
   itemsPrice: 0,
   shippingPrice: 0,
   taxPrice: 0,
-  totalPrice: 0
+  totalPrice: 0,
 };
 
 export const counterSlice = createSlice({
@@ -43,10 +48,10 @@ export const counterSlice = createSlice({
       );
     },
     addShippingAddress: (state, action) => {
-      state.shippingAddress = action.payload
+      state.shippingAddress = action.payload;
     },
     addPaymentMethod: (state, action) => {
-      state.paymentMethod = action.payload
+      state.paymentMethod = action.payload;
     },
     addPrices: (state, action) => {
       state.itemsPrice = action.payload.itemsPrice;
@@ -54,11 +59,18 @@ export const counterSlice = createSlice({
       state.taxPrice = action.payload.taxPrice;
       state.totalPrice = action.payload.totalPrice;
     },
-    cartClearItems:(state) => {
+    cartClearItems: (state) => {
       state.cartItems = [];
-    }
+    },
   },
 });
 
-export const { addToCart, removeItemFromCart, addShippingAddress, addPrices,addPaymentMethod,cartClearItems } = counterSlice.actions;
+export const {
+  addToCart,
+  removeItemFromCart,
+  addShippingAddress,
+  addPrices,
+  addPaymentMethod,
+  cartClearItems,
+} = counterSlice.actions;
 export default counterSlice.reducer;

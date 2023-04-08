@@ -6,7 +6,7 @@ export interface Product {
   brand: string;
   category: string;
   description: string;
-  reviews:Array<ReviewModal>;
+  reviews: Array<ReviewModal>;
   rating: number;
   numReviews: number;
   price: number;
@@ -14,7 +14,7 @@ export interface Product {
 }
 export interface ReviewModal {
   name: string;
-  rating:number;
-  comment:string;
-  createdAt:string;
+  rating: number;
+  comment: string;
+  createdAt: string;
 }

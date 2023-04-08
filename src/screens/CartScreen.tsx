@@ -7,7 +7,6 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Message from '../components/Message';
 
-
 function CartScreen() {
   const params = useParams();
   const location = useLocation();
@@ -32,8 +31,8 @@ function CartScreen() {
   };
 
   const handleCheckout = () => {
-    navigate('/login?redirect=shipping')
-  }
+    navigate('/login?redirect=shipping');
+  };
   return (
     <div className="mx-40 flex justify-between">
       <div className="w-[50%]">
@@ -78,7 +77,10 @@ function CartScreen() {
             </p>
           </div>
           <div className="border border-t-gray-400 w-full px-4 py-2">
-            <button className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold " onClick={handleCheckout}>
+            <button
+              className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold "
+              onClick={handleCheckout}
+            >
               PORCEED TO CHECKOUT
             </button>
           </div>
@@ -118,7 +120,12 @@ const CartScreenitem = ({
   return (
     <div key={id} className="ml-10 flex justify-between text-gray-500 mt-5">
       <img className="w-20 h-20" src={image} alt="image" />
-      <p onClick={() => navigate(`/product/${id}`)} className="w-[25%] hover:underline cursor-pointer">{name}</p>
+      <p
+        onClick={() => navigate(`/product/${id}`)}
+        className="w-[25%] hover:underline cursor-pointer"
+      >
+        {name}
+      </p>
       <p>$ {price}</p>
       <select
         defaultValue={qty}

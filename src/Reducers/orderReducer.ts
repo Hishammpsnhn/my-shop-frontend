@@ -4,42 +4,45 @@ import { CartProduct } from '../model/cartModel';
 import { orderItems } from '../model/orderModel';
 
 interface CounterState {
-    loading: Boolean;
-    error: String ;
-    order: orderItems|null;
-    success: boolean;
+  loading: Boolean;
+  error: String;
+  order: orderItems | null;
+  success: boolean;
 }
 
 const initialState: CounterState = {
-    loading: false,
-    error: "",
-    success: false,
-    order: null,
+  loading: false,
+  error: '',
+  success: false,
+  order: null,
 };
 
 export const counterSlice = createSlice({
-    name: 'order',
-    initialState,
-    reducers: {
-        createOrderRequest: (state) => {
-            state.loading = true;
-        },
-        createOrderSuccess: (state,action) => {
-            state.loading = false;
-            state.success = true;
-            state.order = action.payload
-        },
-        createOrderError: (state,action) => {
-            state.error = action.payload.error;
-            state.loading = false;
-        },
-        resetOrder:(state) => {
-            state.order=null;
-        }
-        
-
+  name: 'order',
+  initialState,
+  reducers: {
+    createOrderRequest: (state) => {
+      state.loading = true;
     },
+    createOrderSuccess: (state, action) => {
+      state.loading = false;
+      state.success = true;
+      state.order = action.payload;
+    },
+    createOrderError: (state, action) => {
+      state.error = action.payload.error;
+      state.loading = false;
+    },
+    resetOrder: (state) => {
+      state.order = null;
+    },
+  },
 });
 
-export const { createOrderRequest,createOrderError,createOrderSuccess,resetOrder} = counterSlice.actions;
+export const {
+  createOrderRequest,
+  createOrderError,
+  createOrderSuccess,
+  resetOrder,
+} = counterSlice.actions;
 export default counterSlice.reducer;

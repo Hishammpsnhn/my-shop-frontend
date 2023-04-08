@@ -20,7 +20,7 @@ function LoginScreen() {
 
   useEffect(() => {
     if (userInfo.user) {
-      navigate( redirect ?`/${redirect}` : '/');
+      navigate(redirect ? `/${redirect}` : '/');
     }
   }, [userInfo, navigate, redirect]);
 
@@ -61,8 +61,9 @@ function LoginScreen() {
               Password
             </label>
             <input
-              className={`shadow appearance-none border ${incorrectPassword && ' border-red-500'
-                } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
+              className={`shadow appearance-none border ${
+                incorrectPassword && ' border-red-500'
+              } rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline`}
               id="password"
               type="password"
               placeholder="******************"

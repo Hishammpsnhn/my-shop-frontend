@@ -1,5 +1,10 @@
 import axios from 'axios';
-import { addPaymentMethod, addShippingAddress, addToCart, removeItemFromCart } from '../Reducers/cartReducer';
+import {
+  addPaymentMethod,
+  addShippingAddress,
+  addToCart,
+  removeItemFromCart,
+} from '../Reducers/cartReducer';
 import { Dispatch } from 'redux';
 import { RootState } from '../store';
 import { ShippingAddress } from '../model/shippingAddressModel';
@@ -34,15 +39,14 @@ export const removeItem =
     );
   };
 
-  export const addAddress =(data:ShippingAddress) => async (dispatch: Dispatch) => {
+export const addAddress =
+  (data: ShippingAddress) => async (dispatch: Dispatch) => {
     dispatch(addShippingAddress(data));
-    localStorage.setItem('shippingAddress', JSON.stringify(data))
-    
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
   };
 
-  export const savePaymentMethod = (data:string) => (dispatch:Dispatch) => {
-    dispatch(addPaymentMethod(data))
-  
-    localStorage.setItem('paymentMethod', JSON.stringify(data))
-  }
+export const savePaymentMethod = (data: string) => (dispatch: Dispatch) => {
+  dispatch(addPaymentMethod(data));
 
+  localStorage.setItem('paymentMethod', JSON.stringify(data));
+};

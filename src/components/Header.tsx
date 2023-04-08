@@ -18,7 +18,7 @@ function Header() {
   const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.user);
-  const { user: userInfo } = user
+  const { user: userInfo } = user;
 
   return (
     <div className=" bg-gray-700 mb-10">
@@ -67,7 +67,11 @@ function Header() {
                             <Menu.Item>
                               {({ active }) => (
                                 <button
-                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                  className={`${
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700'
+                                  } block px-4 py-2 text-sm w-full text-left`}
                                   onClick={() => navigate('/profile')}
                                 >
                                   Profile
@@ -77,7 +81,11 @@ function Header() {
                             <Menu.Item>
                               {({ active }) => (
                                 <button
-                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                  className={`${
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700'
+                                  } block px-4 py-2 text-sm w-full text-left`}
                                   onClick={() => logout(dispatch)}
                                 >
                                   Logout
@@ -90,28 +98,41 @@ function Header() {
                           <>
                             <Menu.Item>
                               {({ active }) => (
-                                <Link to={"/admin/userlist"}
-                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                <Link
+                                  to={'/admin/userlist'}
+                                  className={`${
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700'
+                                  } block px-4 py-2 text-sm w-full text-left`}
                                 >
                                   Users
                                 </Link>
                               )}
                             </Menu.Item>
-                            {/* <Menu.Item>
+                            <Menu.Item>
                               {({ active }) => (
                                 <Link
-                                  to={""}
-                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
-
+                                  to={''}
+                                  className={`${
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700'
+                                  } block px-4 py-2 text-sm w-full text-left`}
                                 >
                                   Products
                                 </Link>
                               )}
-                            </Menu.Item> */}
+                            </Menu.Item>
                             <Menu.Item>
                               {({ active }) => (
-                                <Link to={"/admin/orderslist"}
-                                  className={`${active ? 'bg-gray-100 text-gray-900' : 'text-gray-700'} block px-4 py-2 text-sm w-full text-left`}
+                                <Link
+                                  to={'/admin/orderslist'}
+                                  className={`${
+                                    active
+                                      ? 'bg-gray-100 text-gray-900'
+                                      : 'text-gray-700'
+                                  } block px-4 py-2 text-sm w-full text-left`}
                                 >
                                   Order
                                 </Link>
@@ -119,7 +140,6 @@ function Header() {
                             </Menu.Item>
                           </>
                         )}
-
                       </div>
                     </Menu.Items>
                   </Transition>
@@ -134,9 +154,7 @@ function Header() {
               </i>
             </Link>
           )}
-          <div className="relative inline-block text-left">
-
-          </div>
+          <div className="relative inline-block text-left"></div>
         </div>
       </div>
     </div>

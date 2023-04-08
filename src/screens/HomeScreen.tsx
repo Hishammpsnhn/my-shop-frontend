@@ -28,9 +28,9 @@ function HomeScreen() {
         >
           GO BACK
         </Link>
-      ) : error?(
-        <Message type='error'>{error}</Message>
-      ): (
+      ) : error ? (
+        <Message type="error">{error}</Message>
+      ) : (
         <Carousal />
       )}
       <Cards />
