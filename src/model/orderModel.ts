@@ -14,6 +14,8 @@ export interface orderItems {
     isPaid?: boolean
     isDelivered?: boolean
     deliveredAt?:string
-
+    createdAt?:string
+    paidAt?:string
+    
 
 }

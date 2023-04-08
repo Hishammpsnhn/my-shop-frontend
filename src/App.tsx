@@ -11,12 +11,15 @@ import PaymentScreen from './screens/PaymentScreen';
 import PlaceOrderScreen from './screens/PlaceOrderScreen';
 import OrderScreen from './screens/OrderScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import UsersListScreen from './screens/UsersListScreen';
+import UsersListScreen from './screens/Admin/UsersListScreen';
+import OrderListScreen from './screens/Admin/OrderListScreen';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
+
+
       <Routes>
         <Route path="/register" element={<RegisterScreen />} />
         <Route path="/login" element={<LoginScreen />} />
@@ -31,8 +34,10 @@ function App() {
         <Route path="/" element={<HomeScreen />} />
 
         <Route path="/admin/userlist" element={<UsersListScreen />} />
-
+        <Route path="/admin/orderslist" element={<OrderListScreen />} />
+d
       </Routes>
+
     </BrowserRouter>
   );
 }

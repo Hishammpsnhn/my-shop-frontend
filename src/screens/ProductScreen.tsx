@@ -144,7 +144,7 @@ function ProductScreen() {
               <div>Description: {productDetails?.description}</div>
             </div>
             <div className="w-[45%]">
-              <div className="relative overflow-x-auto shadow sm:rounded-lg">
+              <div className=" overflow-x-auto shadow sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-600 border">
                   <tbody>
                     <tr className="border-b">

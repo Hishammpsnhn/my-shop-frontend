@@ -1,14 +1,14 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { useAppDispatch } from "../hook";
+import { RootState } from "../../store";
+import { useAppDispatch } from "../../hook";
 import { Link, useNavigate } from "react-router-dom";
-import { DeleteUser, EditUser, listUsers } from "../actions/userAction";
+import { DeleteUser, EditUser, listUsers } from "../../actions/userAction";
 import { AiFillCheckCircle, AiFillEdit } from "react-icons/ai";
-import Loader from "../components/Loader";
+import Loader from "../../components/Loader";
 import { FaTimesCircle } from "react-icons/fa";
 import { BsTrashFill } from "react-icons/bs";
-import Message from "../components/Message";
+import Message from "../../components/Message";
 
 function UsersListScreen() {
     const userInfo = useSelector((state: RootState) => state.user.user);
@@ -37,7 +37,7 @@ function UsersListScreen() {
             if (window.confirm(`Are you sure you want to the ${name} as Admin`)) {
                 dispatch(EditUser(id))
             }
-        }else{
+        } else {
             alert("you are already a admin")
         }
     }

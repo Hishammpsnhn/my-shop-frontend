@@ -7,7 +7,7 @@ import { cartClearItems } from "../Reducers/cartReducer";
 import { logout } from "./userAction";
 import { orderItems } from "../model/orderModel";
 import { orderPayFail, orderPayRequest, orderPaySuccess } from "../Reducers/orderPayReducer";
-import { myOrderRequest,myOrderSuccess,myOrderError } from "../Reducers/myOrderListReducers";
+import { myOrderRequest, ordersListSuccess, myOrderError } from "../Reducers/orderListReducers";
 
 export const createOrder = (order: orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
@@ -56,9 +56,9 @@ export const getOrderDetails = (id: string) => async (dispatch: Dispatch, getSta
         }
 
         const { data } = await axios.get(`/api/orders/${id}`, config)
-console.log(data)
+        console.log(data)
         dispatch(createOrderSuccess(data))
-    } catch (error:any) {
+    } catch (error: any) {
         const message =
             error.response && error.response.data.message
                 ? error.response.data.message
@@ -71,7 +71,7 @@ console.log(data)
     }
 }
 
-export const payOrder = (orderId:string, paymentResult:any) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const payOrder = (orderId: string, paymentResult: any) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
         dispatch(orderPayRequest())
 
@@ -87,11 +87,11 @@ export const payOrder = (orderId:string, paymentResult:any) => async (dispatch: 
             `/api/orders/${orderId}/pay`,
             paymentResult,
             config
-          )
-      
+        )
+
 
         dispatch(orderPaySuccess(data))
-    } catch (error:any) {
+    } catch (error: any) {
         const message =
             error.response && error.response.data.message
                 ? error.response.data.message
@@ -104,7 +104,7 @@ export const payOrder = (orderId:string, paymentResult:any) => async (dispatch: 
     }
 }
 
-export const deliverOrder = (order:orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
+export const deliverOrder = (order: orderItems) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
         dispatch(createOrderRequest())
 
@@ -120,11 +120,11 @@ export const deliverOrder = (order:orderItems) => async (dispatch: Dispatch, get
             `/api/orders/${order?._id}/deliver`,
             order,
             config
-          )
-      
+        )
+
 
         dispatch(createOrderSuccess(data))
-    } catch (error:any) {
+    } catch (error: any) {
         const message =
             error.response && error.response.data.message
                 ? error.response.data.message
@@ -138,9 +138,8 @@ export const deliverOrder = (order:orderItems) => async (dispatch: Dispatch, get
 }
 
 export const listMyOrders = () => async (dispatch: Dispatch, getState: () => RootState) => {
-    console.log("called listMyOrders()")
     try {
-         dispatch(myOrderRequest())
+        dispatch(myOrderRequest())
 
         const { user: { user } } = getState();
 
@@ -153,9 +152,38 @@ export const listMyOrders = () => async (dispatch: Dispatch, getState: () => Roo
         const { data } = await axios.get(
             `/api/orders/myorders`,
             config
-          )
-        dispatch(myOrderSuccess(data))
-    } catch (error:any) {
+        )
+        dispatch(ordersListSuccess(data))
+    } catch (error: any) {
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+
+        if (message === 'Not authorized, token failed') {
+            logout(dispatch)
+        }
+        dispatch(myOrderError(message))
+    }
+}
+export const listAllOrders = () => async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+        dispatch(myOrderRequest())
+
+        const { user: { user } } = getState();
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${user?.token}`,
+            },
+        }
+        const { data } = await axios.get(
+            `/api/orders`,
+            config
+        )
+        dispatch(ordersListSuccess(data))
+    } catch (error: any) {
         const message =
             error.response && error.response.data.message
                 ? error.response.data.message

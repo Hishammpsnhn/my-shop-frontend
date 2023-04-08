@@ -21,7 +21,7 @@ export const counterSlice = createSlice({
         myOrderRequest: (state) => {
             state.loading = true;
         },
-        myOrderSuccess: (state,action) => {
+        ordersListSuccess: (state,action) => {
             state.loading = false;
             state.orders = action.payload
         },
@@ -34,5 +34,5 @@ export const counterSlice = createSlice({
     },
 });
 
-export const {myOrderError,myOrderRequest,myOrderSuccess} = counterSlice.actions;
+export const {myOrderError,myOrderRequest,ordersListSuccess} = counterSlice.actions;
 export default counterSlice.reducer;

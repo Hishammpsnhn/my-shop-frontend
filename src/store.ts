@@ -5,7 +5,7 @@ import productDetailsReducer from './Reducers/productDetailsReducer';
 import cartReducer from './Reducers/cartReducer';
 import orderReducer from './Reducers/orderReducer';
 import orderPayReducer from './Reducers/orderPayReducer';
-import myOrderListReducers from './Reducers/myOrderListReducers';
+import myOrderListReducers from './Reducers/orderListReducers';
 import ReviewReducer from './Reducers/ReviewReducer';
 import usersListReducers from './Reducers/usersListReducers';
 
@@ -15,11 +15,11 @@ export const store = configureStore({
     user: userReducer,
     productDetails: productDetailsReducer,
     cart: cartReducer,
-    order:orderReducer,
-    orderPay:orderPayReducer,
-    myOrder:myOrderListReducers,
-    review:ReviewReducer,
-    usersList:usersListReducers,
+    order: orderReducer,
+    orderPay: orderPayReducer,
+    Orders: myOrderListReducers,
+    review: ReviewReducer,
+    usersList: usersListReducers,
   },
 });
 
