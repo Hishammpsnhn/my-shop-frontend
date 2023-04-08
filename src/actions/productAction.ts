@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { Dispatch } from 'redux';
 import {
+  productDeleteSuccess,
   productListRequest,
   productListRequestError,
   productListSuccess,
@@ -21,7 +22,6 @@ import { logout } from './userAction';
 export const listProducts =
   (keyword = '', pageNumber = '') =>
   async (dispatch: Dispatch) => {
-    console.log(keyword);
     try {
       dispatch(productListRequest());
       const { data } = await axios.get(
@@ -75,5 +75,37 @@ export const createProductReview =
       }
       console.log(message);
       dispatch(addReviewError(message));
+    }
+  };
+export const deleteProduct =
+  (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+      dispatch(productListRequest());
+
+      const {
+        user: { user },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
+
+      await axios.delete(`/api/products/${id}`, config);
+
+      dispatch(productDeleteSuccess());
+    } catch (error: any) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      if (message === 'Not authorized, token failed') {
+        logout(dispatch);
+      }
+      console.log(message);
+      dispatch(productListRequestError(message));
     }
   };

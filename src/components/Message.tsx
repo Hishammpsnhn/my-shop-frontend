@@ -10,7 +10,7 @@ function Message({ children, type }: Props) {
 
   return (
     <div
-      className={`${bgColor} border ${borderColor} ${textColor} px-4 py-3 rounded relative`}
+      className={`${bgColor} border ${borderColor} ${textColor} px-4 py-3 rounded`}
       role="alert"
     >
       <span className="block sm:inline">{children}</span>
