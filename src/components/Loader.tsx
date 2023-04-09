@@ -1,11 +1,13 @@
 import React from 'react';
-
-function Loader() {
+type Style = {
+  style?: string;
+};
+function Loader({ style }: Style) {
   return (
-    <div role="status" className="flex justify-center m-10">
+    <div role="status" className="flex justify-center ">
       <svg
         aria-hidden="true"
-        className="w-20 h-20  mr-2 text-gray-200 animate-spin dark:text-white fill-black"
+        className={`w-20 h-20 ${style}  mr-2 text-gray-200 animate-spin dark:text-white fill-black`}
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"

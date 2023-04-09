@@ -18,11 +18,9 @@ function ProfileScreen() {
 
   const userDetails = useSelector((state: RootState) => state.user);
   const { error, loading, user, updateProfile } = userDetails;
-  console.log(user);
 
   const myOrders = useSelector((state: RootState) => state.Orders);
   const { error: myOrdererror, loading: myOrderLoading, orders } = myOrders;
-  console.log(orders);
 
   const navigate = useNavigate();
   const dispatch = useAppDispatch();

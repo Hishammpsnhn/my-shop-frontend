@@ -10,6 +10,7 @@ import {
   productDetailsSuccess,
   productDetailsRequest,
   productDetailsRequestError,
+  productUpdateSuccess,
 } from '../Reducers/productDetailsReducer';
 import { RootState } from '../store';
 import {
@@ -18,6 +19,18 @@ import {
   addReviewSucces,
 } from '../Reducers/ReviewReducer';
 import { logout } from './userAction';
+import { Product } from '../model/productModel';
+
+export interface UpdateProduct {
+  _id: string;
+  name: string;
+  image: string;
+  brand: string;
+  category: string;
+  description: string;
+  price: number;
+  countInStock: number;
+}
 
 export const listProducts =
   (keyword = '', pageNumber = '') =>
@@ -73,7 +86,6 @@ export const createProductReview =
       if (message === 'Not authorized, token failed') {
         logout(dispatch);
       }
-      console.log(message);
       dispatch(addReviewError(message));
     }
   };
@@ -105,7 +117,43 @@ export const deleteProduct =
       if (message === 'Not authorized, token failed') {
         logout(dispatch);
       }
-      console.log(message);
       dispatch(productListRequestError(message));
+    }
+  };
+
+export const updateProduct =
+  (product: UpdateProduct) =>
+  async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+      dispatch(productDetailsRequest());
+
+      const {
+        user: { user },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/products/${product._id}`,
+        product,
+        config
+      );
+
+      dispatch(productUpdateSuccess(data));
+    } catch (error: any) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      if (message === 'Not authorized, token failed') {
+        logout(dispatch);
+      }
+      dispatch(productDetailsRequestError(message));
     }
   };

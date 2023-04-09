@@ -38,7 +38,6 @@ export const createOrder =
       };
 
       const { data } = await axios.post(`/api/orders`, order, config);
-      console.log(data);
       dispatch(createOrderSuccess(data));
       dispatch(cartClearItems());
       localStorage.removeItem('cartItems');
@@ -58,7 +57,6 @@ export const createOrder =
 export const getOrderDetails =
   (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
-      console.log('adfd');
       dispatch(createOrderRequest());
 
       const {
@@ -73,7 +71,6 @@ export const getOrderDetails =
       };
 
       const { data } = await axios.get(`/api/orders/${id}`, config);
-      console.log(data);
       dispatch(createOrderSuccess(data));
     } catch (error: any) {
       const message =

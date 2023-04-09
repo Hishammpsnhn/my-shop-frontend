@@ -7,10 +7,16 @@ import { AiFillEdit } from 'react-icons/ai';
 import { BsTrashFill } from 'react-icons/bs';
 import { FaPlus } from 'react-icons/fa';
 import { useAppDispatch } from '../../hook';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { deleteProduct, listProducts } from '../../actions/productAction';
+import { resetUpdateOrder } from '../../Reducers/productDetailsReducer';
 
 function ProductListScreen() {
+  const ProductDetails = useSelector(
+    (state: RootState) => state.productDetails
+  );
+  const { productDetails: product } = ProductDetails;
+
   const Products = useSelector((state: RootState) => state.product);
   const {
     error,
@@ -28,6 +34,7 @@ function ProductListScreen() {
 
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
+      dispatch(resetUpdateOrder());
       dispatch(listProducts());
     } else {
       navigate('/login');
@@ -40,7 +47,6 @@ function ProductListScreen() {
     }
   };
 
-  console.log(Products);
   return (
     <div className="w-[70%] m-auto">
       <div className="flex justify-between items-center pb-5">
@@ -96,12 +102,12 @@ function ProductListScreen() {
                 </td>
                 <td className="whitespace-nowrap px-6 py-4">{product.brand}</td>
                 <td className="whitespace-nowrap px-6 py-4 flex">
-                  <button
+                  <Link
+                    to={`/admin/productedit/${product._id}`}
                     className="mr-5 hover:opacity-70"
-                    // onClick={}
                   >
                     <AiFillEdit />
-                  </button>
+                  </Link>
                   <button
                     onClick={() => deleteHandler(product._id)}
                     className="ml-5 text-red-600 hover:opacity-70"

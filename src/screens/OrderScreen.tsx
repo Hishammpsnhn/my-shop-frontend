@@ -63,7 +63,6 @@ function OrderScreen() {
 
     if (!order || orderId !== order._id) {
       if (orderId) {
-        console.log(`Order `);
         dispatch(getOrderDetails(orderId));
       }
     }
@@ -74,7 +73,7 @@ function OrderScreen() {
       dispatch(payOrder(orderId, paymentResult));
     }
   };
-  console.log(order);
+
   const deliverHandler = () => {
     if (order) {
       dispatch(deliverOrder(order));
