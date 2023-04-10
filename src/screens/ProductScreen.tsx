@@ -67,7 +67,7 @@ function ProductScreen() {
   };
 
   return (
-    <div className="mx-40">
+    <div className="container mx-auto">
       <Link
         className=" text-[13px] text-gray-500 tracking-wide font-semibold hover:bg-stone-200 p-3 rounded"
         to={`/`}
@@ -77,83 +77,16 @@ function ProductScreen() {
       {loading ? (
         <Loader />
       ) : (
-        <div className="grid grid-cols-4 gap-2 i">
+        <div className="grid sm:grid-cols-4 grid-cols-1  gap-2 ">
           <div className="col-span-2 ">
             <img
-              className="py-5 w-[500px] h-[500px]"
+              className="p-5  "
               src={productDetails?.image}
               alt="images"
             />
-            <div>
-              <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest">
-                REVIEWS
-              </h2>
-              <div className="divide-y">
-                {productDetails &&
-                  productDetails?.reviews.map((review) => (
-                    <Review
-                      createdAt={review.createdAt}
-                      name={review.name}
-                      comment={review.comment}
-                      rating={review.rating}
-                    />
-                  ))}
-              </div>
-              <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest ">
-                WRITE A CUSTOMER REVIEW
-              </h2>
-              {reviewLoading ? (
-                <Loader />
-              ) : error ? (
-                <Message type="error">{error}</Message>
-              ) : (
-                <div>
-                  <form
-                    className="text-gray-500"
-                    onSubmit={(e) => submitHandler(e)}
-                  >
-                    <div className="mb-4">
-                      <label className="block  text-sm font-bold mb-2">
-                        Rating
-                      </label>
-                      <select
-                        className="shadow  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        onChange={(e) => setRating(Number(e.target.value))}
-                        defaultValue={rating}
-                      >
-                        <option value="0" disabled>
-                          select...
-                        </option>
-                        <option value="1">1 - Poor</option>
-                        <option value="2">2 - Fair</option>
-                        <option value="3">3 - Good</option>
-                        <option value="4">4 - Very Good</option>
-                        <option value="5">5 - Excellent</option>
-                      </select>
-                    </div>
-                    <label className="block text-sm font-bold mb-2">
-                      Comment
-                    </label>
-                    <textarea
-                      className=" block mb-5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                      id="commet"
-                      rows={3}
-                      value={comment}
-                      onChange={(e) => setComment(e.target.value)}
-                    />
-                    <button
-                      type="submit"
-                      className="bg-black py-3 px-5  text-white tracking-wider mb-5"
-                    >
-                      SUBMIT
-                    </button>
-                  </form>
-                </div>
-              )}
-            </div>
           </div>
-          <div className=" flex col-span-2 divide-y  justify-between">
-            <div className="w-[45%] text-gray-500">
+          <div className=" sm:flex col-span-2 divide-y  justify-between">
+            <div className="sm:w-[45%] text-gray-500">
               <div className="divide-y ">
                 <h4 className="uppercase  text-3xl font-sans py-5 tracking-widest">
                   {productDetails?.name}
@@ -165,7 +98,7 @@ function ProductScreen() {
               </div>
               <div>Description: {productDetails?.description}</div>
             </div>
-            <div className="w-[45%]">
+            <div className="sm:w-[45%] py-5 sm:py-0">
               <div className=" overflow-x-auto shadow sm:rounded-lg">
                 <table className="w-full text-sm text-left text-gray-600 border">
                   <tbody>
@@ -186,8 +119,8 @@ function ProductScreen() {
                       </td>
                     </tr>
                     {productDetails &&
-                    productDetails.countInStock &&
-                    productDetails.countInStock > 0 ? (
+                      productDetails.countInStock &&
+                      productDetails.countInStock > 0 ? (
                       <tr className="border-b">
                         <th scope="row" className="px-6 py-4 font-medium">
                           Qty
@@ -212,19 +145,86 @@ function ProductScreen() {
                   </tbody>
                 </table>
                 <button
-                  className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${
-                    productDetails &&
+                  className={`bg-black text-white font-bold py-2 px-4 rounded w-full hover:opacity-80 ${productDetails &&
                     productDetails.countInStock &&
                     productDetails.countInStock > 0
-                      ? ''
-                      : 'cursor-not-allowed opacity-80'
-                  }`}
+                    ? ''
+                    : 'cursor-not-allowed opacity-80'
+                    }`}
                   onClick={addtoCartHandler}
                 >
                   ADD TO CART
                 </button>
               </div>
             </div>
+          </div>
+
+          <div className='col-span-2 w-full sm:w-fit '>
+            <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest">
+              REVIEWS
+            </h2>
+            <div className="divide-y">
+              {productDetails &&
+                productDetails?.reviews.map((review) => (
+                  <Review
+                    createdAt={review.createdAt}
+                    name={review.name}
+                    comment={review.comment}
+                    rating={review.rating}
+                  />
+                ))}
+            </div>
+            <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest ">
+              WRITE A CUSTOMER REVIEW
+            </h2>
+            {reviewLoading ? (
+              <Loader />
+            ) : error ? (
+              <Message type="error">{error}</Message>
+            ) : (
+              <div >
+                <form
+                  className="text-gray-500"
+                  onSubmit={(e) => submitHandler(e)}
+                >
+                  <div className="mb-4">
+                    <label className="block  text-sm font-bold mb-2">
+                      Rating
+                    </label>
+                    <select
+                      className="shadow  border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                      onChange={(e) => setRating(Number(e.target.value))}
+                      defaultValue={rating}
+                    >
+                      <option value="0" disabled>
+                        select...
+                      </option>
+                      <option value="1">1 - Poor</option>
+                      <option value="2">2 - Fair</option>
+                      <option value="3">3 - Good</option>
+                      <option value="4">4 - Very Good</option>
+                      <option value="5">5 - Excellent</option>
+                    </select>
+                  </div>
+                  <label className="block text-sm font-bold mb-2">
+                    Comment
+                  </label>
+                  <textarea
+                    className=" block mb-5 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    id="commet"
+                    rows={3}
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  />
+                  <button
+                    type="submit"
+                    className="bg-black py-3 px-5  text-white tracking-wider mb-5"
+                  >
+                    SUBMIT
+                  </button>
+                </form>
+              </div>
+            )}
           </div>
         </div>
       )}
