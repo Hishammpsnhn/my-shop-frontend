@@ -33,9 +33,10 @@ function CartScreen() {
   const handleCheckout = () => {
     navigate('/login?redirect=shipping');
   };
+
   return (
     <div className="container m-auto sm:flex justify-between max-w-[1140px]">
-      <div className=" mb-10 sm:w-[50%]">
+      <div className=" mb-10 sm:w-[60%]">
         <h1 className="text-4xl p-5 ">SHOPPING CART</h1>
         {cartItems.length === 0 ? (
           <Message type="info">
@@ -53,8 +54,9 @@ function CartScreen() {
                 id={cart.id}
                 name={cart.name}
                 image={cart.image}
+                qty={Number(params?.qty)}
                 price={cart.price}
-                qty={qty}
+                stockQty={cart.qty}
                 handleRemoveItem={handleRemoveItem}
                 countInStock={cart.countInStock}
               />
@@ -97,12 +99,14 @@ interface Props {
   image: string;
   price: number;
   countInStock: number;
-  qty: number;
+  stockQty: number;
+  qty:number;
   handleRemoveItem: (id: string) => void;
 }
 const CartScreenitem = ({
   name,
   image,
+  stockQty,
   qty,
   price,
   id,
@@ -125,19 +129,19 @@ const CartScreenitem = ({
           <img className="" src={image} alt="image" />
         </div>
         <div className=' ss:col-span-2 col-span-6'>
-          <p
+          <a
             onClick={() => navigate(`/product/${id}`)}
-            className="font-semibold text-lg  hover:underline cursor-pointer"
+            className="font-semibold text-base  hover:underline cursor-pointer"
           >
             {name}
-          </p>
+          </a>
         </div>
         <div className='ss:col-span-1 col-span-6'>
-          <p>$ {price}</p>
+          $ {price}
         </div>
         <div className='ss:col-span-1 col-span-6'>
           <select
-            defaultValue={qty}
+            defaultValue={stockQty}
             className="  border border-gray-300 px-5 py-2 bg-slate-100 sm:w-fit w-full"
             onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}
           >
@@ -157,10 +161,6 @@ const CartScreenitem = ({
           </button>
         </div>
       </div>
-      {/*
-      
-      
-      */}
     </div>
   );
 };
