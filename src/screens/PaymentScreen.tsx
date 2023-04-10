@@ -19,7 +19,7 @@ function PaymentScreen() {
   };
 
   return (
-    <div className="w-full">
+    <div className="container m-auto px-2 max-w-[1140px]">
       <CheckoutSteps step1 step2 step3 />
       <div className="w-[45%] m-auto flex justify-start">
         <div>

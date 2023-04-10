@@ -68,7 +68,7 @@ function PlaceOrderScreen() {
   };
 
   return (
-    <div className="container m-auto">
+    <div className="container m-auto px-2 max-w-[1140px]">
       <CheckoutSteps step1 step2 step3 step4 />
         <div className="px-10  text-gray-500">
           <div className="flex flex-col md:flex-row">

@@ -49,7 +49,7 @@ function ProfileScreen() {
   };
 
   return (
-    <div className="container m-auto grid grid-cols-4 gap-10 px-2">
+    <div className="container m-auto grid grid-cols-4 gap-10 px-2 max-w-[1140px]">
       <div className="col-span-4 sm:col-span-1">
         <h2 className="text-2xl text-black font-semibold tracking-wider">
           USER PROFILE

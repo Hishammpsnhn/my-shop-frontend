@@ -67,7 +67,7 @@ function ProductScreen() {
   };
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto max-w-[1140px]">
       <Link
         className=" text-[13px] text-gray-500 tracking-wide font-semibold hover:bg-stone-200 p-3 rounded"
         to={`/`}

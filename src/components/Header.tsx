@@ -21,7 +21,7 @@ function Header() {
 
   return (
     <div className={`bg-gray-700 mb-10  ease-in-out duration-300`}>
-      <div className='container m-auto'>
+      <div className='container m-auto max-w-[1140px]'>
         <div className="mx-10 py-7 lg:flex  items-center ">
 
           <div className='flex justify-between'>

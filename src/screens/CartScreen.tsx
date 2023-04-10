@@ -34,8 +34,8 @@ function CartScreen() {
     navigate('/login?redirect=shipping');
   };
   return (
-    <div className="container m-auto sm:flex justify-between">
-      <div className=" mb-10 w-fit">
+    <div className="container m-auto sm:flex justify-between max-w-[1140px]">
+      <div className=" mb-10 sm:w-[50%]">
         <h1 className="text-4xl p-5 ">SHOPPING CART</h1>
         {cartItems.length === 0 ? (
           <Message type="info">

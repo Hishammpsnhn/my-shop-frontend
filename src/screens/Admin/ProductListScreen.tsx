@@ -51,7 +51,7 @@ function ProductListScreen() {
   }
 
   return (
-    <div className="container m-auto overflow-hidden">
+    <div className="container m-auto overflow-hidden max-w-[1140px] px-2">
       <div className="flex justify-between items-center pb-5">
         <h1 className="uppercase  text-3xl font-sans  tracking-widest">
           PRODUCTS

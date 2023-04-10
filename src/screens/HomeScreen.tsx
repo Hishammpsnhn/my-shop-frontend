@@ -20,7 +20,7 @@ function HomeScreen() {
   }, [dispatch, params]);
 
   return (
-    <div className="container px-4 m-auto">
+    <div className="container px-4 m-auto max-w-[1140px]">
       {params.keyword ? (
         <Link
           className=" text-[13px] tracking-wide text-gray-500 font-semibold hover:bg-stone-200 p-3 rounded"

@@ -25,7 +25,7 @@ function ShippingScreen() {
   };
 
   return (
-    <div className="container m-auto ">
+    <div className="container m-auto max-w-[1140px]">
       <CheckoutSteps step1 step2 />
 
       <div className="sm:w-[45%] m-auto">
