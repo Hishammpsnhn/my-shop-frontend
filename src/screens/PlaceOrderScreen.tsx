@@ -67,7 +67,7 @@ function PlaceOrderScreen() {
   return (
     <div className="w-full">
       <CheckoutSteps step1 step2 step3 step4 />
-      <div className="w-[75%] m-auto">
+      <div className="sm:w-[75%] m-auto">
         <div className="px-10  text-gray-500">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-8/12 md:pr-6">
@@ -103,17 +103,17 @@ function PlaceOrderScreen() {
                   ) : (
                     <ul className="divide-y divide-gray-200">
                       {cart.cartItems.map((item, index) => (
-                        <li key={index} className="py-4 flex ">
-                          <div className="w-16">
+                        <li key={index} className="py-4 sm:flex">
+                          <div className="sm:w-16">
                             <img
                               className="rounded-lg"
                               src={item.image}
                               alt={item.name}
                             />
                           </div>
-                          <div className="flex-grow pl-4">
+                          <div className="flex-grow sm:pl-4">
                             <Link to={`/product/${item.id}`}>
-                              <h3 className="text-sm font-medium hover:underline cursor-pointer">
+                              <h3 className="text-base font-medium hover:underline cursor-pointer">
                                 {item.name}
                               </h3>
                             </Link>
@@ -131,7 +131,7 @@ function PlaceOrderScreen() {
             </div>
 
             <form
-              className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg "
+              className="md:w-[35%] h-fit border border-gray-300 rounded-md shadow-lg "
               onSubmit={(e) => hadlePlaceOrder(e)}
             >
               <div className="bg-gray-200 rounded-t-md px-4 py-2">
