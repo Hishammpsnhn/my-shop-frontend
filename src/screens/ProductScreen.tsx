@@ -92,7 +92,7 @@ function ProductScreen() {
                   {productDetails?.name}
                 </h4>
                 <div className="divide-y ">
-                  <Rating rating={5} color="orange" reviewCount={5} />
+                  <Rating rating={productDetails?.rating || 0} color="orange" reviewCount={productDetails?.numReviews} />
                   <p className="py-2">Price: {productDetails?.price} </p>
                 </div>
               </div>
