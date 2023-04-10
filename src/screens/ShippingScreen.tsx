@@ -25,9 +25,10 @@ function ShippingScreen() {
   };
 
   return (
-    <div className="w-full ">
+    <div className="container m-auto ">
       <CheckoutSteps step1 step2 />
-      <div className="w-[45%] m-auto">
+
+      <div className="sm:w-[45%] m-auto">
         <div className="px-10">
           <h1 className="font-serif text-3xl tracking-wider ">SHIPPING</h1>
           <div className="w-full">
@@ -89,6 +90,7 @@ function ShippingScreen() {
             </form>
           </div>
         </div>
+        
       </div>
     </div>
   );

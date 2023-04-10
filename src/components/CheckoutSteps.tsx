@@ -15,8 +15,8 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
   step4,
 }) => {
   return (
-    <div className="w-[40%] flex justify-center mb-8 m-auto ">
-      <div className="w-1/4">
+    <div className="grid grid-cols-2 xs:grid-cols-4 text-center gap-4 mb-10 mx-10 ">
+      <div>
         {step1 ? (
           <Link to="/login" className="text-gray-700 hover:text-gray-800">
             Sign In
@@ -26,7 +26,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
         )}
       </div>
 
-      <div className="w-1/4">
+      <div>
         {step2 ? (
           <Link to="/shipping" className="text-gray-700 hover:text-gray-800">
             Shipping
@@ -36,7 +36,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
         )}
       </div>
 
-      <div className="w-1/4">
+      <div>
         {step3 ? (
           <Link to="/payment" className="text-gray-700 hover:text-gray-800">
             Payment
@@ -46,7 +46,7 @@ const CheckoutSteps: React.FC<CheckoutStepsProps> = ({
         )}
       </div>
 
-      <div className="w-1/4">
+      <div>
         {step4 ? (
           <Link to="/placeorder" className="text-gray-700 hover:text-gray-800">
             Place Order
