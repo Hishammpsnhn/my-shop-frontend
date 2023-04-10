@@ -48,7 +48,7 @@ function ProductListScreen() {
   };
 
   return (
-    <div className="w-[70%] m-auto">
+    <div className="container m-auto overflow-hidden">
       <div className="flex justify-between items-center pb-5">
         <h1 className="uppercase  text-3xl font-sans  tracking-widest">
           PRODUCTS
@@ -63,62 +63,63 @@ function ProductListScreen() {
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
-        <table className="min-w-full text-left text-sm font-light">
-          <thead className=" border border-gray-300 bg-white font-medium">
-            <tr>
-              <th scope="col" className="px-6 py-4">
-                ID
-              </th>
-              <th scope="col" className="px-6 py-4">
-                NAME
-              </th>
-              <th scope="col" className="px-6 py-4">
-                PRICE
-              </th>
-              <th scope="col" className="px-6 py-4">
-                CATEGORY
-              </th>
-              <th scope="col" className="px-6 py-4">
-                BRAND
-              </th>
-              <th scope="col" className="px-6 py-4"></th>
-            </tr>
-          </thead>
-          <tbody>
-            {products?.map((product, i) => (
-              <tr
-                key={product._id}
-                className={`border  border-gray-300 ${
-                  i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
-                }  `}
-              >
-                <td className="whitespace-nowrap px-6 py-4 font-medium">
-                  {product._id}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4">{product.name}</td>
-                <td className="whitespace-nowrap px-6 py-4">{product.price}</td>
-                <td className="whitespace-nowrap px-6 py-4">
-                  {product.category}
-                </td>
-                <td className="whitespace-nowrap px-6 py-4">{product.brand}</td>
-                <td className="whitespace-nowrap px-6 py-4 flex">
-                  <Link
-                    to={`/admin/productedit/${product._id}`}
-                    className="mr-5 hover:opacity-70"
-                  >
-                    <AiFillEdit />
-                  </Link>
-                  <button
-                    onClick={() => deleteHandler(product._id)}
-                    className="ml-5 text-red-600 hover:opacity-70"
-                  >
-                    <BsTrashFill />
-                  </button>
-                </td>
+        <div className='overflow-x-scroll'>
+          <table className="min-w-full text-left text-sm font-light">
+            <thead className=" border border-gray-300 bg-white font-medium">
+              <tr>
+                <th scope="col" className="px-6 py-4">
+                  ID
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  NAME
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  PRICE
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  CATEGORY
+                </th>
+                <th scope="col" className="px-6 py-4">
+                  BRAND
+                </th>
+                <th scope="col" className="px-6 py-4"></th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {products?.map((product, i) => (
+                <tr
+                  key={product._id}
+                  className={`border  border-gray-300 ${i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
+                    }  `}
+                >
+                  <td className="whitespace-nowrap px-6 py-4 font-medium">
+                    {product._id}
+                  </td>
+                  <td className="whitespace-nowrap px-6 py-4">{product.name}</td>
+                  <td className="whitespace-nowrap px-6 py-4">{product.price}</td>
+                  <td className="whitespace-nowrap px-6 py-4">
+                    {product.category}
+                  </td>
+                  <td className="whitespace-nowrap px-6 py-4">{product.brand}</td>
+                  <td className="whitespace-nowrap px-6 py-4 flex">
+                    <Link
+                      to={`/admin/productedit/${product._id}`}
+                      className="mr-5 hover:opacity-70"
+                    >
+                      <AiFillEdit />
+                    </Link>
+                    <button
+                      onClick={() => deleteHandler(product._id)}
+                      className="ml-5 text-red-600 hover:opacity-70"
+                    >
+                      <BsTrashFill />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );

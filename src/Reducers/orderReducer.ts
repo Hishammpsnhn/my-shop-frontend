@@ -34,7 +34,7 @@ export const counterSlice = createSlice({
       state.loading = false;
     },
     resetOrder: (state) => {
-      state.order = null;
+      state.success =false ;
     },
   },
 });

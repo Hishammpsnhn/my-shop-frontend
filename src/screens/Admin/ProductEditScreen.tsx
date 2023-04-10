@@ -95,7 +95,7 @@ function ProductEditScreen() {
   };
 
   return (
-    <div className="mx-40">
+    <div className="container m-auto px-5">
       <Link
         className=" text-[13px] text-gray-500 tracking-wide font-semibold hover:bg-stone-200 p-3 rounded"
         to={`/admin/productlist`}

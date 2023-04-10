@@ -65,9 +65,8 @@ function PlaceOrderScreen() {
   };
 
   return (
-    <div className="w-full">
+    <div className="container m-auto">
       <CheckoutSteps step1 step2 step3 step4 />
-      <div className="sm:w-[75%] m-auto">
         <div className="px-10  text-gray-500">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-8/12 md:pr-6">
@@ -182,7 +181,6 @@ function PlaceOrderScreen() {
               </ul>
             </form>
           </div>
-        </div>
       </div>
     </div>
   );

@@ -12,12 +12,13 @@ import {
 import Loader from '../components/Loader';
 import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
+import { resetOrder } from '../Reducers/orderReducer';
 
 function OrderScreen() {
   const [sdkReady, setSdkReady] = useState(true);
 
   const orderDetails = useSelector((state: RootState) => state.order);
-  const { order, loading, error } = orderDetails;
+  const { order, loading, error ,success} = orderDetails;
 
   const orderPay = useSelector((state: RootState) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
@@ -85,12 +86,11 @@ function OrderScreen() {
   ) : error ? (
     <Message type="error">{error}</Message>
   ) : (
-    <div className="w-full">
-      <div className="w-[75%] m-auto">
-        <div className="px-10  text-gray-500">
+    <div className="container m-auto">
+        <div className="px-5  text-gray-500">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-8/12 md:pr-6">
-              <h1 className="text-black font-semibold tracking-wider text-3xl">
+              <h1 className="text-black font-semibold tracking-wider xs:text-3xl text-lg">
                 ORDER {order?._id}
               </h1>
               <ul className="divide-y divide-gray-200">
@@ -135,17 +135,17 @@ function OrderScreen() {
                   </h2>
                   <ul className="divide-y divide-gray-200">
                     {order?.orderItems.map((item, index) => (
-                      <li key={index} className="py-4 flex ">
-                        <div className="w-16">
+                      <li key={index} className="py-4 sm:flex ">
+                        <div className="sm:w-16">
                           <img
                             className="rounded-lg"
                             src={item.image}
                             alt={item.name}
                           />
                         </div>
-                        <div className="flex-grow pl-4">
+                        <div className="flex-grow sm:pl-4">
                           <Link to={`/product/${item.id}`}>
-                            <h3 className="text-sm font-medium hover:underline cursor-pointer">
+                            <h3 className="text-base font-medium hover:underline cursor-pointer">
                               {item.name}
                             </h3>
                           </Link>
@@ -160,7 +160,7 @@ function OrderScreen() {
                 </li>
               </ul>
             </div>
-            <form className="w-[35%] h-fit border border-gray-300 rounded-md shadow-lg ">
+            <form className="md:w-[35%] h-fit border border-gray-300 rounded-md shadow-lg ">
               <div className="bg-gray-200 rounded-t-md px-4 py-2">
                 <h2 className="text-2xl font-semibold text-gray-600">
                   Order Summary
@@ -216,7 +216,6 @@ function OrderScreen() {
               </ul>
             </form>
           </div>
-        </div>
       </div>
     </div>
   );

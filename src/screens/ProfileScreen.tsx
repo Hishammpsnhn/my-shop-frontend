@@ -49,8 +49,8 @@ function ProfileScreen() {
   };
 
   return (
-    <div className="mx-40 grid grid-cols-4 gap-10">
-      <div className="col-span-1">
+    <div className="container m-auto grid grid-cols-4 gap-10 px-2">
+      <div className="col-span-4 sm:col-span-1">
         <h2 className="text-2xl text-black font-semibold tracking-wider">
           USER PROFILE
         </h2>
@@ -140,7 +140,7 @@ function ProfileScreen() {
           </form>
         )}
       </div>
-      <div className="col-span-3">
+      <div className="col-span-4 sm:col-span-3">
         <h2 className="text-2xl text-black font-semibold tracking-wider">
           MY ORDERS
         </h2>

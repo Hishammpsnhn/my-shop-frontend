@@ -43,7 +43,7 @@ function UsersListScreen() {
   };
 
   return (
-    <div className="w-[70%] m-auto">
+    <div className="container m-auto overflow-hidden">
       <h1 className="uppercase  text-3xl font-sans py-5 tracking-widest">
         USERS
       </h1>
@@ -52,8 +52,8 @@ function UsersListScreen() {
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
-        <>
-          <table className="w-full text-left text-sm font-light ">
+        <div className='overflow-x-scroll'>
+          <table className="w-full text-left text-sm font-light overflow-hidden">
             <thead className=" border border-gray-300 bg-white font-medium">
               <tr>
                 <th scope="col" className="px-6 py-4">
@@ -111,7 +111,7 @@ function UsersListScreen() {
               ))}
             </tbody>
           </table>
-        </>
+        </div>
       )}
     </div>
   );
