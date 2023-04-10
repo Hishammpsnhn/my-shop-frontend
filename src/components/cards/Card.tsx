@@ -13,16 +13,15 @@ interface props {
 
 function Card({ name, image, rating, price, reviewLength, id }: props) {
   return (
-    <div className="w-[280px] rounded  overflow-hidden shadow-xl p-5">
-      {/* <Link to={`/product/${product._id}`}></Link> */}
+    <div className=" rounded  overflow-hidden p-2 border">
       <Link to={`/product/${id}`}>
         <img
-          className="w-[180px] h-[180px] m-auto "
+          className="w-full "
           src={image}
           alt="Sunset in the mountains"
         />
       </Link>
-      <div className="px-4 py-2">
+      <div className="px-4 pt-2 pb-5">
         <p className="text-gray-800 font-medium text-base capitalize ">
           {name}
         </p>

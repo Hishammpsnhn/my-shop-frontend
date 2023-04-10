@@ -8,14 +8,14 @@ function Cards() {
   const state = useSelector((state: RootState) => state.product);
   const { products, loading } = state;
   return (
-    <div className="mx-20 pt-10 ">
-      <h6 className="text-3xl font-bold font-serif tracking-wide mb-10">
-        Latest Products
-      </h6>
+    <div className="">
+     
       {loading ? (
-        <Loader />
+        <div className='w-full'>
+          <Loader />
+        </div>
       ) : (
-        <div className=" grid grid-cols-4 gap-4">
+        <div className=" grid grid-cols-1 lg:grid-cols-4 sm:grid-cols-3 ss:grid-cols-2 gap-4">
           {products.map((item) => (
             <Card
               key={item._id}

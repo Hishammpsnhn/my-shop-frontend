@@ -9,10 +9,9 @@ import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
 import SearchBox from './SearchBox';
 import { Menu, Transition } from '@headlessui/react';
-import { userInfo } from 'os';
 
 function Header() {
-  const [dropdown, setDropdown] = useState(false);
+  const [toggleMenu, setToggleMenu] = useState(false);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,140 +20,149 @@ function Header() {
   const { user: userInfo } = user;
 
   return (
-    <div className=" bg-gray-700 mb-10">
-      <div className="mx-10 p-5 flex justify-between items-center ">
-        <div className="flex">
-          <Link to="/" className="text-white font-serif text-3xl ">
-            MYSHOP
-          </Link>
-          <SearchBox />
-        </div>
-        <div className="flex items-center font-serif text-xs text-gray-400">
-          <i className="flex items-center hover:opacity-50 cursor-pointer">
-            <AiOutlineShoppingCart />
-            <Link to={'/cart'} className="mr-5 ml-1">
-              CART
-            </Link>
-          </i>
-          {userInfo ? (
-            <Menu>
-              {({ open }) => (
-                <>
-                  <Menu.Button className="flex items-center">
-                    <CgProfile />
-                    <div className="mr-2 ml-1 items-center text-center uppercase flex">
-                      {userInfo?.name}
-                    </div>
-                    <IoMdArrowDropdown />
-                  </Menu.Button>
+    <div className={`bg-gray-700 mb-10  ease-in-out duration-300`}>
+      <div className='container m-auto'>
+        <div className="mx-10 py-7 lg:flex  items-center ">
 
-                  <Transition
-                    show={open}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items
-                      static
-                      className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-                    >
-                      <div className="py-1">
-                        {userInfo && (
-                          <>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <button
-                                  className={`${
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700'
-                                  } block px-4 py-2 text-sm w-full text-left`}
-                                  onClick={() => navigate('/profile')}
-                                >
-                                  Profile
-                                </button>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <button
-                                  className={`${
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700'
-                                  } block px-4 py-2 text-sm w-full text-left`}
-                                  onClick={() => logout(dispatch)}
-                                >
-                                  Logout
-                                </button>
-                              )}
-                            </Menu.Item>
-                          </>
-                        )}
-                        {userInfo && userInfo?.isAdmin && (
-                          <>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to={'/admin/userlist'}
-                                  className={`${
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700'
-                                  } block px-4 py-2 text-sm w-full text-left`}
-                                >
-                                  Users
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to={'/admin/productlist'}
-                                  className={`${
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700'
-                                  } block px-4 py-2 text-sm w-full text-left`}
-                                >
-                                  Products
-                                </Link>
-                              )}
-                            </Menu.Item>
-                            <Menu.Item>
-                              {({ active }) => (
-                                <Link
-                                  to={'/admin/orderslist'}
-                                  className={`${
-                                    active
-                                      ? 'bg-gray-100 text-gray-900'
-                                      : 'text-gray-700'
-                                  } block px-4 py-2 text-sm w-full text-left`}
-                                >
-                                  Order
-                                </Link>
-                              )}
-                            </Menu.Item>
-                          </>
-                        )}
-                      </div>
-                    </Menu.Items>
-                  </Transition>
-                </>
-              )}
-            </Menu>
-          ) : (
-            <Link to={`/register`}>
-              <i className="flex items-center  hover:opacity-50 cursor-pointer">
-                <CgProfile />
-                <p className="ml-1">SIGN IN</p>
-              </i>
+          <div className='flex justify-between'>
+            <Link to="/" className="text-white font-serif text-3xl ">
+              MYSHOP
             </Link>
-          )}
-          <div className="relative inline-block text-left"></div>
+            <div className="block lg:hidden">
+              <button className="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white" onClick={() => setToggleMenu((prev) => !prev)} >
+                <svg className="h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+              </button>
+            </div>
+          </div>
+
+          <div className={` ${!toggleMenu ? 'hidden' : 'translate-y-0'} ease-in-out duration-300  w-full lg:flex lg:justify-between `}>
+            <div className='w-96 lg:py-0 py-5'>
+              <SearchBox />
+            </div>
+            <div className="lg:flex items-center font-serif text-xs text-gray-400">
+              <i className="flex items-center hover:opacity-50 cursor-pointer pb-5 lg:pb-0">
+                <AiOutlineShoppingCart />
+                <Link to={'/cart'} className="mr-5 ml-1">
+                  CART
+                </Link>
+              </i>
+              {userInfo ? (
+                <Menu>
+                  {({ open }) => (
+                    <div >
+                      <Menu.Button className="flex items-center">
+                        <CgProfile />
+                        <div className="mr-2 ml-1 items-center text-center uppercase flex">
+                          {userInfo?.name}
+                        </div>
+                        <IoMdArrowDropdown />
+                      </Menu.Button>
+
+                      <Transition
+                        show={open}
+                        enter="transition ease-out duration-100"
+                        enterFrom="transform opacity-0 scale-95"
+                        enterTo="transform opacity-100 scale-100"
+                        leave="transition ease-in duration-75"
+                        leaveFrom="transform opacity-100 scale-100"
+                        leaveTo="transform opacity-0 scale-95"
+                      >
+                        <Menu.Items
+                          static
+                          className="origin-top-right  lg:absolute relative w-full right-0 mt-2 lg:w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                        >
+                          <div className="py-1 ">
+                            {userInfo && (
+                              <>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <button
+                                      className={`${active
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-700'
+                                        } block px-4 py-2 text-sm w-full text-left`}
+                                      onClick={() => navigate('/profile')}
+                                    >
+                                      Profile
+                                    </button>
+                                  )}
+                                </Menu.Item>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <button
+                                      className={`${active
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-700'
+                                        } block px-4 py-2 text-sm w-full text-left`}
+                                      onClick={() => logout(dispatch)}
+                                    >
+                                      Logout
+                                    </button>
+                                  )}
+                                </Menu.Item>
+                              </>
+                            )}
+                            {userInfo && userInfo?.isAdmin && (
+                              <>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to={'/admin/userlist'}
+                                      className={`${active
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-700'
+                                        } block px-4 py-2 text-sm w-full text-left`}
+                                    >
+                                      Users
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to={'/admin/productlist'}
+                                      className={`${active
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-700'
+                                        } block px-4 py-2 text-sm w-full text-left`}
+                                    >
+                                      Products
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+                                <Menu.Item>
+                                  {({ active }) => (
+                                    <Link
+                                      to={'/admin/orderslist'}
+                                      className={`${active
+                                        ? 'bg-gray-100 text-gray-900'
+                                        : 'text-gray-700'
+                                        } block px-4 py-2 text-sm w-full text-left`}
+                                    >
+                                      Order
+                                    </Link>
+                                  )}
+                                </Menu.Item>
+                              </>
+                            )}
+                          </div>
+                        </Menu.Items>
+                      </Transition>
+                    </div>
+                  )}
+                </Menu>
+              ) : (
+                <Link to={`/register`}>
+                  <i className="flex items-center  hover:opacity-50 cursor-pointer">
+                    <CgProfile />
+                    <p className="ml-1">SIGN IN</p>
+                  </i>
+                </Link>
+              )}
+              <div className="relative inline-block text-left"></div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@ type Style = {
 };
 function Loader({ style }: Style) {
   return (
-    <div role="status" className="flex justify-center ">
+    <div role="status" className=" w-full flex justify-center my-10  ">
       <svg
         aria-hidden="true"
         className={`w-20 h-20 ${style}  mr-2 text-gray-200 animate-spin dark:text-white fill-black`}

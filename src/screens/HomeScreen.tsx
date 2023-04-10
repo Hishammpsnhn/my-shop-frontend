@@ -20,7 +20,7 @@ function HomeScreen() {
   }, [dispatch, params]);
 
   return (
-    <div className="mx-40 ">
+    <div className="container px-4 m-auto">
       {params.keyword ? (
         <Link
           className=" text-[13px] tracking-wide text-gray-500 font-semibold hover:bg-stone-200 p-3 rounded"
@@ -31,9 +31,14 @@ function HomeScreen() {
       ) : error ? (
         <Message type="error">{error}</Message>
       ) : (
-        <Carousal />
+        <div>
+          <Carousal />
+          <h6 className="text-3xl font-serif tracking-wider mb-10">
+            LATEST PRODUCTS
+          </h6>
+          <Cards />
+        </div>
       )}
-      <Cards />
     </div>
   );
 }
