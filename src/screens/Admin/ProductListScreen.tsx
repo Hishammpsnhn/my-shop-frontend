@@ -8,14 +8,14 @@ import { BsTrashFill } from 'react-icons/bs';
 import { FaPlus } from 'react-icons/fa';
 import { useAppDispatch } from '../../hook';
 import { Link, useNavigate } from 'react-router-dom';
-import { deleteProduct, listProducts } from '../../actions/productAction';
+import { createProduct, deleteProduct, listProducts } from '../../actions/productAction';
 import { resetUpdateOrder } from '../../Reducers/productDetailsReducer';
 
 function ProductListScreen() {
   const ProductDetails = useSelector(
     (state: RootState) => state.productDetails
   );
-  const { productDetails: product } = ProductDetails;
+  const { productDetails: product,loading:productLoading,error:productError } = ProductDetails;
 
   const Products = useSelector((state: RootState) => state.product);
   const {
@@ -39,13 +39,16 @@ function ProductListScreen() {
     } else {
       navigate('/login');
     }
-  }, [dispatch, userInfo, navigate, productDeleted]);
+  }, [dispatch, userInfo, navigate, productDeleted,product]);
 
   const deleteHandler = (id: string) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteProduct(id));
     }
   };
+  const createProductHandler = ()=>{
+    dispatch(createProduct())
+  }
 
   return (
     <div className="container m-auto overflow-hidden">
@@ -53,14 +56,14 @@ function ProductListScreen() {
         <h1 className="uppercase  text-3xl font-sans  tracking-widest">
           PRODUCTS
         </h1>
-        <button className="flex text-center  justify-center items-center bg-green-500 py-3 px-5 border-none rounded text-white font-bold text-base tracking-wider hover:opacity-80">
+        <button className="flex text-center  justify-center items-center bg-green-500 py-3 px-5 border-none rounded text-white font-bold text-base tracking-wider hover:opacity-80" onClick={createProductHandler}>
           <FaPlus />
           <span className="pl-2">CREATE</span>
         </button>
       </div>
-      {loading ? (
+      {loading || productLoading ? (
         <Loader />
-      ) : error ? (
+      ) : error || productError ? (
         <Message type="error">{error}</Message>
       ) : (
         <div className='overflow-x-scroll'>

@@ -3,6 +3,7 @@ import {
   createOrderRequest,
   createOrderSuccess,
   createOrderError,
+  resetOrder,
 } from '../Reducers/orderReducer';
 import { RootState } from '../store';
 import axios from 'axios';
@@ -72,6 +73,7 @@ export const getOrderDetails =
 
       const { data } = await axios.get(`/api/orders/${id}`, config);
       dispatch(createOrderSuccess(data));
+      dispatch(resetOrder())
     } catch (error: any) {
       const message =
         error.response && error.response.data.message

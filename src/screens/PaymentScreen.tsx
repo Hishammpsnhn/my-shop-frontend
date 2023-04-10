@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { savePaymentMethod } from '../actions/cartAction';
 import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../hook';
+import { resetUpdateOrder } from '../Reducers/productDetailsReducer';
 
 function PaymentScreen() {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -13,6 +14,7 @@ function PaymentScreen() {
 
   const submitHandler = () => {
     dispatch(savePaymentMethod(paymentMethod));
+    dispatch(resetUpdateOrder())
     navigate('/placeorder');
   };
 

@@ -43,7 +43,9 @@ function PlaceOrderScreen() {
 
   useEffect(() => {
     if (success && order?._id) {
+      console.log(success)
       dispatch(getOrderDetails(order._id));
+
       navigate(`/order/${order._id}`);
     }
   }, [orderCreate]);
@@ -62,6 +64,7 @@ function PlaceOrderScreen() {
         totalPrice: totalPrice,
       })
     );
+    
   };
 
   return (

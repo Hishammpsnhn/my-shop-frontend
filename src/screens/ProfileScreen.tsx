@@ -185,10 +185,10 @@ function ProfileScreen() {
                           }  `}
                         >
                           <td className="whitespace-nowrap px-6 py-4 font-medium">
-                            {i + 1}
+                            {order._id}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
-                            {order._id}
+                            {order.createdAt?.substring(0,10)}
                           </td>
                           <td className="whitespace-nowrap px-6 py-4">
                             {order.totalPrice}

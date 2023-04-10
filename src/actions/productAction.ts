@@ -121,6 +121,38 @@ export const deleteProduct =
     }
   };
 
+export const createProduct =
+  () =>
+  async (dispatch: Dispatch, getState: () => RootState) => {
+    try {
+      dispatch(productDetailsRequest());
+
+      const {
+        user: { user },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user?.token}`,
+        },
+      };
+
+      const { data } = await axios.post(`/api/products`, {}, config)
+
+      dispatch(productUpdateSuccess(data));
+    } catch (error: any) {
+      const message =
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message;
+
+      if (message === 'Not authorized, token failed') {
+        logout(dispatch);
+      }
+      dispatch(productDetailsRequestError(message));
+    }
+  };
 export const updateProduct =
   (product: UpdateProduct) =>
   async (dispatch: Dispatch, getState: () => RootState) => {
