@@ -34,8 +34,8 @@ function CartScreen() {
     navigate('/login?redirect=shipping');
   };
   return (
-    <div className="mx-40 flex justify-between">
-      <div className="w-[50%]">
+    <div className="container m-auto sm:flex justify-between">
+      <div className=" mb-10 w-fit">
         <h1 className="text-4xl p-5 ">SHOPPING CART</h1>
         {cartItems.length === 0 ? (
           <Message type="info">
@@ -63,8 +63,8 @@ function CartScreen() {
         )}
       </div>
       <div>
-        <div className="border border-gray-400 ">
-          <div className="p-4">
+        <div className="border border-gray-400 mx-2">
+          <div className="p-4 ">
             <h2 className="text-2xl text-gray-700 tracking-widest mb-3">
               SUBTOTAL ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
               ITEMS
@@ -78,7 +78,7 @@ function CartScreen() {
           </div>
           <div className="border border-t-gray-400 w-full px-4 py-2">
             <button
-              className="bg-black w-[350px] p-4 text-white text-xs tracking-wider font-semibold "
+              className="bg-black w-full p-4 text-white text-xs tracking-wider font-semibold "
               onClick={handleCheckout}
             >
               PORCEED TO CHECKOUT
@@ -118,32 +118,49 @@ const CartScreenitem = ({
   );
 
   return (
-    <div key={id} className="ml-10 flex justify-between text-gray-500 mt-5">
-      <img className="w-20 h-20" src={image} alt="image" />
-      <p
-        onClick={() => navigate(`/product/${id}`)}
-        className="w-[25%] hover:underline cursor-pointer"
-      >
-        {name}
-      </p>
-      <p>$ {price}</p>
-      <select
-        defaultValue={qty}
-        className=" border border-gray-300 w-20  block  p-2.5 h-11 bg-slate-200"
-        onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}
-      >
-        {quantityOptions.map((value) => (
-          <option key={value} value={value}>
-            {value}
-          </option>
-        ))}
-      </select>
-      <button
-        className="hover:bg-gray-200 w-20 h-11 text-xl flex items-center justify-center"
-        onClick={() => handleRemoveItem(id)}
-      >
-        <AiFillDelete />
-      </button>
+    <div key={id} className="sm:w-[70%] sm:ml-10 px-2 sm:px-0 sm:flex text-gray-500 mt-5">
+      <div className=' w-full  grid grid-cols-6 gap-2'>
+
+        <div className='ss:col-span-1 col-span-6 ' >
+          <img className="" src={image} alt="image" />
+        </div>
+        <div className=' ss:col-span-2 col-span-6'>
+          <p
+            onClick={() => navigate(`/product/${id}`)}
+            className="font-semibold text-lg  hover:underline cursor-pointer"
+          >
+            {name}
+          </p>
+        </div>
+        <div className='ss:col-span-1 col-span-6'>
+          <p>$ {price}</p>
+        </div>
+        <div className='ss:col-span-1 col-span-6'>
+          <select
+            defaultValue={qty}
+            className="  border border-gray-300 px-5 py-2 bg-slate-100 sm:w-fit w-full"
+            onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}
+          >
+            {quantityOptions.map((value) => (
+              <option key={value} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className='ss:col-span-1 col-span-6'>
+          <button
+            className="hover:bg-gray-200 w-20 h-11 text-xl flex items-center justify-center"
+            onClick={() => handleRemoveItem(id)}
+          >
+            <AiFillDelete />
+          </button>
+        </div>
+      </div>
+      {/*
+      
+      
+      */}
     </div>
   );
 };

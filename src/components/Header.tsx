@@ -36,7 +36,7 @@ function Header() {
           </div>
 
           <div className={` ${!toggleMenu ? 'hidden' : 'translate-y-0'} ease-in-out duration-300  w-full lg:flex lg:justify-between `}>
-            <div className='w-96 lg:py-0 py-5'>
+            <div className='ss:w-96 lg:py-0 py-5'>
               <SearchBox />
             </div>
             <div className="lg:flex items-center font-serif text-xs text-gray-400">
