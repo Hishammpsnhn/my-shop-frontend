@@ -34,17 +34,17 @@ export interface UpdateProduct {
 
 export const listProducts =
   (keyword = '', pageNumber = '') =>
-  async (dispatch: Dispatch) => {
-    try {
-      dispatch(productListRequest());
-      const { data } = await axios.get(
-        `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-      );
-      dispatch(productListSuccess(data));
-    } catch (error) {
-      dispatch(productListRequestError(error));
-    }
-  };
+    async (dispatch: Dispatch) => {
+      try {
+        dispatch(productListRequest());
+        const { data } = await axios.get(
+          `/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
+        );
+        dispatch(productListSuccess(data));
+      } catch (error) {
+        dispatch(productListRequestError(error));
+      }
+    };
 
 export const listProductDetails =
   (id: string) => async (dispatch: Dispatch) => {
@@ -59,36 +59,36 @@ export const listProductDetails =
 
 export const createProductReview =
   (productId: string, review: { rating: number; comment: string }) =>
-  async (dispatch: Dispatch, getState: () => RootState) => {
-    try {
-      dispatch(addReviewRequest());
+    async (dispatch: Dispatch, getState: () => RootState) => {
+      try {
+        dispatch(addReviewRequest());
 
-      const {
-        user: { user },
-      } = getState();
+        const {
+          user: { user },
+        } = getState();
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.token}`,
-        },
-      };
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
 
-      await axios.post(`/api/products/${productId}/reviews`, review, config);
+        await axios.post(`/api/products/${productId}/reviews`, review, config);
 
-      dispatch(addReviewSucces());
-    } catch (error: any) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+        dispatch(addReviewSucces());
+      } catch (error: any) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
 
-      if (message === 'Not authorized, token failed') {
-        logout(dispatch);
+        if (message === 'Not authorized, token failed') {
+          logout(dispatch);
+        }
+        dispatch(addReviewError(message));
       }
-      dispatch(addReviewError(message));
-    }
-  };
+    };
 export const deleteProduct =
   (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
     try {
@@ -123,69 +123,69 @@ export const deleteProduct =
 
 export const createProduct =
   () =>
-  async (dispatch: Dispatch, getState: () => RootState) => {
-    try {
-      dispatch(productDetailsRequest());
+    async (dispatch: Dispatch, getState: () => RootState) => {
+      try {
+        dispatch(productDetailsRequest());
 
-      const {
-        user: { user },
-      } = getState();
+        const {
+          user: { user },
+        } = getState();
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.token}`,
-        },
-      };
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
 
-      const { data } = await axios.post(`/api/products`, {}, config)
+        const { data } = await axios.post(`/api/products`, {}, config)
 
-      dispatch(productUpdateSuccess(data));
-    } catch (error: any) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+        dispatch(productUpdateSuccess(data));
+      } catch (error: any) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
 
-      if (message === 'Not authorized, token failed') {
-        logout(dispatch);
+        if (message === 'Not authorized, token failed') {
+          logout(dispatch);
+        }
+        dispatch(productDetailsRequestError(message));
       }
-      dispatch(productDetailsRequestError(message));
-    }
-  };
+    };
 export const updateProduct =
   (product: UpdateProduct) =>
-  async (dispatch: Dispatch, getState: () => RootState) => {
-    try {
-      dispatch(productDetailsRequest());
+    async (dispatch: Dispatch, getState: () => RootState) => {
+      try {
+        dispatch(productDetailsRequest());
 
-      const {
-        user: { user },
-      } = getState();
+        const {
+          user: { user },
+        } = getState();
 
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user?.token}`,
-        },
-      };
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${user?.token}`,
+          },
+        };
 
-      const { data } = await axios.put(
-        `/api/products/${product._id}`,
-        product,
-        config
-      );
+        const { data } = await axios.put(
+          `/api/products/${product._id}`,
+          product,
+          config
+        );
 
-      dispatch(productUpdateSuccess(data));
-    } catch (error: any) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
+        dispatch(productUpdateSuccess(data));
+      } catch (error: any) {
+        const message =
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message;
 
-      if (message === 'Not authorized, token failed') {
-        logout(dispatch);
+        if (message === 'Not authorized, token failed') {
+          logout(dispatch);
+        }
+        dispatch(productDetailsRequestError(message));
       }
-      dispatch(productDetailsRequestError(message));
-    }
-  };
+    };

@@ -37,7 +37,7 @@ function Header() {
 
           <div className={` ${!toggleMenu ? 'hidden' : 'translate-y-0'} ease-in-out duration-300  w-full lg:flex lg:justify-between `}>
             <div className='ss:w-96 lg:py-0 py-5'>
-              <SearchBox />
+              <SearchBox isAdmin={userInfo ? userInfo?.isAdmin : false} />
             </div>
             <div className="lg:flex items-center font-serif text-xs text-gray-400">
               <i className="flex items-center hover:opacity-50 cursor-pointer pb-5 lg:pb-0">

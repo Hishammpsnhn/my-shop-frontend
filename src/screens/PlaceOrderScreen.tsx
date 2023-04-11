@@ -8,6 +8,7 @@ import { addPrices } from '../Reducers/cartReducer';
 import { useAppDispatch } from '../hook';
 import { createOrder, getOrderDetails } from '../actions/orderAction';
 import { resetOrder } from '../Reducers/orderReducer';
+import Footer from '../components/Footer';
 
 function PlaceOrderScreen() {
   const cart = useSelector((state: RootState) => state.cart);
@@ -64,12 +65,13 @@ function PlaceOrderScreen() {
         totalPrice: totalPrice,
       })
     );
-    
+
   };
 
   return (
-    <div className="container m-auto px-2 max-w-[1140px]">
-      <CheckoutSteps step1 step2 step3 step4 />
+    <>
+      <div className="container m-auto px-2 max-w-[1140px] min-h-[67vh]">
+        <CheckoutSteps step1 step2 step3 step4 />
         <div className="px-10  text-gray-500">
           <div className="flex flex-col md:flex-row">
             <div className="md:w-8/12 md:pr-6">
@@ -166,17 +168,15 @@ function PlaceOrderScreen() {
                 <li className="py-4 px-6">
                   <button
                     type="submit"
-                    className={`w-full py-2 ${
-                      cart.cartItems.length === 0
+                    className={`w-full py-2 ${cart.cartItems.length === 0
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-black opacity-80 hover:opacity-90'
-                    } text-white rounded-md ${
-                      cart.cartItems.length === 0
+                      } text-white rounded-md ${cart.cartItems.length === 0
                         ? 'cursor-not-allowed'
                         : 'hover:shadow-lg'
-                    }`}
+                      }`}
                     disabled={cart.cartItems.length === 0}
-                    // onClick={placeOrderHandler}
+                  // onClick={placeOrderHandler}
                   >
                     Place Order
                   </button>
@@ -184,8 +184,10 @@ function PlaceOrderScreen() {
               </ul>
             </form>
           </div>
+        </div>
       </div>
-    </div>
+      <Footer/>
+    </>
   );
 }
 

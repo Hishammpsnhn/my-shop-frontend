@@ -8,6 +8,7 @@ import { useAppDispatch } from '../../hook';
 import { listProductDetails, updateProduct } from '../../actions/productAction';
 import axios from 'axios';
 import { resetUpdateOrder } from '../../Reducers/productDetailsReducer';
+import Footer from '../../components/Footer';
 
 function ProductEditScreen() {
   const [name, setName] = useState('');
@@ -215,6 +216,7 @@ function ProductEditScreen() {
           </button>
         </form>
       )}
+      <Footer />
     </div>
   );
 }

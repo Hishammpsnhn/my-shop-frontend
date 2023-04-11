@@ -7,8 +7,8 @@ interface CounterState {
   products: Array<Product>;
   deleteProduct: Boolean;
   error: String;
-  pages: Number;
-  page: Number;
+  pages: number;
+  page: number;
 }
 
 const initialState: CounterState = {

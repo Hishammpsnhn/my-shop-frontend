@@ -7,6 +7,7 @@ import Loader from '../Loader';
 function Cards() {
   const state = useSelector((state: RootState) => state.product);
   const { products, loading } = state;
+  console.log(products)
   return (
     <div className="">
      

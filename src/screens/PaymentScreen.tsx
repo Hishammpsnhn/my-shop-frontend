@@ -5,6 +5,7 @@ import { savePaymentMethod } from '../actions/cartAction';
 import { useDispatch } from 'react-redux';
 import { useAppDispatch } from '../hook';
 import { resetUpdateOrder } from '../Reducers/productDetailsReducer';
+import Footer from '../components/Footer';
 
 function PaymentScreen() {
   const [paymentMethod, setPaymentMethod] = useState('PayPal');
@@ -19,31 +20,32 @@ function PaymentScreen() {
   };
 
   return (
-    <div className="container m-auto px-2 max-w-[1140px]">
-      <CheckoutSteps step1 step2 step3 />
-      <div className="w-[45%] m-auto flex justify-start">
-        <div>
-          <h1 className="font-serif text-3xl tracking-wider ">
-            Payment Method
-          </h1>
-          <form onSubmit={submitHandler}>
-            <div className="mb-4">
-              <span className="text-lg font-bold mb-2 block">
-                Select Method
-              </span>
-              <div className="flex flex-col sm:flex-row sm:items-center">
-                <label className="inline-flex items-center mr-4">
-                  <input
-                    type="radio"
-                    className="form-radio"
-                    name="paymentMethod"
-                    value="PayPal"
-                    checked
+    <>
+      <div className="container m-auto px-2 max-w-[1140px] min-h-[67vh]">
+        <CheckoutSteps step1 step2 step3 />
+        <div className="w-[45%] m-auto flex justify-start">
+          <div>
+            <h1 className="font-serif text-3xl tracking-wider ">
+              Payment Method
+            </h1>
+            <form onSubmit={submitHandler}>
+              <div className="mb-4">
+                <span className="text-lg font-bold mb-2 block">
+                  Select Method
+                </span>
+                <div className="flex flex-col sm:flex-row sm:items-center">
+                  <label className="inline-flex items-center mr-4">
+                    <input
+                      type="radio"
+                      className="form-radio"
+                      name="paymentMethod"
+                      value="PayPal"
+                      checked
                     //onChange={(e) => setPaymentMethod(e.target.value)}
-                  />
-                  <span className="ml-2">PayPal or Credit Card</span>
-                </label>
-                {/* <label className="inline-flex items-center">
+                    />
+                    <span className="ml-2">PayPal or Credit Card</span>
+                  </label>
+                  {/* <label className="inline-flex items-center">
                                     <input
                                         type="radio"
                                         className="form-radio"
@@ -53,18 +55,20 @@ function PaymentScreen() {
                                     />
                                     <span className="ml-2">Stripe</span>
                                 </label> */}
+                </div>
               </div>
-            </div>
-            <button
-              type="submit"
-              className="bg-black text-white text-xs px-6 py-4 tracking-wide"
-            >
-              CONTINUE
-            </button>
-          </form>
+              <button
+                type="submit"
+                className="bg-black text-white text-xs px-6 py-4 tracking-wide"
+              >
+                CONTINUE
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 }
 

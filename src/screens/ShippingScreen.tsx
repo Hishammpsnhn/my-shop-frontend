@@ -5,6 +5,7 @@ import { addAddress } from '../actions/cartAction';
 import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { useNavigate } from 'react-router-dom';
+import Footer from '../components/Footer';
 
 function ShippingScreen() {
   //   const [address, setAddress] = useState(shippingAddress.address)
@@ -92,6 +93,7 @@ function ShippingScreen() {
         </div>
         
       </div>
+      <Footer/>
     </div>
   );
 }

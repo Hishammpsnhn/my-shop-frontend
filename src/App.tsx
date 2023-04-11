@@ -26,16 +26,20 @@ function App() {
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/profile" element={<ProfileScreen />} />
         <Route path="/product/:id" element={<ProductScreen />} />
-        <Route path="/search/:keyword" element={<HomeScreen />} />
         <Route path="/cart/:id?" element={<CartScreen />} />
         <Route path="/shipping" element={<ShippingScreen />} />
         <Route path="/payment" element={<PaymentScreen />} />
         <Route path="/placeorder" element={<PlaceOrderScreen />} />
         <Route path="/order/:id" element={<OrderScreen />} />
+        <Route path="/search/:keyword" element={<HomeScreen />} />
         <Route path="/" element={<HomeScreen />} />
+        <Route path="/page/:pageNumber" element={<HomeScreen />} />
+
         <Route path="/admin/userlist" element={<UsersListScreen />} />
-        <Route path="/admin/orderslist" element={<OrderListScreen />} />
+        <Route path="/admin/productlist/:pageNumber" element={<ProductListScreen />} />
         <Route path="/admin/productlist" element={<ProductListScreen />} />
+        <Route path="/admin/productlist/search/:keyword" element={<ProductListScreen />} />
+        <Route path="/admin/orderslist" element={<OrderListScreen />} />
         <Route path="/admin/productedit/:id" element={<ProductEditScreen />} />
       </Routes>
     </BrowserRouter>

@@ -1,14 +1,26 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-function SearchBox() {
+type Props = {
+  isAdmin: boolean
+}
+
+function SearchBox({ isAdmin }: Props) {
   const navigate = useNavigate();
+
+  const location = useLocation();
+  const currentUrl = location.pathname;
+
   const [keyword, setKeyword] = useState<String>('');
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
     if (keyword.trim()) {
-      navigate(`/search/${keyword}`);
+      if (isAdmin && currentUrl == '/admin/productlist') {
+        navigate(`admin/productlist/search/${keyword}`);
+      } else {
+        navigate(`/search/${keyword}`);
+      }
     } else {
       navigate('/');
     }
