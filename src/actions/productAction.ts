@@ -19,7 +19,8 @@ import {
   addReviewSucces,
 } from '../Reducers/ReviewReducer';
 import { logout } from './userAction';
-import { Product } from '../model/productModel';
+
+import { topProductRequest, topProductRequestError, topProducttSuccess } from '../Reducers/topProducts';
 
 export interface UpdateProduct {
   _id: string;
@@ -153,6 +154,7 @@ export const createProduct =
         dispatch(productDetailsRequestError(message));
       }
     };
+
 export const updateProduct =
   (product: UpdateProduct) =>
     async (dispatch: Dispatch, getState: () => RootState) => {
@@ -187,5 +189,20 @@ export const updateProduct =
           logout(dispatch);
         }
         dispatch(productDetailsRequestError(message));
+      }
+    };
+
+export const topProducts =
+  () =>
+    async (dispatch: Dispatch) => {
+      try {
+        dispatch(topProductRequest());
+        const { data } = await axios.get(
+          `/api/products/top`
+        );
+        console.log(data);
+        dispatch(topProducttSuccess(data));
+      } catch (error) {
+        dispatch(topProductRequestError(error));
       }
     };
