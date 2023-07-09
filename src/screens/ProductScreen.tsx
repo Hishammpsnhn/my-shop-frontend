@@ -13,6 +13,7 @@ import Review from '../components/Review';
 import Message from '../components/Message';
 import { reviewReset } from '../Reducers/ReviewReducer';
 import Footer from '../components/Footer';
+import ReactImageMagnify from 'react-image-magnify';
 
 function ProductScreen() {
   const [qty, setQty] = useState(1);
@@ -79,13 +80,32 @@ function ProductScreen() {
         {loading ? (
           <Loader />
         ) : (
-          <div className="grid sm:grid-cols-4 grid-cols-1  gap-2 ">
+          <div className="grid sm:grid-cols-4 grid-cols-1  gap-2 mx-2 m:mx-0">
             <div className="col-span-2 ">
-              <img
+              {productDetails?.image && (
+                <div className='flex flex-col'>
+              <ReactImageMagnify {...{
+                smallImage: {
+                  alt: 'Wristwatch by Ted Baker London',
+                  isFluidWidth: true,
+                src: productDetails?.image
+
+                },
+                largeImage: {
+                  src:productDetails?.image,
+                  
+                  width: 1100,
+                  height: 1100,
+                },
+                isHintEnabled:true
+              }} />
+                </div>
+              )}
+              {/* <img
                 className="p-5  "
                 src={productDetails?.image}
                 alt="images"
-              />
+              /> */}
             </div>
             <div className=" sm:flex col-span-2 divide-y  justify-between">
               <div className="sm:w-[45%] text-gray-500">

@@ -18,6 +18,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.8.0",
+    "react-image-magnify": "^2.7.4",
     "react-paypal-button-v2": "^2.6.3",
     "react-redux": "^8.0.5",
     "react-responsive-carousel": "^3.2.23",
@@ -53,6 +54,7 @@
     ]
   },
   "devDependencies": {
+    "@types/react-image-magnify": "^2.7.1",
     "prettier": "2.8.4",
     "tailwindcss": "^3.2.7"
   }
