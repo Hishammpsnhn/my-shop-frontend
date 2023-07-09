@@ -15,6 +15,8 @@ import UsersListScreen from './screens/Admin/UsersListScreen';
 import OrderListScreen from './screens/Admin/OrderListScreen';
 import ProductListScreen from './screens/Admin/ProductListScreen';
 import ProductEditScreen from './screens/Admin/ProductEditScreen';
+import Chart from './screens/Admin/Chart';
+import Charts from './screens/Admin/Chart';
 
 function App() {
   return (
@@ -39,6 +41,7 @@ function App() {
         <Route path="/admin/products/:pageNumber" element={<ProductListScreen />} />
         <Route path="/admin/products" element={<ProductListScreen />} />
         <Route path="/admin/products/search/:keyword" element={<ProductListScreen />} />
+        <Route path="/admin/chart" element={<Charts />} />
         <Route path="/admin/orders" element={<OrderListScreen />} />
         <Route path="/admin/productedit/:id" element={<ProductEditScreen />} />
       </Routes>
