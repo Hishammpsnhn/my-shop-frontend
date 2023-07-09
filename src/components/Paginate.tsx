@@ -21,7 +21,7 @@ function Paginate({ page, pages, keyword = "", isAdmin = false }: Props) {
                                             ? keyword
                                                 ? `/search/${keyword}/page/${x + 1}`
                                                 : `/page/${x + 1}`
-                                            : `/admin/productlist/${x + 1}`
+                                            : `/admin/products/${x + 1}`
                                     } className={`px-3 py-2 leading-tight ${x + 1 === page ? 'bg-black text-white' : 'hover:bg-gray-100  text-gray-700 '}`}>{x + 1}</Link>
                                 </li>
                             ))}

@@ -10,6 +10,8 @@ import { RootState } from '../store';
 import SearchBox from './SearchBox';
 import { Menu, Transition } from '@headlessui/react';
 
+const AdminNav: string[] = ["chart", "users", "products", "orders"];
+
 function Header() {
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -103,47 +105,21 @@ function Header() {
                               </>
                             )}
                             {userInfo && userInfo?.isAdmin && (
-                              <>
+                              AdminNav.map((item)=>(
                                 <Menu.Item>
                                   {({ active }) => (
                                     <Link
-                                      to={'/admin/userlist'}
+                                      to={`/admin/${item}`}
                                       className={`${active
                                         ? 'bg-gray-100 text-gray-900'
                                         : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left`}
+                                        } block px-4 py-2 text-sm w-full text-left capitalize`}
                                     >
-                                      Users
+                                     {item}
                                     </Link>
                                   )}
                                 </Menu.Item>
-                                <Menu.Item>
-                                  {({ active }) => (
-                                    <Link
-                                      to={'/admin/productlist'}
-                                      className={`${active
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left`}
-                                    >
-                                      Products
-                                    </Link>
-                                  )}
-                                </Menu.Item>
-                                <Menu.Item>
-                                  {({ active }) => (
-                                    <Link
-                                      to={'/admin/orderslist'}
-                                      className={`${active
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left`}
-                                    >
-                                      Order
-                                    </Link>
-                                  )}
-                                </Menu.Item>
-                              </>
+                              ))
                             )}
                           </div>
                         </Menu.Items>
