@@ -1,3 +1,38 @@
+# E-Commerce-app-using-MERN
+## Ecommerce application for gadgets
+[Link to the backend](https://github.com/Hishammpsnhn/my-shop-backend).
+
+## Features involved:
+- User & Admin Authentication
+- Payment gateways integrated:  PayPal
+- Cash On Delivery
+- Responsive Design
+- User-Generated Reviews
+- High-Resolution Photos
+- User profile
+- Product & Category Management in Admin side
+- Load balancer
+
+## Technologies used:
+- React js
+- Node js
+- Express js
+- MongoDB
+- Typescript
+- Tailwind
+- JWT
+
+## Future Updations:
+- Offers and Coupons
+- Multiple Address Management
+- Sales Reports
+- Social Authentication
+- Chart & Graph reports on Admin side
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
