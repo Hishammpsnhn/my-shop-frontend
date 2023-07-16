@@ -9,11 +9,13 @@ import { useAppDispatch } from '../hook';
 import { RootState } from '../store';
 import SearchBox from './SearchBox';
 import { Menu, Transition } from '@headlessui/react';
+import { listProducts } from '../actions/productAction';
 
 const AdminNav: string[] = ["chart", "users", "products", "orders"];
 
 function Header() {
   const [toggleMenu, setToggleMenu] = useState(false);
+  const [keyword, setKeyword] = useState<string>('');
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -21,13 +23,19 @@ function Header() {
   const user = useSelector((state: RootState) => state.user);
   const { user: userInfo } = user;
 
+  const handleHome = ()=>{
+    dispatch(listProducts());
+    setKeyword("");
+    
+  }
+
   return (
     <div className={`bg-gray-700 mb-10  ease-in-out duration-300`}>
       <div className='container m-auto max-w-[1140px]'>
         <div className="mx-10 py-7 lg:flex  items-center ">
 
           <div className='flex justify-between'>
-            <Link to="/" className="text-white font-serif text-3xl ">
+            <Link to="/" className="text-white font-serif text-3xl " onClick={handleHome} >
               MYSHOP
             </Link>
             <div className="block lg:hidden">
@@ -39,7 +47,7 @@ function Header() {
 
           <div className={` ${!toggleMenu ? 'hidden' : 'translate-y-0'} ease-in-out duration-300  w-full lg:flex lg:justify-between `}>
             <div className='ss:w-96 lg:py-0 py-5'>
-              <SearchBox isAdmin={userInfo ? userInfo?.isAdmin : false} />
+              <SearchBox isAdmin={userInfo ? userInfo?.isAdmin : false} keyword={keyword} setKeyword={setKeyword} />
             </div>
             <div className="lg:flex items-center font-serif text-xs text-gray-400">
               <i className="flex items-center hover:opacity-50 cursor-pointer pb-5 lg:pb-0">

@@ -15,43 +15,50 @@ import Loader from '../components/Loader';
 function HomeScreen() {
   const state = useSelector((state: RootState) => state.product);
   const { error, page, pages, products, loading } = state;
+
+  const topProucts = useSelector((state: RootState) => state.topProducts);
+  const { products: topThreeProducts } = topProucts;
+
   console.log(products)
   const dispatch = useAppDispatch();
   const params = useParams();
 
   useEffect(() => {
-    dispatch(listProducts(params.keyword, params.pageNumber));
-    dispatch(topProducts())
+    if (products.length === 0) {
+      console.log("lengh is empty")
+      dispatch(listProducts(params.keyword, params.pageNumber));
+    } else if (params.keyword || params.pageNumber) {
+      console.log("params is here")
+      dispatch(listProducts(params.keyword, params.pageNumber));
+    }
+    if (topThreeProducts.length === 0 && !params.keyword) {
+      dispatch(topProducts())
+    }
   }, [dispatch, params]);
 
   return (
     <>
-    <div className="container px-4 m-auto max-w-[1140px] min-h-[67vh]">
-      {!params.keyword ? (
-        <Carousal />
+      <div className="container px-4 m-auto max-w-[1140px] min-h-[67vh]">
+        {!params.keyword ? (
+          <Carousal />
 
-      ) : (
-        <Link
-          className=" text-[13px] tracking-wide text-gray-500 font-semibold hover:bg-stone-200 p-3 rounded"
-          to={`/`}
-        >
-          GO BACK
-        </Link>
-      )}
-      <div>
-        <h1 className="text-3xl font-serif tracking-wider mb-10 mt-5">
-          LATEST PRODUCTS
-        </h1>
-        {loading ? (<Loader />) : error ? (
-          <Message type='error'>{error}</Message>
         ) : (
-          <>
-            <Cards />
-            <Paginate pages={pages} page={page} />
-          </>
+          <></>
         )}
+        <div>
+          <h1 className="text-3xl font-serif tracking-wider mb-10 mt-5">
+            LATEST PRODUCTS
+          </h1>
+          {loading ? (<Loader />) : error ? (
+            <Message type='error'>{error}</Message>
+          ) : (
+            <>
+              <Cards />
+              <Paginate pages={pages} page={page} />
+            </>
+          )}
+        </div>
       </div>
-    </div>
       <Footer />
     </>
   );

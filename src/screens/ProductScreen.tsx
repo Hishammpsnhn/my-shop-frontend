@@ -80,7 +80,7 @@ function ProductScreen() {
         {loading ? (
           <Loader />
         ) : (
-          <div className="grid sm:grid-cols-4 grid-cols-1  gap-2 mx-2 m:mx-0">
+          <div className="grid sm:grid-cols-4 grid-cols-1  gap-2  mx-2 md:mx-0 mt-3">
             <div className="col-span-2 ">
               {productDetails?.image && (
                 <div className='flex flex-col'>
@@ -101,11 +101,6 @@ function ProductScreen() {
               }} />
                 </div>
               )}
-              {/* <img
-                className="p-5  "
-                src={productDetails?.image}
-                alt="images"
-              /> */}
             </div>
             <div className=" sm:flex col-span-2 divide-y  justify-between">
               <div className="sm:w-[45%] text-gray-500">
