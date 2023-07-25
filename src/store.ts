@@ -8,7 +8,7 @@ import orderPayReducer from './Reducers/orderPayReducer';
 import myOrderListReducers from './Reducers/orderListReducers';
 import ReviewReducer from './Reducers/ReviewReducer';
 import usersListReducers from './Reducers/usersListReducers';
-import  topProductReducer  from './Reducers/topProducts';
+import topProductReducer from './Reducers/topProducts';
 
 export const store = configureStore({
   reducer: {

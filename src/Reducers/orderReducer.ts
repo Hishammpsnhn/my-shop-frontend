@@ -25,7 +25,6 @@ export const counterSlice = createSlice({
       state.loading = true;
     },
     createOrderSuccess: (state, action) => {
-      console.log(action.payload);
       state.loading = false;
       state.success = true;
       state.order = action.payload;
@@ -35,8 +34,8 @@ export const counterSlice = createSlice({
       state.loading = false;
     },
     resetOrder: (state) => {
-      console.log("rset")
-      state.success =false ;
+      console.log('rset');
+      state.success = false;
     },
   },
 });

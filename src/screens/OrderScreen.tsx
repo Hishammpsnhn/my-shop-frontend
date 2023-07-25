@@ -66,9 +66,6 @@ function OrderScreen() {
     if (!order || orderId !== order._id) {
       if (orderId) {
         dispatch(getOrderDetails(orderId));
-        console.log("his")
-
-
       }
     }
   }, [order, orderId, dispatch]);
@@ -87,7 +84,7 @@ function OrderScreen() {
 
   return (
     <>
-      <div className='container m-auto max-w-[1140px] px-2 min-h-[67vh]'>
+      <div className="container m-auto max-w-[1140px] px-2 min-h-[67vh]">
         {loading ? (
           <Loader />
         ) : error ? (
@@ -134,7 +131,9 @@ function OrderScreen() {
                       <p className="text-sm pb-3">
                         <strong>Method: {order?.paymentMethod}</strong>
                       </p>
-                      {!order?.isPaid && <Message type="error">Not Paid</Message>}
+                      {!order?.isPaid && (
+                        <Message type="error">Not Paid</Message>
+                      )}
                     </li>
                     <li className="py-4">
                       <h2 className="text-2xl font-semibold text-gray-600">
@@ -229,7 +228,7 @@ function OrderScreen() {
       </div>
       <Footer />
     </>
-  )
+  );
 }
 
 export default OrderScreen;

@@ -15,11 +15,7 @@ function Card({ name, image, rating, price, reviewLength, id }: props) {
   return (
     <div className=" rounded  overflow-hidden p-2 border">
       <Link to={`/product/${id}`}>
-        <img
-          className="w-full "
-          src={image}
-          alt="Sunset in the mountains"
-        />
+        <img className="w-full " src={image} alt="Sunset in the mountains" />
       </Link>
       <div className="px-4 pt-2 pb-5">
         <p className="text-gray-800 font-medium text-base capitalize ">

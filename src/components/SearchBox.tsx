@@ -3,18 +3,16 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 type Props = {
-  isAdmin: boolean
-  keyword: string
-  setKeyword: (value: string) => void
-}
+  isAdmin: boolean;
+  keyword: string;
+  setKeyword: (value: string) => void;
+};
 
-function SearchBox({ isAdmin,keyword,setKeyword }: Props) {
+function SearchBox({ isAdmin, keyword, setKeyword }: Props) {
   const navigate = useNavigate();
 
   const location = useLocation();
   const currentUrl = location.pathname;
-
-  
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();

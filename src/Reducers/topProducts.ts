@@ -1,4 +1,4 @@
-import { createSlice} from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { Product } from '../model/productModel';
 
 interface TopProductstate {
@@ -32,9 +32,6 @@ export const TopProductSlice = createSlice({
   },
 });
 
-export const {
-    topProductRequest,
-    topProducttSuccess,
-    topProductRequestError
-} = TopProductSlice.actions;
+export const { topProductRequest, topProducttSuccess, topProductRequestError } =
+  TopProductSlice.actions;
 export default TopProductSlice.reducer;

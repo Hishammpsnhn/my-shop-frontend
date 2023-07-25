@@ -15,7 +15,7 @@ function PaymentScreen() {
 
   const submitHandler = () => {
     dispatch(savePaymentMethod(paymentMethod));
-    dispatch(resetUpdateOrder())
+    dispatch(resetUpdateOrder());
     navigate('/placeorder');
   };
 
@@ -41,7 +41,7 @@ function PaymentScreen() {
                       name="paymentMethod"
                       value="PayPal"
                       checked
-                    //onChange={(e) => setPaymentMethod(e.target.value)}
+                      //onChange={(e) => setPaymentMethod(e.target.value)}
                     />
                     <span className="ml-2">PayPal or Credit Card</span>
                   </label>

@@ -8,7 +8,11 @@ import { BsTrashFill } from 'react-icons/bs';
 import { FaPlus } from 'react-icons/fa';
 import { useAppDispatch } from '../../hook';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { createProduct, deleteProduct, listProducts } from '../../actions/productAction';
+import {
+  createProduct,
+  deleteProduct,
+  listProducts,
+} from '../../actions/productAction';
 import { resetUpdateOrder } from '../../Reducers/productDetailsReducer';
 import Paginate from '../../components/Paginate';
 import Footer from '../../components/Footer';
@@ -17,7 +21,11 @@ function ProductListScreen() {
   const ProductDetails = useSelector(
     (state: RootState) => state.productDetails
   );
-  const { productDetails: product, loading: productLoading, error: productError } = ProductDetails;
+  const {
+    productDetails: product,
+    loading: productLoading,
+    error: productError,
+  } = ProductDetails;
 
   const Products = useSelector((state: RootState) => state.product);
   const {
@@ -50,8 +58,8 @@ function ProductListScreen() {
     }
   };
   const createProductHandler = () => {
-    dispatch(createProduct())
-  }
+    dispatch(createProduct());
+  };
 
   return (
     <>
@@ -60,7 +68,10 @@ function ProductListScreen() {
           <h1 className="uppercase  text-3xl font-sans  tracking-widest">
             PRODUCTS
           </h1>
-          <button className="flex text-center  justify-center items-center bg-green-500 py-3 px-5 border-none rounded text-white font-bold text-base tracking-wider hover:opacity-80" onClick={createProductHandler}>
+          <button
+            className="flex text-center  justify-center items-center bg-green-500 py-3 px-5 border-none rounded text-white font-bold text-base tracking-wider hover:opacity-80"
+            onClick={createProductHandler}
+          >
             <FaPlus />
             <span className="pl-2">CREATE</span>
           </button>
@@ -71,7 +82,7 @@ function ProductListScreen() {
           <Message type="error">{error}</Message>
         ) : (
           <>
-            <div className='overflow-x-scroll'>
+            <div className="overflow-x-scroll">
               <table className="min-w-full text-left text-sm font-light">
                 <thead className=" border border-gray-300 bg-white font-medium">
                   <tr>
@@ -97,18 +108,27 @@ function ProductListScreen() {
                   {products?.map((product, i) => (
                     <tr
                       key={product._id}
-                      className={`border  border-gray-300 ${i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
-                        }  `}
+                      className={`border  border-gray-300 ${
+                        i % 2 === 0
+                          ? 'bg-gray-200'
+                          : 'bg-white hover:bg-gray-200'
+                      }  `}
                     >
                       <td className="whitespace-nowrap px-6 py-4 font-medium">
                         {product._id}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{product.name}</td>
-                      <td className="whitespace-nowrap px-6 py-4">{product.price}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {product.name}
+                      </td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {product.price}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4">
                         {product.category}
                       </td>
-                      <td className="whitespace-nowrap px-6 py-4">{product.brand}</td>
+                      <td className="whitespace-nowrap px-6 py-4">
+                        {product.brand}
+                      </td>
                       <td className="whitespace-nowrap px-6 py-4 flex">
                         <Link
                           to={`/admin/productedit/${product._id}`}

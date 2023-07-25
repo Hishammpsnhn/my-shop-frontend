@@ -11,7 +11,7 @@ import SearchBox from './SearchBox';
 import { Menu, Transition } from '@headlessui/react';
 import { listProducts } from '../actions/productAction';
 
-const AdminNav: string[] = ["chart", "users", "products", "orders"];
+const AdminNav: string[] = ['chart', 'users', 'products', 'orders'];
 
 function Header() {
   const [toggleMenu, setToggleMenu] = useState(false);
@@ -23,31 +23,51 @@ function Header() {
   const user = useSelector((state: RootState) => state.user);
   const { user: userInfo } = user;
 
-  const handleHome = ()=>{
+  const handleHome = () => {
     dispatch(listProducts());
-    setKeyword("");
-    
-  }
+    setKeyword('');
+  };
 
   return (
     <div className={`bg-gray-700 mb-10  ease-in-out duration-300`}>
-      <div className='container m-auto max-w-[1140px]'>
+      <div className="container m-auto max-w-[1140px]">
         <div className="mx-10 py-7 lg:flex  items-center ">
-
-          <div className='flex justify-between'>
-            <Link to="/" className="text-white font-serif text-3xl " onClick={handleHome} >
+          <div className="flex justify-between">
+            <Link
+              to="/"
+              className="text-white font-serif text-3xl "
+              onClick={handleHome}
+            >
               MYSHOP
             </Link>
             <div className="block lg:hidden">
-              <button className="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white" onClick={() => setToggleMenu((prev) => !prev)} >
-                <svg className="h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" /></svg>
+              <button
+                className="flex items-center px-3 py-2 border rounded text-teal-lighter border-teal-light hover:text-white hover:border-white"
+                onClick={() => setToggleMenu((prev) => !prev)}
+              >
+                <svg
+                  className="h-3 w-3"
+                  viewBox="0 0 20 20"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <title>Menu</title>
+                  <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+                </svg>
               </button>
             </div>
           </div>
 
-          <div className={` ${!toggleMenu ? 'hidden' : 'translate-y-0'} ease-in-out duration-300  w-full lg:flex lg:justify-between `}>
-            <div className='ss:w-96 lg:py-0 py-5'>
-              <SearchBox isAdmin={userInfo ? userInfo?.isAdmin : false} keyword={keyword} setKeyword={setKeyword} />
+          <div
+            className={` ${
+              !toggleMenu ? 'hidden' : 'translate-y-0'
+            } ease-in-out duration-300  w-full lg:flex lg:justify-between `}
+          >
+            <div className="ss:w-96 lg:py-0 py-5">
+              <SearchBox
+                isAdmin={userInfo ? userInfo?.isAdmin : false}
+                keyword={keyword}
+                setKeyword={setKeyword}
+              />
             </div>
             <div className="lg:flex items-center font-serif text-xs text-gray-400">
               <i className="flex items-center hover:opacity-50 cursor-pointer pb-5 lg:pb-0">
@@ -59,7 +79,7 @@ function Header() {
               {userInfo ? (
                 <Menu>
                   {({ open }) => (
-                    <div >
+                    <div>
                       <Menu.Button className="flex items-center">
                         <CgProfile />
                         <div className="mr-2 ml-1 items-center text-center uppercase flex">
@@ -87,10 +107,11 @@ function Header() {
                                 <Menu.Item>
                                   {({ active }) => (
                                     <button
-                                      className={`${active
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left`}
+                                      className={`${
+                                        active
+                                          ? 'bg-gray-100 text-gray-900'
+                                          : 'text-gray-700'
+                                      } block px-4 py-2 text-sm w-full text-left`}
                                       onClick={() => navigate('/profile')}
                                     >
                                       Profile
@@ -100,10 +121,11 @@ function Header() {
                                 <Menu.Item>
                                   {({ active }) => (
                                     <button
-                                      className={`${active
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left`}
+                                      className={`${
+                                        active
+                                          ? 'bg-gray-100 text-gray-900'
+                                          : 'text-gray-700'
+                                      } block px-4 py-2 text-sm w-full text-left`}
                                       onClick={() => logout(dispatch)}
                                     >
                                       Logout
@@ -112,23 +134,24 @@ function Header() {
                                 </Menu.Item>
                               </>
                             )}
-                            {userInfo && userInfo?.isAdmin && (
-                              AdminNav.map((item)=>(
-                                <Menu.Item>
+                            {userInfo &&
+                              userInfo?.isAdmin &&
+                              AdminNav.map((item, i) => (
+                                <Menu.Item key={i}>
                                   {({ active }) => (
                                     <Link
                                       to={`/admin/${item}`}
-                                      className={`${active
-                                        ? 'bg-gray-100 text-gray-900'
-                                        : 'text-gray-700'
-                                        } block px-4 py-2 text-sm w-full text-left capitalize`}
+                                      className={`${
+                                        active
+                                          ? 'bg-gray-100 text-gray-900'
+                                          : 'text-gray-700'
+                                      } block px-4 py-2 text-sm w-full text-left capitalize`}
                                     >
-                                     {item}
+                                      {item}
                                     </Link>
                                   )}
                                 </Menu.Item>
-                              ))
-                            )}
+                              ))}
                           </div>
                         </Menu.Items>
                       </Transition>
@@ -146,7 +169,6 @@ function Header() {
               <div className="relative inline-block text-left"></div>
             </div>
           </div>
-
         </div>
       </div>
     </div>

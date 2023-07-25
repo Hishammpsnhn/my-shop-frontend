@@ -37,7 +37,7 @@ function OrderListScreen() {
         ) : error ? (
           <Message type="error">{error}</Message>
         ) : (
-          <div className='overflow-x-scroll'>
+          <div className="overflow-x-scroll">
             <table className="min-w-full text-left text-sm font-light">
               <thead className=" border border-gray-300 bg-white font-medium">
                 <tr>
@@ -66,8 +66,9 @@ function OrderListScreen() {
                 {orders?.map((order, i) => (
                   <tr
                     key={i}
-                    className={`border  border-gray-300 ${i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
-                      }  `}
+                    className={`border  border-gray-300 ${
+                      i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
+                    }  `}
                   >
                     <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {order._id}
@@ -82,16 +83,22 @@ function OrderListScreen() {
                       {order.totalPrice}
                     </td>
                     <td
-                      className={`whitespace-nowrap px-6 py-4 ${order.isPaid ? 'text-green-400' : 'text-red-400 text-lg'
-                        } font-bold `}
+                      className={`whitespace-nowrap px-6 py-4 ${
+                        order.isPaid ? 'text-green-400' : 'text-red-400 text-lg'
+                      } font-bold `}
                     >
-                      {order.isPaid ? order.paidAt?.substring(0, 10) : <RxCross2 />}
+                      {order.isPaid ? (
+                        order.paidAt?.substring(0, 10)
+                      ) : (
+                        <RxCross2 />
+                      )}
                     </td>
                     <td
-                      className={`whitespace-nowrap px-6 py-4 ${order.isDelivered
-                        ? 'text-green-400'
-                        : 'text-red-400 text-lg'
-                        } font-bold `}
+                      className={`whitespace-nowrap px-6 py-4 ${
+                        order.isDelivered
+                          ? 'text-green-400'
+                          : 'text-red-400 text-lg'
+                      } font-bold `}
                     >
                       {order.isDelivered ? (
                         order.deliveredAt?.substring(0, 10)

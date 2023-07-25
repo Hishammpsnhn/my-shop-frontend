@@ -38,9 +38,15 @@ function App() {
         <Route path="/page/:pageNumber" element={<HomeScreen />} />
 
         <Route path="/admin/users" element={<UsersListScreen />} />
-        <Route path="/admin/products/:pageNumber" element={<ProductListScreen />} />
+        <Route
+          path="/admin/products/:pageNumber"
+          element={<ProductListScreen />}
+        />
         <Route path="/admin/products" element={<ProductListScreen />} />
-        <Route path="/admin/products/search/:keyword" element={<ProductListScreen />} />
+        <Route
+          path="/admin/products/search/:keyword"
+          element={<ProductListScreen />}
+        />
         <Route path="/admin/chart" element={<Charts />} />
         <Route path="/admin/orders" element={<OrderListScreen />} />
         <Route path="/admin/productedit/:id" element={<ProductEditScreen />} />

@@ -119,8 +119,9 @@ function ProfileScreen() {
                   Confirm Password
                 </label>
                 <input
-                  className={`shadow appearance-none border ${message && 'border-orange-500'
-                    }  rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline`}
+                  className={`shadow appearance-none border ${
+                    message && 'border-orange-500'
+                  }  rounded w-full py-2 px-3 text-gray-700  leading-tight focus:outline-none focus:shadow-outline`}
                   id="confirmPassword"
                   type="password"
                   placeholder="Confirm password"
@@ -179,10 +180,11 @@ function ProfileScreen() {
                         {orders?.map((order, i) => (
                           <tr
                             key={i}
-                            className={`border  border-gray-300 ${i % 2 === 0
-                              ? 'bg-gray-200'
-                              : 'bg-white hover:bg-gray-200'
-                              }  `}
+                            className={`border  border-gray-300 ${
+                              i % 2 === 0
+                                ? 'bg-gray-200'
+                                : 'bg-white hover:bg-gray-200'
+                            }  `}
                           >
                             <td className="whitespace-nowrap px-6 py-4 font-medium">
                               {order._id}
@@ -194,16 +196,18 @@ function ProfileScreen() {
                               {order.totalPrice}
                             </td>
                             <td
-                              className={`whitespace-nowrap px-6 py-4 ${order.isPaid ? 'text-green-400' : 'text-red-400'
-                                } font-bold text-lg`}
+                              className={`whitespace-nowrap px-6 py-4 ${
+                                order.isPaid ? 'text-green-400' : 'text-red-400'
+                              } font-bold text-lg`}
                             >
                               {order.isPaid ? <MdDone /> : <RxCross2 />}
                             </td>
                             <td
-                              className={`whitespace-nowrap px-6 py-4 ${order.isDelivered
-                                ? 'text-green-400'
-                                : 'text-red-400'
-                                } font-bold text-lg`}
+                              className={`whitespace-nowrap px-6 py-4 ${
+                                order.isDelivered
+                                  ? 'text-green-400'
+                                  : 'text-red-400'
+                              } font-bold text-lg`}
                             >
                               {order.isDelivered ? <MdDone /> : <RxCross2 />}
                             </td>

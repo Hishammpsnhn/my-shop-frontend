@@ -73,7 +73,7 @@ export const getOrderDetails =
 
       const { data } = await axios.get(`/api/orders/${id}`, config);
       dispatch(createOrderSuccess(data));
-      dispatch(resetOrder())
+      dispatch(resetOrder());
     } catch (error: any) {
       const message =
         error.response && error.response.data.message

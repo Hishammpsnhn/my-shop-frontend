@@ -91,9 +91,8 @@ function ShippingScreen() {
             </form>
           </div>
         </div>
-        
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -44,7 +44,6 @@ function PlaceOrderScreen() {
 
   useEffect(() => {
     if (success && order?._id) {
-      console.log(success)
       dispatch(getOrderDetails(order._id));
 
       navigate(`/order/${order._id}`);
@@ -65,7 +64,6 @@ function PlaceOrderScreen() {
         totalPrice: totalPrice,
       })
     );
-
   };
 
   return (
@@ -168,15 +166,17 @@ function PlaceOrderScreen() {
                 <li className="py-4 px-6">
                   <button
                     type="submit"
-                    className={`w-full py-2 ${cart.cartItems.length === 0
+                    className={`w-full py-2 ${
+                      cart.cartItems.length === 0
                         ? 'bg-gray-400 cursor-not-allowed'
                         : 'bg-black opacity-80 hover:opacity-90'
-                      } text-white rounded-md ${cart.cartItems.length === 0
+                    } text-white rounded-md ${
+                      cart.cartItems.length === 0
                         ? 'cursor-not-allowed'
                         : 'hover:shadow-lg'
-                      }`}
+                    }`}
                     disabled={cart.cartItems.length === 0}
-                  // onClick={placeOrderHandler}
+                    // onClick={placeOrderHandler}
                   >
                     Place Order
                   </button>
@@ -186,7 +186,7 @@ function PlaceOrderScreen() {
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </>
   );
 }

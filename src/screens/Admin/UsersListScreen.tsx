@@ -54,7 +54,7 @@ function UsersListScreen() {
         ) : error ? (
           <Message type="error">{error}</Message>
         ) : (
-          <div className='overflow-x-scroll'>
+          <div className="overflow-x-scroll">
             <table className="w-full text-left text-sm font-light overflow-hidden">
               <thead className=" border border-gray-300 bg-white font-medium">
                 <tr>
@@ -77,17 +77,21 @@ function UsersListScreen() {
                 {usersList.map((user, i) => (
                   <tr
                     key={i}
-                    className={`buser  buser-gray-300 ${i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
-                      }  `}
+                    className={`buser  buser-gray-300 ${
+                      i % 2 === 0 ? 'bg-gray-200' : 'bg-white hover:bg-gray-200'
+                    }  `}
                   >
                     <td className="whitespace-nowrap px-6 py-4 font-medium">
                       {user._id}
                     </td>
                     <td className="whitespace-nowrap px-6 py-4">{user.name}</td>
-                    <td className="whitespace-nowrap px-6 py-4">{user.email}</td>
+                    <td className="whitespace-nowrap px-6 py-4">
+                      {user.email}
+                    </td>
                     <td
-                      className={`whitespace-nowrap px-6 py-4 ${user.isAdmin ? 'text-green-400' : 'text-red-400'
-                        } font-bold text-lg`}
+                      className={`whitespace-nowrap px-6 py-4 ${
+                        user.isAdmin ? 'text-green-400' : 'text-red-400'
+                      } font-bold text-lg`}
                     >
                       {user.isAdmin ? <AiFillCheckCircle /> : <FaTimesCircle />}
                     </td>

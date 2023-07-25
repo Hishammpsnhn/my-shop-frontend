@@ -128,12 +128,11 @@ const CartScreenitem = ({
   return (
     <>
       <div className="sm:w-[70%] sm:ml-10 px-2 sm:px-0 sm:flex text-gray-500 mt-5">
-        <div className=' w-full  grid grid-cols-6 gap-2'>
-
-          <div className='ss:col-span-1 col-span-6 ' >
+        <div className=" w-full  grid grid-cols-6 gap-2">
+          <div className="ss:col-span-1 col-span-6 ">
             <img className="" src={image} alt="image" />
           </div>
-          <div className=' ss:col-span-2 col-span-6'>
+          <div className=" ss:col-span-2 col-span-6">
             <a
               onClick={() => navigate(`/product/${id}`)}
               className="font-semibold text-base  hover:underline cursor-pointer"
@@ -141,14 +140,14 @@ const CartScreenitem = ({
               {name}
             </a>
           </div>
-          <div className='ss:col-span-1 col-span-6'>
-            $ {price}
-          </div>
-          <div className='ss:col-span-1 col-span-6'>
+          <div className="ss:col-span-1 col-span-6">$ {price}</div>
+          <div className="ss:col-span-1 col-span-6">
             <select
               defaultValue={stockQty}
               className="  border border-gray-300 px-5 py-2 bg-slate-100 sm:w-fit w-full"
-              onChange={(e) => dispatch(addItemToCart(id, Number(e.target.value)))}
+              onChange={(e) =>
+                dispatch(addItemToCart(id, Number(e.target.value)))
+              }
             >
               {quantityOptions.map((value) => (
                 <option key={value} value={value}>
@@ -157,7 +156,7 @@ const CartScreenitem = ({
               ))}
             </select>
           </div>
-          <div className='ss:col-span-1 col-span-6'>
+          <div className="ss:col-span-1 col-span-6">
             <button
               className="hover:bg-gray-200 w-20 h-11 text-xl flex items-center justify-center"
               onClick={() => handleRemoveItem(id)}

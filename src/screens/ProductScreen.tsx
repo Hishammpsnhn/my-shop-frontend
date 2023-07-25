@@ -83,22 +83,23 @@ function ProductScreen() {
           <div className="grid sm:grid-cols-4 grid-cols-1  gap-2  mx-2 md:mx-0 mt-3">
             <div className="col-span-2 ">
               {productDetails?.image && (
-                <div className='flex flex-col'>
-              <ReactImageMagnify {...{
-                smallImage: {
-                  alt: 'Wristwatch by Ted Baker London',
-                  isFluidWidth: true,
-                src: productDetails?.image
+                <div className="flex flex-col">
+                  <ReactImageMagnify
+                    {...{
+                      smallImage: {
+                        alt: 'Wristwatch by Ted Baker London',
+                        isFluidWidth: true,
+                        src: productDetails?.image,
+                      },
+                      largeImage: {
+                        src: productDetails?.image,
 
-                },
-                largeImage: {
-                  src:productDetails?.image,
-                  
-                  width: 1100,
-                  height: 1100,
-                },
-                isHintEnabled:true
-              }} />
+                        width: 1100,
+                        height: 1100,
+                      },
+                      isHintEnabled: true,
+                    }}
+                  />
                 </div>
               )}
             </div>
@@ -109,7 +110,11 @@ function ProductScreen() {
                     {productDetails?.name}
                   </h4>
                   <div className="divide-y ">
-                    <Rating rating={productDetails?.rating || 0} color="orange" reviewCount={productDetails?.numReviews} />
+                    <Rating
+                      rating={productDetails?.rating || 0}
+                      color="orange"
+                      reviewCount={productDetails?.numReviews}
+                    />
                     <p className="py-2">Price: {productDetails?.price} </p>
                   </div>
                 </div>
@@ -136,8 +141,8 @@ function ProductScreen() {
                         </td>
                       </tr>
                       {productDetails &&
-                        productDetails.countInStock &&
-                        productDetails.countInStock > 0 ? (
+                      productDetails.countInStock &&
+                      productDetails.countInStock > 0 ? (
                         <tr className="border-b">
                           <th scope="row" className="px-6 py-4 font-medium">
                             Qty
@@ -162,12 +167,13 @@ function ProductScreen() {
                     </tbody>
                   </table>
                   <button
-                    className={`bg-black text-white font-bold py-2 px-4 rounded w-full  ${productDetails &&
+                    className={`bg-black text-white font-bold py-2 px-4 rounded w-full  ${
+                      productDetails &&
                       productDetails.countInStock &&
                       productDetails.countInStock > 0
-                      ? 'hover:opacity-80'
-                      : 'cursor-not-allowed bg-gray-500'
-                      }`}
+                        ? 'hover:opacity-80'
+                        : 'cursor-not-allowed bg-gray-500'
+                    }`}
                     onClick={addtoCartHandler}
                   >
                     ADD TO CART
@@ -176,7 +182,7 @@ function ProductScreen() {
               </div>
             </div>
 
-            <div className='col-span-2 w-full sm:w-fit '>
+            <div className="col-span-2 w-full sm:w-fit ">
               <h2 className="uppercase  text-3xl font-sans py-5 tracking-widest">
                 REVIEWS
               </h2>
@@ -199,7 +205,7 @@ function ProductScreen() {
               ) : error ? (
                 <Message type="error">{error}</Message>
               ) : (
-                <div >
+                <div>
                   <form
                     className="text-gray-500"
                     onSubmit={(e) => submitHandler(e)}
