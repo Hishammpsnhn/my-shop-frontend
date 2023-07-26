@@ -21,6 +21,7 @@ import {
   ordersListSuccess,
   myOrderError,
 } from '../Reducers/orderListReducers';
+import API_BASE_URL from '../config/config';
 
 export const createOrder =
   (order: orderItems) =>
@@ -38,7 +39,7 @@ export const createOrder =
         },
       };
 
-      const { data } = await axios.post(`/api/orders`, order, config);
+      const { data } = await axios.post(`${API_BASE_URL}/api/orders`, order, config);
       dispatch(createOrderSuccess(data));
       dispatch(cartClearItems());
       localStorage.removeItem('cartItems');
@@ -71,7 +72,7 @@ export const getOrderDetails =
         },
       };
 
-      const { data } = await axios.get(`/api/orders/${id}`, config);
+      const { data } = await axios.get(`${API_BASE_URL}/api/orders/${id}`, config);
       dispatch(createOrderSuccess(data));
       dispatch(resetOrder());
     } catch (error: any) {
@@ -140,7 +141,7 @@ export const deliverOrder =
         },
       };
       const { data } = await axios.put(
-        `/api/orders/${order?._id}/deliver`,
+        `${API_BASE_URL}/api/orders/${order?._id}/deliver`,
         order,
         config
       );
@@ -174,7 +175,7 @@ export const listMyOrders =
           Authorization: `Bearer ${user?.token}`,
         },
       };
-      const { data } = await axios.get(`/api/orders/myorders`, config);
+      const { data } = await axios.get(`${API_BASE_URL}/api/orders/myorders`, config);
       dispatch(ordersListSuccess(data));
     } catch (error: any) {
       const message =
@@ -203,7 +204,7 @@ export const listAllOrders =
           Authorization: `Bearer ${user?.token}`,
         },
       };
-      const { data } = await axios.get(`/api/orders`, config);
+      const { data } = await axios.get(`${API_BASE_URL}/api/orders`, config);
       dispatch(ordersListSuccess(data));
     } catch (error: any) {
       const message =

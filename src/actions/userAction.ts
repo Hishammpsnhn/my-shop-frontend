@@ -14,6 +14,7 @@ import {
   userListSucces,
   usersListRequest,
 } from '../Reducers/usersListReducers';
+import API_BASE_URL from '../config/config';
 
 type Props = {
   name?: String;
@@ -33,7 +34,7 @@ export const register =
       };
 
       const { data } = await axios.post(
-        'http://localhost:4000/api/users',
+        `${API_BASE_URL}/api/users`,
         { name, email, password },
         config
       );
@@ -61,7 +62,7 @@ export const login =
         },
       };
       const { data } = await axios.post(
-        'http://localhost:4000/api/users/login',
+        `${API_BASE_URL}/api/users/login`,
         { email, password },
         config
       );
@@ -98,7 +99,7 @@ export const getUserDetails =
           Authorization: `Bearer ${user?.token}`,
         },
       };
-      const { data } = await axios.get('/api/users/profile', config);
+      const { data } = await axios.get(`${API_BASE_URL}/api/users/profile`, config);
       dispatch(registerUserSucess(data));
       // dispatch(updateProfile())
       localStorage.setItem('userInfo', JSON.stringify(data));
@@ -115,7 +116,7 @@ export const getUserDetails =
 export const updateUserProfile =
   ({ name, email, password }: Props) =>
   async (dispatch: Dispatch, getState: () => RootState) => {
-    dispatch(registerUserRequest());
+     dispatch(registerUserRequest());
     try {
       const {
         user: { user },
@@ -128,13 +129,15 @@ export const updateUserProfile =
         },
       };
       const { data } = await axios.put(
-        `/api/users/profile`,
+        `${API_BASE_URL}/api/users/profile`,
         { email, name, password },
         config
       );
-      dispatch(registerUserSucess(data));
+       dispatch(registerUserSucess(data));
       localStorage.setItem('userInfo', JSON.stringify(data));
-    } catch (error: any) {}
+    } catch (error: any) {
+      console.log(error);
+    }
   };
 
 export const DeleteUser =
@@ -152,7 +155,7 @@ export const DeleteUser =
         },
       };
 
-      await axios.delete(`/api/users/${id}`, config);
+      await axios.delete(`${API_BASE_URL}/api/users/${id}`, config);
       dispatch(userDeleteSuccess());
 
       // dispatch()
@@ -184,7 +187,7 @@ export const listUsers =
         },
       };
 
-      const { data } = await axios.get(`/api/users`, config);
+      const { data } = await axios.get(`${API_BASE_URL}/api/users`, config);
 
       dispatch(userListSucces(data));
     } catch (error: any) {
@@ -215,7 +218,7 @@ export const EditUser =
         },
       };
 
-      await axios.get(`/api/users/${id}`, config);
+      await axios.get(`${API_BASE_URL}/api/users/${id}`, config);
 
       dispatch(userEditSuccess());
     } catch (error: any) {

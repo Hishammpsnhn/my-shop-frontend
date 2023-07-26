@@ -39,7 +39,7 @@ function ProfileScreen() {
         setEmail(user.email);
       }
     }
-  }, [user, userDetails, dispatch, updateProfile]);
+  }, []);
 
   const handleUpdateProfile = (e: React.FormEvent) => {
     e.preventDefault();

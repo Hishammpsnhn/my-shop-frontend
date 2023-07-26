@@ -1,8 +1,9 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "private": true,
   "proxy": "http://13.53.77.212:4000/",
+  "private": true,
+  
   "dependencies": {
     "@headlessui/react": "^1.7.13",
     "@reduxjs/toolkit": "^1.9.3",
