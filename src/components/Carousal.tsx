@@ -8,6 +8,7 @@ import Message from './Message';
 import { Link } from 'react-router-dom';
 import { topProducts } from '../actions/productAction';
 import { useAppDispatch } from '../hook';
+import API_BASE_URL from '../config/config';
 
 function Carousal() {
   const topProuct = useSelector((state: RootState) => state.topProducts);
@@ -33,7 +34,7 @@ function Carousal() {
                   <img
                     className="rounded"
                     onClick={() => alert('dlfjd;')}
-                    src={image}
+                    src={`${API_BASE_URL}${image}`}
                     alt="img#123"
                   />
                 </div>
