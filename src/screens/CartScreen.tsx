@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../store';
 import Message from '../components/Message';
 import Footer from '../components/Footer';
+import API_BASE_URL from '../config/config';
 
 function CartScreen() {
   const params = useParams();
@@ -130,15 +131,15 @@ const CartScreenitem = ({
       <div className="sm:w-[70%] sm:ml-10 px-2 sm:px-0 sm:flex text-gray-500 mt-5">
         <div className=" w-full  grid grid-cols-6 gap-2">
           <div className="ss:col-span-1 col-span-6 ">
-            <img className="" src={image} alt="image" />
+            <img className="" src={`${API_BASE_URL}${image}`} alt={name} />
           </div>
           <div className=" ss:col-span-2 col-span-6">
-            <a
+            <p
               onClick={() => navigate(`/product/${id}`)}
               className="font-semibold text-base  hover:underline cursor-pointer"
             >
               {name}
-            </a>
+            </p>
           </div>
           <div className="ss:col-span-1 col-span-6">$ {price}</div>
           <div className="ss:col-span-1 col-span-6">

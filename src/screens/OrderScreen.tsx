@@ -14,6 +14,7 @@ import { PayPalButton } from 'react-paypal-button-v2';
 import axios from 'axios';
 import { resetOrder } from '../Reducers/orderReducer';
 import Footer from '../components/Footer';
+import API_BASE_URL from '../config/config';
 
 function OrderScreen() {
   const [sdkReady, setSdkReady] = useState(true);
@@ -145,7 +146,7 @@ function OrderScreen() {
                             <div className="sm:w-16">
                               <img
                                 className="rounded-lg"
-                                src={item.image}
+                                src={`${API_BASE_URL}${item.image}`}
                                 alt={item.name}
                               />
                             </div>

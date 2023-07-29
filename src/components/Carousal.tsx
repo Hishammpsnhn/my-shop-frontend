@@ -35,7 +35,7 @@ function Carousal() {
                     className="rounded"
                     onClick={() => alert('dlfjd;')}
                     src={`${API_BASE_URL}${image}`}
-                    alt="img#123"
+                    alt={name}
                   />
                 </div>
                 <p className="text-white text-xl font-semibold uppercase pb-10">

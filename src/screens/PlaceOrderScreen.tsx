@@ -9,6 +9,7 @@ import { useAppDispatch } from '../hook';
 import { createOrder, getOrderDetails } from '../actions/orderAction';
 import { resetOrder } from '../Reducers/orderReducer';
 import Footer from '../components/Footer';
+import API_BASE_URL from '../config/config';
 
 function PlaceOrderScreen() {
   const cart = useSelector((state: RootState) => state.cart);
@@ -109,7 +110,7 @@ function PlaceOrderScreen() {
                           <div className="sm:w-16">
                             <img
                               className="rounded-lg"
-                              src={item.image}
+                              src={`${API_BASE_URL}${item.image}`}
                               alt={item.name}
                             />
                           </div>
