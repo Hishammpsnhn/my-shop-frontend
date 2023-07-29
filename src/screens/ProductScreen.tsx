@@ -14,6 +14,7 @@ import Message from '../components/Message';
 import { reviewReset } from '../Reducers/ReviewReducer';
 import Footer from '../components/Footer';
 import ReactImageMagnify from 'react-image-magnify';
+import API_BASE_URL from '../config/config';
 
 function ProductScreen() {
   const [qty, setQty] = useState(1);
@@ -87,13 +88,12 @@ function ProductScreen() {
                   <ReactImageMagnify
                     {...{
                       smallImage: {
-                        alt: 'Wristwatch by Ted Baker London',
+                        alt: productDetails?.name,
                         isFluidWidth: true,
-                        src: productDetails?.image,
+                        src:`${API_BASE_URL}${productDetails?.image}`,
                       },
                       largeImage: {
-                        src: productDetails?.image,
-
+                        src:`${API_BASE_URL}${productDetails?.image}`,
                         width: 1100,
                         height: 1100,
                       },

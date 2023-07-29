@@ -8,11 +8,12 @@ import {
 import { Dispatch } from 'redux';
 import { RootState } from '../store';
 import { ShippingAddress } from '../model/shippingAddressModel';
+import API_BASE_URL from '../config/config';
 
 export const addItemToCart =
   (id: string, qty: number | null) =>
   async (dispatch: Dispatch, getState: () => RootState) => {
-    const { data } = await axios.get(`/api/products/${id}`);
+    const { data } = await axios.get(`${API_BASE_URL}/api/products/${id}`);
 
     dispatch(
       addToCart({
@@ -32,7 +33,9 @@ export const addItemToCart =
 
 export const removeItem =
   (id: string) => async (dispatch: Dispatch, getState: () => RootState) => {
+    console.log(id)
     dispatch(removeItemFromCart({ id }));
+    console.log(getState().cart.cartItems)
     localStorage.setItem(
       'cartItems',
       JSON.stringify(getState().cart.cartItems)
