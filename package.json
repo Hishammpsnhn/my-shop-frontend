@@ -1,7 +1,7 @@
 {
   "name": "my-app",
   "version": "0.1.0",
-  "proxy": "http://13.53.77.212:4000/",
+  "proxy": "https://www.hishammpsn.tk",
   "private": true,
   
   "dependencies": {
