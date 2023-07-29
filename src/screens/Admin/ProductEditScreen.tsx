@@ -37,7 +37,7 @@ function ProductEditScreen() {
   useEffect(() => {
     if (successUpdate) {
       dispatch(resetUpdateOrder());
-      navigate('/admin/productlist');
+      navigate('/admin/products');
     }
     if (product?._id !== params.id) {
       if (params.id) {
